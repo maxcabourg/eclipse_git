@@ -21,27 +21,28 @@ public class EcranConnexion extends JFrame{
 	
 	EcranConnexion(){
 		//Parametrages des composants
-		pseudo = new JTextField();
-		pseudo.setMaximumSize(new Dimension(200, 50));
+		pseudo = new JTextField(); //On initialise les composants
+		pseudo.setMaximumSize(new Dimension(200, 50)); 
 		mdp = new JPasswordField();
 		mdp.setMaximumSize(new Dimension(200, 50));
 		connexion = new JButton("Connexion"); //On passe en parametre le texte que l'on veut associer au bouton
-		pseudoLayout.add(new JLabel("Pseudo : "));
-		pseudoLayout.add(pseudo);
-		mdpLayout.add(new JLabel("Mot de passe : "));
+		pseudoLayout.add(new JLabel("Pseudo : ")); //On ajoute au layout du pseudo le Label...
+		pseudoLayout.add(pseudo);//...puis la zone de texte
+		mdpLayout.add(new JLabel("Mot de passe : ")); //De meme pour la zone de mot de passe
 		mdpLayout.add(mdp);
-		layout.add(Box.createRigidArea(new Dimension(0, 10)));
-		layout.add(pseudoLayout);
-		layout.add(Box.createRigidArea(new Dimension(0, 10)));
-		layout.add(mdpLayout);
-		layout.add(Box.createRigidArea(new Dimension(0, 10)));
-		layout.add(connexion);
+		//Ensuite on va ajouter les 2 layouts dans un layout general de type vertical
+		layout.add(Box.createRigidArea(new Dimension(0, 10))); //Ajout d'une zone vide de 10 pixels, pas important...
+		layout.add(pseudoLayout); //On ajoute tout d'abord le layout de la zone de pseudo
+		layout.add(Box.createRigidArea(new Dimension(0, 10))); //Sert a espacer les layouts
+		layout.add(mdpLayout); //Ensuite on ajoute la layout de MDP qui va se retrouver dessous le layout de pseudo
+		layout.add(Box.createRigidArea(new Dimension(0, 10)));//Espacement
+		layout.add(connexion);//Puis on ajoute le bouton de connexion en dessous du layout de mot de passe
 		layout.add(Box.createRigidArea(new Dimension(0, 20)));
-		add(layout);
+		add(layout); //On dit ici que la fenetre va utiliser le layout general
+		//Differents parametres...
 		setTitle("Ludotech - Connexion");
 		setSize(300, 150);
 		setResizable(false);
 		setVisible(true);
-		this.setState(1);
 	}
 }
