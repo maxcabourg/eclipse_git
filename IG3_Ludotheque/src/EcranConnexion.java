@@ -14,6 +14,7 @@ public class EcranConnexion extends JFrame{
 	 * et un autre pour le label Mot de passe et la zone de texte, puis je les assemble dans un layout general
 	 * de type vertical.
 	 */
+	private BDD base;
 	private Box layout = new Box(BoxLayout.PAGE_AXIS); //layout vertical
 	private Box pseudoLayout = new Box(BoxLayout.LINE_AXIS); //Layout horizontal
 	private Box mdpLayout = new Box(BoxLayout.LINE_AXIS); //Layout horizontal
@@ -22,6 +23,7 @@ public class EcranConnexion extends JFrame{
 	private JButton connexion; //Bouton de connexion
 	
 	EcranConnexion(){
+		base = new BDD();
 		//Parametrages des composants
 		pseudo = new JTextField(); //On initialise les composants
 		pseudo.setMaximumSize(new Dimension(200, 50)); 
