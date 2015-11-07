@@ -3,10 +3,19 @@ import javax.swing.*;
 public class FenetrePrincipale extends JFrame{
 	
 	private JTabbedPane onglets;//Les differents onglets de la fenetre
+	private BDD bdd;
+	private Utilisateur utilisateur;
 	
 	FenetrePrincipale(){
-		
+		bdd = null;
+		utilisateur = null;
 		onglets = new JTabbedPane();
+		//Ajout des onglets
+		onglets.add("Jeux", new OngletJeux());
+		onglets.add("Mon compte", new OngletUtilisateur());
+		setSize(1280, 720);
+		setTitle("Ludotech");
+		getContentPane().add(onglets);
 	}
 
 }

@@ -1,11 +1,13 @@
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
-public class EcranConnexion extends JFrame{
+public class EcranConnexion extends JFrame implements ActionListener{
 
 	/*Les layout sont des conteneurs qui accueillent les composants de l'interface.
 	 * Ils peuvent être de types verticaux ou horizontaux (beaucoup plus complexes aussi).
@@ -30,7 +32,8 @@ public class EcranConnexion extends JFrame{
 		mdp = new JPasswordField();
 		mdp.setMaximumSize(new Dimension(200, 50));
 		connexion = new JButton("Connexion"); //On passe en parametre le texte que l'on veut associer au bouton
-		connexion.addMouseListener(new EvenementConnexion()); //On ajoute au bouton un gestionnaire d'evenements
+		connexion.addActionListener(this); //On ajoute au bouton un gestionnaire d'evenements
+		connexion.setActionCommand("Connexion"); //On definit le nom de l'evenement envoye par le bouton 
 		pseudoLayout.add(new JLabel("Pseudo : ")); //On ajoute au layout du pseudo le Label...
 		pseudoLayout.add(pseudo);//...puis la zone de texte
 		mdpLayout.add(new JLabel("Mot de passe : ")); //De meme pour la zone de mot de passe
@@ -50,43 +53,20 @@ public class EcranConnexion extends JFrame{
 		setResizable(false);
 		setVisible(true);
 	}
-	
-	//Classe permettant de gerer les differents evenement souris sur le bouton de connexion
-	//Le mot clef implements signifie "herite d'une interface". Une interface est une sorte de classe
-	//qui n'a que des donnees et des fonctions qui ne sont pas implementees. Implements implique que l'on
-	//doit recoder toutes les methodes de l'interface quitte à ce qu'elles soient vides...
-	//Plus d'infos : https://openclassrooms.com/courses/apprenez-a-programmer-en-java/les-classes-abstraites-et-les-interfaces
-	class EvenementConnexion implements MouseListener
-	{
-		
-		//Quand on clique sur le bouton, c'est cette fonction qui nous interesse
-		public void mouseClicked(MouseEvent arg0) {
-			// TODO ATTENDRE QUE LA BDD SOIT FAITE ET APRES ALLER CHERCHER LES INFORMATIONS DEDANS
-			String pseudo_recupere = pseudo.getText(); //Recupere le pseudo rentre par l'utilisateur
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		if(arg0.getActionCommand().equals("Connexion")){
+			System.out.println("Clic");
+			String pseudo_recupere = pseudo.getText();
 			char[] mdp_recupere = mdp.getPassword();
 			String mdp_recup = new String(mdp_recupere);
-			JOptionPane.showMessageDialog(null, "Bonjour "+pseudo_recupere+" "+mdp_recup, "Clic !", JOptionPane.INFORMATION_MESSAGE);
-		}
-
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+			JOptionPane.showMessageDialog(this, "Bonjour "+pseudo_recupere+" "+mdp_recup);
+			setVisible(false);
+			dispose(); //Detruit la fenetre de connexion
+			new FenetrePrincipale().setVisible(true);
 		}
 		
 	}
+	
 }
