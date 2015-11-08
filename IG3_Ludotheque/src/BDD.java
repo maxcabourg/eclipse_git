@@ -29,5 +29,5 @@ public class BDD {
 	public Connection getConnection() {
 		return connection;
 	}
-
+	
 }
