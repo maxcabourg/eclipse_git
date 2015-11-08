@@ -25,5 +25,9 @@ public class BDD {
 		      e.printStackTrace();
 		}
 	}
+	//Getter de la connexion
+	public Connection getConnection() {
+		return connection;
+	}
 
 }
