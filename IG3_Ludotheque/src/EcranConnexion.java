@@ -1,9 +1,17 @@
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Formatter;
 
 import javax.swing.*;
 
@@ -57,16 +65,36 @@ public class EcranConnexion extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getActionCommand().equals("Connexion")){
-			System.out.println("Clic");
 			String pseudo_recupere = pseudo.getText();
 			char[] mdp_recupere = mdp.getPassword();
 			String mdp_recup = new String(mdp_recupere);
-			JOptionPane.showMessageDialog(this, "Bonjour "+pseudo_recupere+" "+mdp_recup);
-			setVisible(false);
-			dispose(); //Detruit la fenetre de connexion
-			new FenetrePrincipale().setVisible(true);
+			//Gestion d'exceptions
+			try {
+				//Si l'utilisateur ne correspond pas on affiche un message d'erreur
+					if(!Utilisateur.estValide(base, pseudo_recupere, mdp_recup)){
+						JOptionPane.showMessageDialog(this, "Mauvais pseudo ou mot de passe", "Erreur", JOptionPane.ERROR_MESSAGE);//On recupere le mot de passe sous forme d'une chaine de caractere
+					}
+				//Sinon on affiche un message de bienvenue.
+					else {
+						JOptionPane.showMessageDialog(this, "Bienvenue "+pseudo_recupere+" !");
+						setVisible(false);
+						dispose(); //Detruit la fenetre de connexion
+						ResultSet resultat = base.getConnection().createStatement().executeQuery("SELECT IdUtilisateur FROM Utilisateur WHERE PseudoU = '"+pseudo_recupere+"'");
+						int id = 0;
+						while(resultat.next())
+							id = resultat.getInt("IdUtilisateur");
+						Utilisateur u = Utilisateur.getById(base, 1);
+						new FenetrePrincipale(u, base).setVisible(true);
+					}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (HeadlessException e) {
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}					
 		}
-		
 	}
+	
 	
 }

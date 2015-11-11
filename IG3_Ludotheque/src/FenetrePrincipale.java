@@ -6,8 +6,9 @@ public class FenetrePrincipale extends JFrame{
 	private BDD bdd;
 	private Utilisateur utilisateur;
 	
-	FenetrePrincipale(){
-		bdd = null;
+	FenetrePrincipale(Utilisateur u, BDD b){
+		utilisateur = u;
+		bdd = b;
 		utilisateur = null;
 		onglets = new JTabbedPane();
 		//Ajout des onglets
