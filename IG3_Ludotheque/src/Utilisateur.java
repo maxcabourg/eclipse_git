@@ -48,6 +48,7 @@ public class Utilisateur {
 	//Prend un parametre un id et renvoie l'utilisateur correspondant à cet id
 	public static Utilisateur getById(BDD base, int id) throws SQLException
 	{
+		//Il faut gerer le cas ou l'id est negatif, on sait jamais.
 		if(id > 0)
 		{
 			ResultSet requete = base.getConnection().createStatement().executeQuery("SELECT * FROM Utilisateur WHERE IdUtilisateur = "+id);

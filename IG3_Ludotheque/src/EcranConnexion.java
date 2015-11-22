@@ -83,7 +83,7 @@ public class EcranConnexion extends JFrame implements ActionListener{
 						int id = 0;
 						while(resultat.next())
 							id = resultat.getInt("IdUtilisateur");
-						Utilisateur u = Utilisateur.getById(base, 1);
+						Utilisateur u = Utilisateur.getById(base, id);
 						new FenetrePrincipale(u, base).setVisible(true);
 					}
 			} catch (SQLException e) {
