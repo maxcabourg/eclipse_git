@@ -18,7 +18,7 @@ import javax.swing.*;
 public class EcranConnexion extends JFrame implements ActionListener{
 
 	/*Les layout sont des conteneurs qui accueillent les composants de l'interface.
-	 * Ils peuvent être de types verticaux ou horizontaux (beaucoup plus complexes aussi).
+	 * Ils peuvent ï¿½tre de types verticaux ou horizontaux (beaucoup plus complexes aussi).
 	 * Ils peuvent contenir d'autres layout, on peut donc faire des assemblages de layout
 	 * Par exemple ici, je deux layout horizontaux, un pour mettre le label du pseudo + la zone de texte
 	 * et un autre pour le label Mot de passe et la zone de texte, puis je les assemble dans un layout general
@@ -76,7 +76,7 @@ public class EcranConnexion extends JFrame implements ActionListener{
 					}
 				//Sinon on affiche un message de bienvenue.
 					else {
-						JOptionPane.showMessageDialog(this, "Bienvenue "+pseudo_recupere+" !");
+						JOptionPane.showMessageDialog(this, "Bienvenu "+pseudo_recupere+" !");
 						setVisible(false);
 						dispose(); //Detruit la fenetre de connexion
 						ResultSet resultat = base.getConnection().createStatement().executeQuery("SELECT IdUtilisateur FROM Utilisateur WHERE PseudoU = '"+pseudo_recupere+"'");
