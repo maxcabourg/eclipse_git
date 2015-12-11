@@ -9,8 +9,8 @@ public class FormulaireJeu extends JPanel
     // Les zones de Textes
     JTextField tf1 = new JTextField(JTextField.CENTER);
     JTextField tf2 = new JTextField(JTextField.CENTER);
-    JTextField tf3 = new JTextField(JTextField.CENTER);
-    JTextField tf4 = new JTextField(JTextField.CENTER);
+    JComboBox anne = new JComboBox();
+    JComboBox agereco = new JComboBox();
     JTextField tf5 = new JTextField(JTextField.CENTER);
  
     // Création des labels avec mnémoniques
@@ -25,12 +25,15 @@ public class FormulaireJeu extends JPanel
     editeur.setLabelFor(tf2);
  
     JLabel annee = new JLabel("Annee du jeu");
-    annee.setDisplayedMnemonic('V');
-    annee.setLabelFor(tf3);
+    for (int andepart=1900; andepart<=2016; andepart++){
+    	anne.addItem(andepart);
+    }
+    
  
     JLabel age = new JLabel("Age recommandé");
-    age.setDisplayedMnemonic('P');
-    age.setLabelFor(tf4);
+    for (int a=3; a<=99; a++){
+    	agereco.addItem(a);
+    }
  
     JLabel nbjoueur = new JLabel("Nombre de joueurs");
     nbjoueur.setDisplayedMnemonic('E');
@@ -50,9 +53,9 @@ public class FormulaireJeu extends JPanel
     ligne2.add(editeur);
     ligne2.add(tf2);
     ligne3.add(annee);
-    ligne3.add(tf3);
+    ligne3.add(anne);
     ligne4.add(age);
-    ligne4.add(tf4);
+    ligne4.add(agereco);
     ligne5.add(nbjoueur);
     ligne5.add(tf5);
     mainLayout.add(ligne1);
