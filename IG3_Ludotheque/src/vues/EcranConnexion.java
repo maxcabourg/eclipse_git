@@ -1,3 +1,4 @@
+package vues;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.LayoutManager;
@@ -14,6 +15,9 @@ import java.sql.SQLException;
 import java.util.Formatter;
 
 import javax.swing.*;
+
+import Donnees.BDD;
+import Donnees.Utilisateur;
 
 public class EcranConnexion extends JFrame implements ActionListener{
 
@@ -32,7 +36,7 @@ public class EcranConnexion extends JFrame implements ActionListener{
 	private JPasswordField mdp; //Zone de texte pour rentrer le mot de passe
 	private JButton connexion; //Bouton de connexion
 	
-	EcranConnexion(){
+	public EcranConnexion(){
 		base = new BDD();
 		//Parametrages des composants
 		pseudo = new JTextField(); //On initialise les composants

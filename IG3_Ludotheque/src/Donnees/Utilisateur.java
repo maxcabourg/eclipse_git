@@ -1,3 +1,5 @@
+package Donnees;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
@@ -71,6 +73,7 @@ public class Utilisateur {
 		else
 			return null;
 	}
+	
 	//Algorithme de cryptage du SHA1
 	private static String sha1(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA1");

@@ -1,4 +1,8 @@
+package vues;
 import javax.swing.*;
+
+import Donnees.BDD;
+import Donnees.Utilisateur;
 //Fenetre principale de l'application
 public class FenetrePrincipale extends JFrame{
 	

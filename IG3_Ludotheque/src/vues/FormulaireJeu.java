@@ -1,3 +1,4 @@
+package vues;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.JButton;

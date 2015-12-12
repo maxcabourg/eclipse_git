@@ -1,3 +1,7 @@
+package Donnees;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,7 +12,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeleDonneesJeux extends AbstractTableModel{
 
 	private Jeu[] donnees;
-	private final String[] entetes = {"Id", "Titre", "Editeur", "Annee de parution", "Age recommandé", "Nombre de joueurs", "Extensions", "Reference", "Statut"};	
+	private final String[] entetes = {"Id", "Titre", "Editeur", "Annee de parution", "Age recommandé", "Nombre de joueurs", "Extensions", "Reference", "Statut", "Editer"};	
 	
 	public ModeleDonneesJeux(){	
 		super();
@@ -53,7 +57,7 @@ public class ModeleDonneesJeux extends AbstractTableModel{
     }
 
 	@Override
-	public Object getValueAt(int ligne, int colonne) {
+	public Object getValueAt(final int ligne, int colonne) {
 		switch(colonne){
 		case 0:
 			return donnees[ligne].getId();
@@ -73,10 +77,25 @@ public class ModeleDonneesJeux extends AbstractTableModel{
 			return donnees[ligne].getReference();
 		case 8:
 			return donnees[ligne].getStatut();
+		case 9:
+			return donnees[ligne].getEditer();
 		default:
 			return null;
 		}
 		
 	}
-
+	@Override
+	
+	public Class getColumnClass(int columnIndex) {
+        if(columnIndex == 0)return getValueAt(0, columnIndex).getClass();
+ 
+        else return super.getColumnClass(columnIndex);
+ 
+    }
+	
+	@Override
+	public boolean isCellEditable(int row, int column)
+    {
+        return column == 9;
+    }
 }

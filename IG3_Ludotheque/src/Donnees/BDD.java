@@ -1,6 +1,5 @@
-/*Classe qui va representer notre base de données
- * C'es tavec cette classe que l'on fera les requetes SQL
- */
+package Donnees;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +8,7 @@ import com.mysql.*;
 
 public class BDD {
 	private Connection connection;
-	BDD(){
+	public BDD(){
 		try {
 			//Chargement du pilote mysql
 		     Class.forName("com.mysql.jdbc.Driver");
