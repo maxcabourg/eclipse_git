@@ -22,6 +22,7 @@ public class FenetrePrincipale extends JFrame{
 		
 		setTitle("Ludotech");
 		getContentPane().add(onglets);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 }
