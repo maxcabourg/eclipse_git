@@ -40,36 +40,36 @@ public class Jeu{
 	}
 	
 	//Prend un parametre un id et renvoie le jeu correspondant à cet id
-		public static Jeu getById(BDD base, int id) throws SQLException
+	public static Jeu getById(BDD base, int id) throws SQLException
+	{
+		//Il faut gerer le cas ou l'id est negatif, on sait jamais.
+		if(id > 0)
 		{
-			//Il faut gerer le cas ou l'id est negatif, on sait jamais.
-			if(id > 0)
+			ResultSet requete = base.getConnection().createStatement().executeQuery("SELECT * FROM Jeu WHERE IdJeu = "+id);
+			String NomJeu = "", EditeurJeu = "", NombreJoueurs = "", extensions = "";
+			int idJeu = 0, annee = 0, age = 0, statut = 0, reference = 0;
+			while(requete.next())
 			{
-				ResultSet requete = base.getConnection().createStatement().executeQuery("SELECT * FROM Jeu WHERE IdJeu = "+id);
-				String NomJeu = "", EditeurJeu = "", NombreJoueurs = "", extensions = "";
-				int idJeu = 0, annee = 0, age = 0, statut = 0, reference = 0;
-				while(requete.next())
-				{
-					idJeu = requete.getInt("IdJeu");
-					NomJeu = requete.getString("NomJeu");
-					EditeurJeu = requete.getString("EditeurJeu");
-					NombreJoueurs = requete.getString("NombreJoueurs");
-					extensions = requete.getString("ExtensionJeu");
-					annee = requete.getInt("AnneeJeu");
-					age = requete.getInt("AgeJeu");
-					statut = requete.getInt("StatutJeu");
-					reference = requete.getInt("ReferenceJeu");
-				}
-				return new Jeu(idJeu, NomJeu, EditeurJeu, annee, age, NombreJoueurs, extensions, reference, statut);
+				idJeu = requete.getInt("IdJeu");
+				NomJeu = requete.getString("NomJeu");
+				EditeurJeu = requete.getString("EditeurJeu");
+				NombreJoueurs = requete.getString("NombreJoueurs");
+				extensions = requete.getString("ExtensionJeu");
+				annee = requete.getInt("AnneeJeu");
+				age = requete.getInt("AgeJeu");
+				statut = requete.getInt("StatutJeu");
+				reference = requete.getInt("ReferenceJeu");
 			}
-			else
-				return null;
+			return new Jeu(idJeu, NomJeu, EditeurJeu, annee, age, NombreJoueurs, extensions, reference, statut);
 		}
+		else
+			return null;
+	}
 		
-		public void showEdit()
-		{
-			new boiteEditerJeu().setVisible(true);
-		}
+	public void showEdit()
+	{
+		new boiteEditerJeu(this).setVisible(true);
+	}
 
 	public int getId() {
 		return id;

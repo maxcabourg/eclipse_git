@@ -49,7 +49,7 @@ public class OngletJeux extends JPanel {
 		    	JTable table = (JTable)e.getSource();
 		    	int ligne = Integer.valueOf( e.getActionCommand() );
 		    	try {
-					Jeu j = Jeu.getById(base, ligne+765);
+					Jeu j = Jeu.getById(base, ligne+766);
 					j.showEdit();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
