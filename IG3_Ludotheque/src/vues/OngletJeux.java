@@ -47,10 +47,11 @@ public class OngletJeux extends JPanel {
 		    public void actionPerformed(ActionEvent e)
 		    {
 		    	JTable table = (JTable)e.getSource();
-		    	int ligne = Integer.valueOf( e.getActionCommand() );
+		    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
 		    	try {
-					Jeu j = Jeu.getById(base, ligne+766);
-					j.showEdit();
+		    		System.out.println(ligne+1);
+		    		Jeu j = Jeu.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+					j.showEdit(); //Affiche les differentes infos
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

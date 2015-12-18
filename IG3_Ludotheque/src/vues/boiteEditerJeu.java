@@ -40,7 +40,7 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 		setTitle("Editer le jeu");
 		setModal(true);
 		//add(new JLabel("TODO"));
-		int lignejeu = jeu.getId()-766;		
+		int lignejeu = jeu.getId() - 1;		
 		
 		// Les zones de Textes
 	    String name = (String) mdj.getValueAt(lignejeu, 1);
