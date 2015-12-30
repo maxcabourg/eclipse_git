@@ -28,8 +28,9 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	private JTextField tf2;
 	private JComboBox anne;
 	private JComboBox agereco;
-	private JTextField tf5;
-	private JTextField tf6;
+	private JComboBox tf5;
+	private JComboBox tf5bis;
+	//private JTextField tf6;
 	private ModeleDonneesJeux mdj = new ModeleDonneesJeux();
 	private Jeu jeu;
 	
@@ -73,30 +74,45 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	    }
 	    agereco.setSelectedItem(ager);
 	    
-	    String nbrj = (String) mdj.getValueAt(lignejeu, 5);
-	    tf5 = new JTextField(nbrj,JTextField.CENTER);
+	    int nbrjmin = (int) mdj.getValueAt(lignejeu, 5);
+	    tf5bis = new JComboBox();
+	    tf5bis.setPreferredSize(new Dimension(100,25));
+	    for (int a=0; a<=99; a++){
+	    	tf5bis.addItem(a);
+	    }
+	    tf5bis.setSelectedItem(nbrjmin);
+	    
+	    int nbrjmax = (int) mdj.getValueAt(lignejeu, 6);
+	    tf5 = new JComboBox();
+	    tf5.setPreferredSize(new Dimension(100,25));
+	    for (int a=0; a<=99; a++){
+	    	tf5.addItem(a);
+	    }
+	    tf5.setSelectedItem(nbrjmax);
+	    
+	    /*tf5 = new JTextField(nbrj,JTextField.CENTER);
 	    tf5.setPreferredSize(new Dimension(300,25));
 	    tf5.addFocusListener(new FocusAdapter() {
 	        @Override
 	        public void focusGained(FocusEvent e) {
 	            tf5.setText("");
 	        }
-	    });
+	    });*/
 	    
-	    String ext = (String) mdj.getValueAt(lignejeu, 6);
+	    /*String ext = (String) mdj.getValueAt(lignejeu, 6);
 	    tf6 = new JTextField(ext,JTextField.CENTER);
 	    tf6.setPreferredSize(new Dimension(300,25));
-	    //Lorsque l'on clique sur le textfield le texte qui Ã©tait prÃ©sent disparait
+	    //Lorsque l'on clique sur le textfield le texte qui était présent disparait
 	    tf6.addFocusListener(new FocusAdapter() {
 	        @Override
 	        public void focusGained(FocusEvent e) {
 	            tf6.setText("");
 	        }
-	    });
+	    });*/
 	 
-	    // CrÃ©ation des labels
+	    // Création des labels
 	    JLabel titre = new JLabel("Titre");
-	    titre.setLabelFor(tf1);       // DÃ©finir le composant qui es labelÃ©
+	    titre.setLabelFor(tf1);       // Définir le composant qui es labelé
 	 
 	    JLabel editeur = new JLabel("Editeur");
 	    editeur.setLabelFor(tf2);
@@ -105,15 +121,18 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	    annee.setLabelFor(anne);
 	    
 	 
-	    JLabel age = new JLabel("Age recommandÃ©");
+	    JLabel age = new JLabel("Age recommandé");
 	    age.setLabelFor(agereco);
 	   
 	 
-	    JLabel nbjoueur = new JLabel("Nombre de joueurs");
-	    nbjoueur.setLabelFor(tf5);
+	    JLabel nbjoueurmin = new JLabel("Nombre de joueurs minimum");
+	    nbjoueurmin.setLabelFor(tf5);
 	    
-	    JLabel extens = new JLabel("Extensions");
-	    extens.setLabelFor(tf6);
+	    JLabel nbjoueurmax = new JLabel("Nombre de joueurs maximum");
+	    nbjoueurmax.setLabelFor(tf5bis);
+	    
+	   /* JLabel extens = new JLabel("Extensions");
+	    extens.setLabelFor(tf6);*/
 	    
 	    JButton valider = new JButton("Valider");
 	    
@@ -171,7 +190,7 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	    gc5.gridx = 1;
 	    gc5.gridy = 5;
 	    gc5.anchor = GridBagConstraints.CENTER;
-	    add(nbjoueur,gc5);
+	    add(nbjoueurmin,gc5);
 	    gc5.gridx = 2;
 	    gc5.gridy = 5;
 	    gc5.gridwidth = GridBagConstraints.REMAINDER;
@@ -179,19 +198,21 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	    gc5.fill = GridBagConstraints.HORIZONTAL;
 	    add(tf5,gc5);
 	    
+	    
+	    
 	    GridBagConstraints gc6 = new GridBagConstraints();
 	    gc6.anchor = GridBagConstraints.NONE;
 	    gc6.fill = GridBagConstraints.NONE;
 	    gc6.gridx = 1;
 	    gc6.gridy = 6;
 	    gc6.anchor = GridBagConstraints.CENTER;
-	    add(extens,gc6);
+	    add(nbjoueurmax,gc6);
 	    gc6.gridx = 2;
 	    gc6.gridy = 6;
 	    gc6.gridwidth = GridBagConstraints.REMAINDER;
 	    gc6.anchor = GridBagConstraints.CENTER;
 	    gc6.fill = GridBagConstraints.HORIZONTAL;
-	    add(tf6,gc6);
+	    add(tf5bis,gc6);
 	    
 	    GridBagConstraints gc7 =new GridBagConstraints();
 	    gc7.fill = GridBagConstraints.NONE;
@@ -208,37 +229,38 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 		if(arg0.getActionCommand().equals("Valider")){
 			BDD bdd = new BDD();
 			try{
-				//Ici on rÃ©cupÃ¨re les saisies dans les JTextField et le JComboBox
+				//Ici on récupère les saisies dans les JTextField et le JComboBox
 				String namejeu = tf1.getText();
 				String editjeu = tf2.getText();
 				int anneejeu = (int) anne.getSelectedItem();
 				int agejeu = (int) agereco.getSelectedItem();
-				String nbj = tf5.getText();
-				String exts = tf6.getText();
+				int nbjmin = (int) tf5.getSelectedItem();
+				int nbjmax = (int) tf5bis.getSelectedItem();
+				//String exts = tf6.getText();
 				int refj = 0;
 				int stj = 0;
 				
 				if(!namejeu.equals("")){
 				
-				PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Jeu SET NomJeu = ?,EditeurJeu = ?,AnneeJeu = ?,AgeJeu=?,NombreJoueurs=?,ExtensionJeu=?,ReferenceJeu=?,StatutJeu=? WHERE IdJeu = ?");
+				PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Jeu SET NomJeu = ?,EditeurJeu = ?,AnneeJeu = ?,AgeJeu=?,NombreJoueursMin=?,NombreJoueursMax=?,ReferenceJeu=?,StatutJeu=? WHERE IdJeu = ?");
 				
 				
 				requete.setString(1,namejeu);
 				requete.setString(2,editjeu);
 				requete.setInt(3, anneejeu);
 				requete.setInt(4, agejeu);
-				requete.setString(5, nbj);
-				requete.setString(6, exts);
+				requete.setInt(5, nbjmin);
+				requete.setInt(6, nbjmax);
 				requete.setInt(7, refj);
 				requete.setInt(8, stj);
 				requete.setInt(9, jeu.getId());
 				
 				requete.executeUpdate();
-				JOptionPane.showMessageDialog(this, "Votre jeu '"+namejeu+"' Ã  bien Ã©tÃ© modifiÃ© !");
+				JOptionPane.showMessageDialog(this, "Votre jeu '"+namejeu+"' à bien été modifié !");
 				requete.close();
 				}	
 				else {
-					JOptionPane.showMessageDialog(this, "Veuillez mettre un nom Ã  votre jeu !");
+					JOptionPane.showMessageDialog(this, "Veuillez mettre un nom à votre jeu !");
 				}
 			}catch (SQLException e) {
 				e.printStackTrace();

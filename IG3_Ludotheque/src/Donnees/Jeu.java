@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import vues.boiteEditerJeu;
 
@@ -85,6 +86,8 @@ public class Jeu{
 			while(req.next())
 				maxId = req.getInt("maximum")+1;
 			int remiseId = base.getConnection().createStatement().executeUpdate("ALTER TABLE Jeu AUTO_INCREMENT = "+maxId);
+			//fenetre pour informer l'utilisateur que le jeu est supprimé
+			JOptionPane.showMessageDialog(null, "Votre jeu '"+nom+"' à bien été supprimé !");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
