@@ -21,6 +21,7 @@ public class OngletJeux extends JPanel implements ActionListener{
 	private JTextField champRecherche;
 	private JButton rechercher;
 	private JButton actualiser;
+	private JTable viewJeux;
 	private Box layoutBouton = Box.createHorizontalBox();
 	
 	private Box box = Box.createVerticalBox();
@@ -34,7 +35,7 @@ public class OngletJeux extends JPanel implements ActionListener{
 		actualiser.setActionCommand("actualiser");
 		layoutBouton.add(champRecherche);
 		layoutBouton.add(rechercher);
-		JTable viewJeux = new JTable(new ModeleDonneesJeux());
+		viewJeux = new JTable(new ModeleDonneesJeux());
 		viewJeux.setMinimumSize(new Dimension(1200, 800));
 		viewJeux.setDefaultRenderer(JTable.class, new Renderer());// for the rendering of cell
 		
@@ -93,8 +94,7 @@ public class OngletJeux extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("actualiser")){
-			this.revalidate();
-			this.repaint();
+			//TODO
 		}
 		
 	}
