@@ -28,7 +28,7 @@ public class Utilisateur {
 		mail = _mail;
 		tel = _tel;
 		adresse = _adresse;
-		admin = _admin == 0;
+		admin = _admin == 1;
 	}
 	//Fonction verifiant si un couple (pseudo, mot de passe) existe dans la base de données.
 	//Renvoie true s'il existe, false s'il n'existe pas

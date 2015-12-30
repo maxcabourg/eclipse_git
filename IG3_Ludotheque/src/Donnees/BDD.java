@@ -12,7 +12,7 @@ public class BDD {
 		try {
 			//Chargement du pilote mysql
 		     Class.forName("com.mysql.jdbc.Driver");
-		     connection = DriverManager.getConnection("jdbc:mysql://mysql-projet-ludotheque.alwaysdata.net/projet-ludotheque_piscine","114844_admin", "admin");
+		     connection = DriverManager.getConnection("jdbc:mysql://mysql-projet-ludotheque.alwaysdata.net/projet-ludotheque_ig3","114844_admin", "admin");
 		}
 		catch (Exception e) {
 		      e.printStackTrace();

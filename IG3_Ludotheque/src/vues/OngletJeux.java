@@ -30,19 +30,18 @@ public class OngletJeux extends JPanel {
 		layoutBouton.add(champRecherche);
 		layoutBouton.add(rechercher);
 		JTable viewJeux = new JTable(new ModeleDonneesJeux());
-		viewJeux.setMinimumSize(new Dimension(1000, 800));
+		viewJeux.setMinimumSize(new Dimension(1200, 800));
 		viewJeux.setDefaultRenderer(JTable.class, new Renderer());// for the rendering of cell
 		
 		//viewJeux.getColumn("Editer").setCellRenderer(new Renderer());
-		viewJeux.getColumnModel().getColumn(0).setPreferredWidth(250);
+		viewJeux.getColumnModel().getColumn(0).setPreferredWidth(20);
 		viewJeux.getColumnModel().getColumn(1).setPreferredWidth(175);
 		viewJeux.getColumnModel().getColumn(3).setPreferredWidth(50);
 		viewJeux.getColumnModel().getColumn(4).setPreferredWidth(50);
 		viewJeux.getColumnModel().getColumn(5).setPreferredWidth(250);
 		viewJeux.getColumnModel().getColumn(6).setPreferredWidth(50);
-		viewJeux.removeColumn(viewJeux.getColumnModel().getColumn(7));
 		
-		Action delete = new AbstractAction()
+		Action modifierJeu = new AbstractAction()
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
@@ -59,7 +58,7 @@ public class OngletJeux extends JPanel {
 		    }
 		};
 		
-		ButtonColumn buttonColumn = new ButtonColumn(viewJeux, delete, 8);
+		ButtonColumn buttonColumn = new ButtonColumn(viewJeux, modifierJeu, 9);
 		buttonColumn.setMnemonic(KeyEvent.VK_D);
 		box.add(new JScrollPane(viewJeux), BorderLayout.CENTER);
 		box.add(Box.createRigidArea(new Dimension(0, 20)));

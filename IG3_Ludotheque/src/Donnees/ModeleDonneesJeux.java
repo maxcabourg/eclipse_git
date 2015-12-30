@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
-
+/*
+ * Cette classe va definir les donnees a afficher dans la JTable d'OngletJeux
+ */
 public class ModeleDonneesJeux extends AbstractTableModel{
 
-	private Jeu[] donnees;
-	private final String[] entetes = {"Id", "Titre", "Editeur", "Annee de parution", "Age recommandé", "Nombre de joueurs", "Extensions", "Reference", "Statut", "Editer"};	
+	private Jeu[] donnees; //Ce seront les donnees a afficher
+	private final String[] entetes = {"Id", "Titre", "Editeur", "Annee de parution", "Age recommandé", "Nombre de joueurs min", "Nombre de joueurs max", "Reference", "Statut", "Editer"};	//Titres des colonnes
 	
 	public ModeleDonneesJeux(){	
 		super();
@@ -30,7 +32,7 @@ public class ModeleDonneesJeux extends AbstractTableModel{
 			//Recuperation des jeux
 				int compteur = 0;
 				while(jeux.next()){
-					Jeu jeu = new Jeu(jeux.getInt("IdJeu"), jeux.getString("NomJeu"), jeux.getString("EditeurJeu"), jeux.getInt("AnneeJeu"), jeux.getInt("AgeJeu"), jeux.getString("NombreJoueurs"), jeux.getString("ExtensionJeu"), jeux.getInt("ReferenceJeu"), jeux.getInt("StatutJeu"));
+					Jeu jeu = new Jeu(jeux.getInt("IdJeu"), jeux.getString("NomJeu"), jeux.getString("EditeurJeu"), jeux.getInt("AnneeJeu"), jeux.getInt("AgeJeu"), jeux.getInt("NombreJoueursMin"), jeux.getInt("NombreJoueursMax"), jeux.getInt("ReferenceJeu"), jeux.getInt("StatutJeu"));
 					donnees[compteur] = jeu;
 					compteur++;			
 			}
@@ -70,9 +72,9 @@ public class ModeleDonneesJeux extends AbstractTableModel{
 		case 4:
 			return donnees[ligne].getAge();
 		case 5:
-			return donnees[ligne].getNbJoueurs();
+			return donnees[ligne].getNbJoueursMin();
 		case 6:
-			return donnees[ligne].getExtensions();
+			return donnees[ligne].getNbJoueursMax();
 		case 7:
 			return donnees[ligne].getReference();
 		case 8:
@@ -92,7 +94,7 @@ public class ModeleDonneesJeux extends AbstractTableModel{
         else return super.getColumnClass(columnIndex);
  
     }
-	
+	//Seule la colonne du bouton editer est "editable"
 	@Override
 	public boolean isCellEditable(int row, int column)
     {
