@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -64,6 +65,7 @@ public class Jeu{
 				statut = requete.getInt("StatutJeu");
 				reference = requete.getInt("ReferenceJeu");
 			}
+			requete.close();
 			return new Jeu(idJeu, NomJeu, EditeurJeu, annee, age, min, max, reference, statut);
 		}
 		else
@@ -92,6 +94,21 @@ public class Jeu{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void insertInto(BDD bdd) throws SQLException
+	{
+		PreparedStatement requete = bdd.getConnection().prepareStatement("INSERT INTO Jeu (NomJeu,EditeurJeu,AnneeJeu,AgeJeu,NombreJoueursMin,NombreJoueursMax,ReferenceJeu,StatutJeu) VALUES (?,?,?,?,?,?,?,?);");
+		requete.setString(1,nom);
+		requete.setString(2,editeur);
+		requete.setInt(3, annee);
+		requete.setInt(4, age);
+		requete.setInt(5, nombreJoueursMin);
+		requete.setInt(6, nombreJoueursMax);
+		requete.setInt(7, reference);
+		requete.setInt(8, statut);
+		requete.executeUpdate();
+		requete.close();
 	}
 
 	public int getId() {

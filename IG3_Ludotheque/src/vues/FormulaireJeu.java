@@ -3,6 +3,7 @@ package vues;
 import javax.swing.*;
 
 import Donnees.BDD;
+import Donnees.Jeu;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+
 import javax.swing.*;
  
 public class FormulaireJeu extends JPanel implements ActionListener
@@ -230,23 +232,11 @@ public class FormulaireJeu extends JPanel implements ActionListener
 				int refj = 0;
 				int stj = 0;
 				
-				if(!namejeu.equals("")){
+				Jeu jeu = new Jeu(0, namejeu, editjeu, anneejeu, agejeu, nbjmin, nbjmax, refj, stj);
 				
-				PreparedStatement requete = bdd.getConnection().prepareStatement("INSERT INTO Jeu (NomJeu,EditeurJeu,AnneeJeu,AgeJeu,NombreJoueursMin,NombreJoueursMax,ReferenceJeu,StatutJeu) VALUES (?,?,?,?,?,?,?,?);");
-				
-				
-				requete.setString(1,namejeu);
-				requete.setString(2,editjeu);
-				requete.setInt(3, anneejeu);
-				requete.setInt(4, agejeu);
-				requete.setInt(5, nbjmin);
-				requete.setInt(6, nbjmax);
-				requete.setInt(7, refj);
-				requete.setInt(8, stj);
-				
-				requete.executeUpdate();
+				if(!namejeu.equals("")){			
+				jeu.insertInto(bdd);
 				JOptionPane.showMessageDialog(this, "Votre jeu '"+namejeu+"' à bien été ajouté !");
-				requete.close();
 				}	
 				else {
 					JOptionPane.showMessageDialog(this, "Veuillez mettre un nom à votre jeu !");
