@@ -83,8 +83,8 @@ public class Jeu{
 			ResultSet req = base.getConnection().createStatement().executeQuery("SELECT MAX(IdJeu) as maximum FROM Jeu"); //Et on fait repartir l'auto increment a la valeur maximale qui existe
 			int maxId = 0;
 			while(req.next())
-				maxId = req.getInt("maximum");
-			int remiseId = base.getConnection().createStatement().executeUpdate("ALTER TABLE Jeu AUTO_INCREMENT = "+maxId+1);
+				maxId = req.getInt("maximum")+1;
+			int remiseId = base.getConnection().createStatement().executeUpdate("ALTER TABLE Jeu AUTO_INCREMENT = "+maxId);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

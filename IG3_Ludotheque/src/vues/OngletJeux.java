@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
@@ -14,11 +15,12 @@ import Donnees.Jeu;
 import Donnees.ModeleDonneesJeux;
 
 //Onglet qui présentera les differents jeux
-public class OngletJeux extends JPanel {
+public class OngletJeux extends JPanel implements ActionListener{
 
 	private BDD base;
 	private JTextField champRecherche;
 	private JButton rechercher;
+	private JButton actualiser;
 	private Box layoutBouton = Box.createHorizontalBox();
 	
 	private Box box = Box.createVerticalBox();
@@ -27,6 +29,9 @@ public class OngletJeux extends JPanel {
 		box.setPreferredSize(new Dimension(800, 450));
 		champRecherche = new JTextField();
 		rechercher = new JButton("Rechercher");
+		actualiser = new JButton("Actualiser");
+		actualiser.addActionListener(this);
+		actualiser.setActionCommand("actualiser");
 		layoutBouton.add(champRecherche);
 		layoutBouton.add(rechercher);
 		JTable viewJeux = new JTable(new ModeleDonneesJeux());
@@ -81,7 +86,16 @@ public class OngletJeux extends JPanel {
 		box.add(new JScrollPane(viewJeux), BorderLayout.CENTER);
 		box.add(Box.createRigidArea(new Dimension(0, 20)));
 		box.add(layoutBouton);
+		box.add(actualiser);
 		add(box);
+		
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("actualiser")){
+			this.revalidate();
+			this.repaint();
+		}
 		
 	}
 }
