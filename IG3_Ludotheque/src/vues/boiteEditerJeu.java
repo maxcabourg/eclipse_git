@@ -102,7 +102,7 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	    /*String ext = (String) mdj.getValueAt(lignejeu, 6);
 	    tf6 = new JTextField(ext,JTextField.CENTER);
 	    tf6.setPreferredSize(new Dimension(300,25));
-	    //Lorsque l'on clique sur le textfield le texte qui était présent disparait
+	    //Lorsque l'on clique sur le textfield le texte qui ï¿½tait prï¿½sent disparait
 	    tf6.addFocusListener(new FocusAdapter() {
 	        @Override
 	        public void focusGained(FocusEvent e) {
@@ -110,9 +110,9 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	        }
 	    });*/
 	 
-	    // Création des labels
+	    // Crï¿½ation des labels
 	    JLabel titre = new JLabel("Titre");
-	    titre.setLabelFor(tf1);       // Définir le composant qui es labelé
+	    titre.setLabelFor(tf1);       // Dï¿½finir le composant qui es labelï¿½
 	 
 	    JLabel editeur = new JLabel("Editeur");
 	    editeur.setLabelFor(tf2);
@@ -121,7 +121,7 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	    annee.setLabelFor(anne);
 	    
 	 
-	    JLabel age = new JLabel("Age recommandé");
+	    JLabel age = new JLabel("Age recommandÃ©");
 	    age.setLabelFor(agereco);
 	   
 	 
@@ -229,7 +229,7 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 		if(arg0.getActionCommand().equals("Valider")){
 			BDD bdd = new BDD();
 			try{
-				//Ici on récupère les saisies dans les JTextField et le JComboBox
+				//Ici on rï¿½cupï¿½re les saisies dans les JTextField et le JComboBox
 				String namejeu = tf1.getText();
 				String editjeu = tf2.getText();
 				int anneejeu = (int) anne.getSelectedItem();
@@ -256,11 +256,12 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 				requete.setInt(9, jeu.getId());
 				
 				requete.executeUpdate();
-				JOptionPane.showMessageDialog(this, "Votre jeu '"+namejeu+"' à bien été modifié !");
+				JOptionPane.showMessageDialog(this, "Votre jeu '"+namejeu+"' Ã  bien Ã©tÃ© modifiÃ© !");
+				dispose();
 				requete.close();
 				}	
 				else {
-					JOptionPane.showMessageDialog(this, "Veuillez mettre un nom à votre jeu !");
+					JOptionPane.showMessageDialog(this, "Veuillez mettre un nom Ã  votre jeu !");
 				}
 			}catch (SQLException e) {
 				e.printStackTrace();

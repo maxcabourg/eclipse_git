@@ -15,7 +15,7 @@ import Donnees.BDD;
 import Donnees.Jeu;
 import Donnees.ModeleDonneesJeux;
 
-//Onglet qui présentera les differents jeux
+//Onglet qui prÃ©sentera les differents jeux
 public class OngletJeux extends JPanel implements ActionListener{
 
 	private BDD base;

@@ -76,9 +76,9 @@ public class FormulaireJeu extends JPanel implements ActionListener
     /*tf6 = new JTextField(JTextField.CENTER);
     tf6.setPreferredSize(new Dimension(300,25));*/
  
-    // Création des labels
+    // Crï¿½ation des labels
     JLabel titre = new JLabel("Titre");
-    titre.setLabelFor(tf1);       // Définir le composant qui es labelé
+    titre.setLabelFor(tf1);       // Dï¿½finir le composant qui es labelï¿½
  
     JLabel editeur = new JLabel("Editeur");
     editeur.setLabelFor(tf2);
@@ -90,7 +90,7 @@ public class FormulaireJeu extends JPanel implements ActionListener
     annee.setLabelFor(anne);
     
  
-    JLabel age = new JLabel("Age recommandé");
+    JLabel age = new JLabel("Age recommandÃ©");
     for (int a=3; a<=99; a++){
     	agereco.addItem(a);
     }
@@ -222,7 +222,7 @@ public class FormulaireJeu extends JPanel implements ActionListener
 		if(arg0.getActionCommand().equals("Valider")){
 			BDD bdd = new BDD();
 			try{
-				//Ici on récupère les saisies dans les JTextField et le JComboBox
+				//Ici on rï¿½cupï¿½re les saisies dans les JTextField et le JComboBox
 				String namejeu = tf1.getText();
 				String editjeu = tf2.getText();
 				int anneejeu = (int) anne.getSelectedItem();
@@ -236,10 +236,10 @@ public class FormulaireJeu extends JPanel implements ActionListener
 				
 				if(!namejeu.equals("")){			
 				jeu.insertInto(bdd);
-				JOptionPane.showMessageDialog(this, "Votre jeu '"+namejeu+"' à bien été ajouté !");
+				JOptionPane.showMessageDialog(this, "Votre jeu '"+namejeu+"' Ã  bien Ã©tÃ© ajoutÃ© !");
 				}	
 				else {
-					JOptionPane.showMessageDialog(this, "Veuillez mettre un nom à votre jeu !");
+					JOptionPane.showMessageDialog(this, "Veuillez mettre un nom Ã  votre jeu !");
 				}
 			}catch (SQLException e) {
 				e.printStackTrace();
@@ -252,7 +252,7 @@ public class FormulaireJeu extends JPanel implements ActionListener
 
     }
 
-    //JFrame f = new JFrame("Création des formulaires en java");
+    //JFrame f = new JFrame("Crï¿½ation des formulaires en java");
     //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    // f.setSize(500,500);
    // f.setContentPane(p);
