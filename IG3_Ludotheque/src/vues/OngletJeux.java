@@ -48,7 +48,6 @@ public class OngletJeux extends JPanel {
 		    	JTable table = (JTable)e.getSource();
 		    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
 		    	try {
-		    		System.out.println(ligne+1);
 		    		Jeu j = Jeu.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
 					j.showEdit(); //Affiche les differentes infos
 				} catch (SQLException e1) {
@@ -58,7 +57,26 @@ public class OngletJeux extends JPanel {
 		    }
 		};
 		
+		Action supprimerJeu = new AbstractAction()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				JTable table = (JTable)e.getSource();
+		    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
+		    	try {
+		    		Jeu j = Jeu.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+					j.delete(base); //Supprime le jeu de la base
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		    	
+			}
+		};
+		
 		ButtonColumn buttonColumn = new ButtonColumn(viewJeux, modifierJeu, 9);
+		buttonColumn.setMnemonic(KeyEvent.VK_D);
+		ButtonColumn buttonColumn2 = new ButtonColumn(viewJeux, supprimerJeu, 10);
 		buttonColumn.setMnemonic(KeyEvent.VK_D);
 		box.add(new JScrollPane(viewJeux), BorderLayout.CENTER);
 		box.add(Box.createRigidArea(new Dimension(0, 20)));
