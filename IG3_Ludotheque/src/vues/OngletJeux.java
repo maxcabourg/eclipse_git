@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import Donnees.BDD;
 import Donnees.Jeu;
@@ -19,25 +21,22 @@ import Donnees.ModeleDonneesJeux;
 public class OngletJeux extends JPanel implements ActionListener{
 
 	private BDD base;
-	private JTextField champRecherche;
-	private JButton rechercher;
 	private JButton actualiser;
 	private JTable viewJeux;
+	TableRowSorter<TableModel> trieur;
 	private Box layoutBouton = Box.createHorizontalBox();
 	
 	private Box box = Box.createVerticalBox();
 	OngletJeux(){
 		base = new BDD();
 		box.setPreferredSize(new Dimension(800, 450));
-		champRecherche = new JTextField();
-		rechercher = new JButton("Rechercher");
 		actualiser = new JButton("Actualiser");
 		actualiser.addActionListener(this);
 		actualiser.setActionCommand("actualiser");
-		layoutBouton.add(champRecherche);
-		layoutBouton.add(rechercher);
 		viewJeux = new JTable(new ModeleDonneesJeux());
-		viewJeux.setMinimumSize(new Dimension(1200, 800));
+		trieur = new TableRowSorter<TableModel>((TableModel) viewJeux.getModel());   
+		viewJeux.setRowSorter(trieur);
+		viewJeux.setMinimumSize(new Dimension(1500, 800));
 		viewJeux.setDefaultRenderer(JTable.class, new Renderer());// for the rendering of cell
 		
 		//viewJeux.getColumn("Editer").setCellRenderer(new Renderer());
@@ -81,6 +80,20 @@ public class OngletJeux extends JPanel implements ActionListener{
 			}
 		};
 		
+		
+		//CLASSE INTERNE PERMETTANT D'EFFECTUER DES RECHERCHES DANS LA JTABLE
+		class FilterAction extends AbstractAction {
+			private FilterAction() {
+		        super("Rechercher un jeu"); //Appel du constructeur de la classe parent
+		    }
+		 
+		    public void actionPerformed(ActionEvent e) {
+		        String regex = JOptionPane.showInputDialog("Quel jeu souhaitez-vous rechercher ? ");
+		 
+		        trieur.setRowFilter(RowFilter.regexFilter(regex, 0, 1)); //S'occupe de chercher les jeux correspondant a l'expression rentrée par l'utilisateur
+		    }
+		}
+		
 		ButtonColumn buttonColumn = new ButtonColumn(viewJeux, modifierJeu, 9);
 		buttonColumn.setMnemonic(KeyEvent.VK_D);
 		ButtonColumn buttonColumn2 = new ButtonColumn(viewJeux, supprimerJeu, 10);
@@ -89,6 +102,7 @@ public class OngletJeux extends JPanel implements ActionListener{
 		box.add(Box.createRigidArea(new Dimension(0, 20)));
 		box.add(layoutBouton);
 		box.add(actualiser);
+		box.add(new JButton(new FilterAction())); //Crée un bouton de recherche qui va effectuer l'action decrite dans la classe FilterAction
 		add(box);
 		
 	}
@@ -97,6 +111,8 @@ public class OngletJeux extends JPanel implements ActionListener{
 		if(e.getActionCommand().equals("actualiser")){
 			//TODO
 			viewJeux.setModel(new ModeleDonneesJeux()); //On recharge les donnees
+			trieur = new TableRowSorter<TableModel>((TableModel) viewJeux.getModel());//On recharge le trieur  
+			viewJeux.setRowSorter(trieur);
 			Action modifierJeu = new AbstractAction() //On recree le bouton editer
 			{
 			    public void actionPerformed(ActionEvent e)
