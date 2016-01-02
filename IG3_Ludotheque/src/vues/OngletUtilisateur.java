@@ -97,7 +97,7 @@ public class OngletUtilisateur extends JPanel{
 	GridBagConstraints gc0 =new GridBagConstraints();
     gc0.gridx = 0;//Case (1,0)
     gc0.gridy = 0;
-    gc0.anchor = GridBagConstraints.EAST;
+    gc0.anchor = GridBagConstraints.CENTER;
     gc0.gridwidth = 3;
     add(titre,gc0);
 	

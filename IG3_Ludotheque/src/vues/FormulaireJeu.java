@@ -14,8 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.awt.Dimension;
-import java.awt.HeadlessException;
 
 import javax.swing.*;
  
@@ -77,6 +75,10 @@ public class FormulaireJeu extends JPanel implements ActionListener
     tf6.setPreferredSize(new Dimension(300,25));*/
  
     // Cr�ation des labels
+    JLabel title = new JLabel("Ajout d'un jeu");
+	Font f = new Font(null, Font.PLAIN, 25); 
+	title.setFont(f);
+    
     JLabel titre = new JLabel("Titre");
     titre.setLabelFor(tf1);       // D�finir le composant qui es label�
  
@@ -116,6 +118,13 @@ public class FormulaireJeu extends JPanel implements ActionListener
     
     //Mise en place des elements
     setLayout(new GridBagLayout());
+    GridBagConstraints gc0 =new GridBagConstraints();
+    gc0.gridx = 0;//Case (1,0)
+    gc0.gridy = 0;
+    gc0.anchor = GridBagConstraints.CENTER;
+    gc0.gridwidth = 3;
+    add(title,gc0);
+    
     GridBagConstraints gc1 =new GridBagConstraints();
     gc1.gridx = 1;//Case (1,1)
     gc1.gridy = 1;

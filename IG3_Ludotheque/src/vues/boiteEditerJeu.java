@@ -1,5 +1,6 @@
 package vues;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
@@ -42,6 +43,8 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 		setModal(true);
 		//add(new JLabel("TODO"));
 		int lignejeu = jeu.getId() - 1;		
+		
+		
 		
 		// Les zones de Textes
 	    String name = (String) mdj.getValueAt(lignejeu, 1);
@@ -111,6 +114,11 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	    });*/
 	 
 	    // Cr�ation des labels
+	    JLabel title = new JLabel("Modification du jeu");
+		Font f = new Font(null, Font.PLAIN, 25); 
+		title.setFont(f);
+	    
+	    
 	    JLabel titre = new JLabel("Titre");
 	    titre.setLabelFor(tf1);       // D�finir le composant qui es label�
 	 
@@ -138,6 +146,13 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	    
 	    //Mise en place des elements
 	    setLayout(new GridBagLayout());
+	    GridBagConstraints gc0 =new GridBagConstraints();
+	    gc0.gridx = 0;//Case (1,0)
+	    gc0.gridy = 0;
+	    gc0.anchor = GridBagConstraints.CENTER;
+	    gc0.gridwidth = 3;
+	    add(title,gc0);
+	    
 	    GridBagConstraints gc1 =new GridBagConstraints();
 	    gc1.gridx = 1;//Case (1,1)
 	    gc1.gridy = 1;
