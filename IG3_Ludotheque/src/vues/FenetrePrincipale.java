@@ -18,6 +18,8 @@ public class FenetrePrincipale extends JFrame{
 		onglets.add("Jeux", new OngletJeux());
 		onglets.add("Mon compte", new OngletUtilisateur(utilisateur));
 		onglets.add("Ajouter Jeu", new FormulaireJeu());
+		if(utilisateur.isAdmin())
+			onglets.add("Utilisateurs de Ludotech", new ListeUtilisateurs());
 		setSize(1280, 720);
 		
 		setTitle("Ludotech");

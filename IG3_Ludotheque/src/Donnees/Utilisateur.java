@@ -25,8 +25,11 @@ public class Utilisateur {
 	private int joursRetardCumule;
 	private int nbrRetards;
 	private int nbrJeuxNonRecuperes;
+	private String editer;
+	private String supprimer;
 	
-	Utilisateur(String _prenom, String _nom, String _pseudo, String _mdp, String _mail, String _tel, String _adresse, int _admin, Date date, int droit, int jrc, int retards, int nbrJeux){
+	Utilisateur(int _id, String _prenom, String _nom, String _pseudo, String _mdp, String _mail, String _tel, String _adresse, int _admin, Date date, int droit, int jrc, int retards, int nbrJeux){
+		id = _id;
 		prenom = _prenom;
 		nom = _nom;
 		pseudo = _pseudo;
@@ -40,6 +43,8 @@ public class Utilisateur {
 		joursRetardCumule = jrc;
 		nbrRetards = retards;
 		nbrJeuxNonRecuperes = nbrJeux;
+		editer = "Editer";
+		supprimer = "Supprimer";
 	}
 	//Fonction verifiant si un couple (pseudo, mot de passe) existe dans la base de données.
 	//Renvoie true s'il existe, false s'il n'existe pas
@@ -66,11 +71,11 @@ public class Utilisateur {
 		{
 			ResultSet requete = base.getConnection().createStatement().executeQuery("SELECT * FROM Utilisateur WHERE IdUtilisateur = "+id);
 			String prenom = "", nom = "", pseudo = "", mdp = "", mail = "", tel = "", adresse = "";
-			int admin = 0, droit = 0, jrc = 0, retards = 0, nbrJeux = 0;
+			int identifiant = 0, admin = 0, droit = 0, jrc = 0, retards = 0, nbrJeux = 0;
 			Date date = null;
 			while(requete.next())
 			{
-				id = requete.getInt("IdUtilisateur");
+				identifiant = requete.getInt("IdUtilisateur");
 				prenom = requete.getString("PrenomU");
 				nom = requete.getString("NomU");
 				pseudo = requete.getString("PseudoU");
@@ -85,7 +90,7 @@ public class Utilisateur {
 				retards = requete.getInt("NbrRetards");
 				nbrJeux = requete.getInt("NbrJeuxNonRecupere");
 			}
-			return new Utilisateur(prenom, nom, pseudo, mdp, mail, tel, adresse, admin, date, droit, jrc, retards, nbrJeux);
+			return new Utilisateur(identifiant, prenom, nom, pseudo, mdp, mail, tel, adresse, admin, date, droit, jrc, retards, nbrJeux);
 		}
 		else
 			return null;
@@ -186,6 +191,12 @@ public class Utilisateur {
 	}
 	public void setNbrJeuxNonRecuperes(int nbrJeuxNonRecuperes) {
 		this.nbrJeuxNonRecuperes = nbrJeuxNonRecuperes;
+	}
+	public String getEditer(){
+		return editer;
+	}
+	public String getSupprimer(){
+		return supprimer;
 	}
 	
 	
