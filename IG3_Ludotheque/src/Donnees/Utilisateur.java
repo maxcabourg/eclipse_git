@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import vues.boiteEditerUser;
+
 //Classe reprensentant un utilisateur Lambda
 public class Utilisateur {
 	
@@ -94,6 +96,10 @@ public class Utilisateur {
 		}
 		else
 			return null;
+	}
+	
+	public void showEdit(){
+		new boiteEditerUser(this).setVisible(true);
 	}
 	
 	//Algorithme de cryptage du SHA1

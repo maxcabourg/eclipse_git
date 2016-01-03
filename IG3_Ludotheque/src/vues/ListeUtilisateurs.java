@@ -11,6 +11,7 @@ import javax.swing.*;
 import Donnees.BDD;
 import Donnees.Jeu;
 import Donnees.ModeleDonneesUser;
+import Donnees.Utilisateur;
 import vues.Renderer;
 
 //Liste des utilisateurs de l'application
@@ -32,7 +33,15 @@ public class ListeUtilisateurs extends JPanel{
 		{
 		    public void actionPerformed(ActionEvent e)
 		    {
-		    	System.out.println("modifierUser");
+		    	JTable table = (JTable)e.getSource();
+		    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
+		    	try {
+		    		Utilisateur u = Utilisateur.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+					u.showEdit(); //Affiche les differentes infos
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		    }
 		};
 		
