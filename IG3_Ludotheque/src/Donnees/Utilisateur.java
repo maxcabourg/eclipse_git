@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 import vues.boiteEditerUser;
 
 //Classe reprensentant un utilisateur Lambda
@@ -100,6 +102,24 @@ public class Utilisateur {
 	
 	public void showEdit(){
 		new boiteEditerUser(this).setVisible(true);
+	}
+	
+	public void delete(BDD base){
+		try {
+			int suppression = base.getConnection().createStatement().executeUpdate("DELETE FROM Utilisateur WHERE IdUtilisateur = "+id); //Tout d'abord on supprime le jeu de la base
+			int baisseId = base.getConnection().createStatement().executeUpdate("UPDATE Jeu SET IdUtilisateur = IdUtilisateur - 1 WHERE IdUtilisateur > "+id); /*ensuite on baisse de 1 tous les id superieurs
+			pour pas qu'il y ait de creux entre les id */
+			ResultSet req = base.getConnection().createStatement().executeQuery("SELECT MAX(IdUtilisateur) as maximum FROM Utilisateur"); //Et on fait repartir l'auto increment a la valeur maximale qui existe
+			int maxId = 0;
+			while(req.next())
+				maxId = req.getInt("maximum")+1;
+			int remiseId = base.getConnection().createStatement().executeUpdate("ALTER TABLE Utilisateur AUTO_INCREMENT = "+maxId);
+			//fenetre pour informer l'utilisateur que le jeu est supprimé
+			JOptionPane.showMessageDialog(null, "L'utilisateur "+ pseudo +" a bien ete supprime!");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	//Algorithme de cryptage du SHA1
