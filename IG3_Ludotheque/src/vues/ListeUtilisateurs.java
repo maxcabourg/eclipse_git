@@ -3,6 +3,7 @@ package vues;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
@@ -12,15 +13,17 @@ import javax.swing.table.TableRowSorter;
 
 import Donnees.BDD;
 import Donnees.Jeu;
+import Donnees.ModeleDonneesJeux;
 import Donnees.ModeleDonneesUser;
 import Donnees.Utilisateur;
 import vues.Renderer;
 
 //Liste des utilisateurs de l'application
-public class ListeUtilisateurs extends JPanel{
+public class ListeUtilisateurs extends JPanel implements ActionListener{
 
 	private BDD base;
 	private JTable viewUsers;
+	private JButton actualiser;
 	private Box layout;
 	private Box box = Box.createVerticalBox();
 	TableRowSorter<TableModel> trieur;
@@ -33,6 +36,8 @@ public class ListeUtilisateurs extends JPanel{
 		viewUsers.setDefaultRenderer(JTable.class, new Renderer());// for the rendering of cell
 		trieur = new TableRowSorter<TableModel>((TableModel) viewUsers.getModel());
 		viewUsers.setRowSorter(trieur);
+		actualiser = new JButton("actualiser");
+		actualiser.addActionListener(this);
 		
 		Action modifierUser = new AbstractAction()
 		{
@@ -87,7 +92,56 @@ public class ListeUtilisateurs extends JPanel{
 		
 		box.add(new JScrollPane(viewUsers), BorderLayout.CENTER);
 		box.add(new JButton(new FilterAction())); //Crée un bouton de recherche qui va effectuer l'action decrite dans la classe FilterAction
+		box.add(actualiser);
 		add(box);
+		
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("actualiser")){
+			//TODO
+			viewUsers.setModel(new ModeleDonneesUser()); //On recharge les donnees
+			trieur = new TableRowSorter<TableModel>((TableModel) viewUsers.getModel());//On recharge le trieur  
+			viewUsers.setRowSorter(trieur);
+			Action modifierUser = new AbstractAction()
+			{
+			    public void actionPerformed(ActionEvent e)
+			    {
+			    	JTable table = (JTable)e.getSource();
+			    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
+			    	try {
+			    		Utilisateur u = Utilisateur.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+						u.showEdit(); //Affiche les differentes infos
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			    }
+			};
+			
+			Action supprimerUser = new AbstractAction()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					JTable table = (JTable)e.getSource();
+			    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
+			    	try {
+			    		Utilisateur u = Utilisateur.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+						u.delete(base); //Supprime le jeu de la base
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			    	
+				}
+			};
+			
+			ButtonColumn buttonColumn = new ButtonColumn(viewUsers, modifierUser, 14);
+			buttonColumn.setMnemonic(KeyEvent.VK_D);
+			ButtonColumn buttonColumn2 = new ButtonColumn(viewUsers, supprimerUser, 15);
+			buttonColumn.setMnemonic(KeyEvent.VK_D);
+		}
 		
 	}
 }
