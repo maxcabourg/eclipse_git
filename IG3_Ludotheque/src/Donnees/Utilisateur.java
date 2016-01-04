@@ -32,7 +32,7 @@ public class Utilisateur {
 	private String editer;
 	private String supprimer;
 	
-	Utilisateur(int _id, String _prenom, String _nom, String _pseudo, String _mdp, String _mail, String _tel, String _adresse, int _admin, Date date, int droit, int jrc, int retards, int nbrJeux){
+	public Utilisateur(int _id, String _prenom, String _nom, String _pseudo, String _mdp, String _mail, String _tel, String _adresse, int _admin, Date date, int droit, int jrc, int retards, int nbrJeux){
 		id = _id;
 		prenom = _prenom;
 		nom = _nom;
@@ -50,11 +50,11 @@ public class Utilisateur {
 		editer = "Editer";
 		supprimer = "Supprimer";
 	}
-	//Fonction verifiant si un couple (pseudo, mot de passe) existe dans la base de données.
+	//Fonction verifiant si un couple (pseudo, mot de passe) existe dans la base de donnï¿½es.
 	//Renvoie true s'il existe, false s'il n'existe pas
 	//Une methode "static" est une methode qu'on peut appeler sans instancier un objet de la classe
 	public static boolean estValide(BDD base, String _pseudo, String _mdp) throws SQLException, NoSuchAlgorithmException{
-		//Une requete preparee permet d'eviter les injections SQL cad du code SQL inséré dans la requete
+		//Une requete preparee permet d'eviter les injections SQL cad du code SQL insï¿½rï¿½ dans la requete
 		PreparedStatement requete = base.getConnection().prepareStatement("Select MdpU FROM Utilisateur WHERE PseudoU = ?");
 		requete.setString(1, _mdp);
 		//Execution de la requete
@@ -67,7 +67,7 @@ public class Utilisateur {
 			
 	}
 	
-	//Prend un parametre un id et renvoie l'utilisateur correspondant à cet id
+	//Prend un parametre un id et renvoie l'utilisateur correspondant ï¿½ cet id
 	public static Utilisateur getById(BDD base, int id) throws SQLException
 	{
 		//Il faut gerer le cas ou l'id est negatif, on sait jamais.
@@ -132,6 +132,34 @@ public class Utilisateur {
         }        
         return sb.toString();
     }
+	
+	
+	public void insertInto(BDD bdd) throws SQLException
+	{
+		PreparedStatement requete = bdd.getConnection().prepareStatement("INSERT INTO Utilisateur (NomU, PrenomU, PseudoU, MdpU, MailU, TelU, AdresseU, Administrateur, DateFinAdhesion, DroitEmprunter, JoursRetardCumule, NbrRetards, NbrJeuxNonRecupere) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);");
+		requete.setString(1,nom);
+		requete.setString(2,prenom);
+		requete.setString(3, pseudo);
+		try {
+			requete.setString(4, sha1(mdp));
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		requete.setString(5, mail);
+		requete.setString(6, tel);
+		requete.setString(7, adresse);
+		requete.setBoolean(8, admin);
+		java.sql.Date sqlDate = new java.sql.Date(dateFinAdhesion.getTime());
+		requete.setDate(9,sqlDate);
+		requete.setBoolean(10, droitEmprunter);
+		requete.setInt(11, joursRetardCumule);
+		requete.setInt(12, nbrRetards);
+		requete.setInt(13, nbrJeuxNonRecuperes);
+		requete.executeUpdate();
+		requete.close();
+	}
+	
 	
 	//Getters et setters
 	public int getId() {

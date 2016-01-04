@@ -31,7 +31,7 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	private JComboBox agereco;
 	private JComboBox tf5;
 	private JComboBox tf5bis;
-	//private JTextField tf6;
+	
 	private ModeleDonneesJeux mdj = new ModeleDonneesJeux();
 	private Jeu jeu;
 	
@@ -41,7 +41,7 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 		setSize(500, 500);
 		setTitle("Editer le jeu");
 		setModal(true);
-		//add(new JLabel("TODO"));
+	
 		int lignejeu = jeu.getId() - 1;		
 		
 		
@@ -93,25 +93,7 @@ public class boiteEditerJeu extends JDialog implements ActionListener{
 	    }
 	    tf5.setSelectedItem(nbrjmax);
 	    
-	    /*tf5 = new JTextField(nbrj,JTextField.CENTER);
-	    tf5.setPreferredSize(new Dimension(300,25));
-	    tf5.addFocusListener(new FocusAdapter() {
-	        @Override
-	        public void focusGained(FocusEvent e) {
-	            tf5.setText("");
-	        }
-	    });*/
 	    
-	    /*String ext = (String) mdj.getValueAt(lignejeu, 6);
-	    tf6 = new JTextField(ext,JTextField.CENTER);
-	    tf6.setPreferredSize(new Dimension(300,25));
-	    //Lorsque l'on clique sur le textfield le texte qui �tait pr�sent disparait
-	    tf6.addFocusListener(new FocusAdapter() {
-	        @Override
-	        public void focusGained(FocusEvent e) {
-	            tf6.setText("");
-	        }
-	    });*/
 	 
 	    // Cr�ation des labels
 	    JLabel title = new JLabel("Modification du jeu");
