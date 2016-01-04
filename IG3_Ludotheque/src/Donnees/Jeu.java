@@ -25,11 +25,11 @@ public class Jeu{
 	private int nombreJoueursMax;
 	private String extensions;
 	private int reference;
-	private int statut;
+	private int nombreExemplaires;
 	private String editer;
 	private String supprimer;
 	
-	public Jeu(int _id, String _nom, String _editeur, int _annee, int _age, int min, int max, int _reference, int _statut){
+	public Jeu(int _id, String _nom, String _editeur, int _annee, int _age, int min, int max, int _reference, int _nbEx){
 		super();
 		id = _id;
 		nom = _nom;
@@ -39,7 +39,7 @@ public class Jeu{
 		nombreJoueursMin = min;
 		nombreJoueursMax = max;
 		reference = _reference;
-		statut = _statut;
+		nombreExemplaires = _nbEx;
 		editer = "editer";
 		supprimer = "supprimer";
 	}
@@ -52,7 +52,7 @@ public class Jeu{
 		{
 			ResultSet requete = base.getConnection().createStatement().executeQuery("SELECT * FROM Jeu WHERE IdJeu = "+id);
 			String NomJeu = "", EditeurJeu = "";
-			int idJeu = 0, annee = 0, age = 0, statut = 0, reference = 0, min = 0, max = 0;
+			int idJeu = 0, annee = 0, age = 0, nbEx = 0, reference = 0, min = 0, max = 0;
 			while(requete.next())
 			{
 				idJeu = requete.getInt("IdJeu");
@@ -62,11 +62,11 @@ public class Jeu{
 				max = requete.getInt("NombreJoueursMax");
 				annee = requete.getInt("AnneeJeu");
 				age = requete.getInt("AgeJeu");
-				statut = requete.getInt("StatutJeu");
+				nbEx = requete.getInt("StatutJeu");
 				reference = requete.getInt("ReferenceJeu");
 			}
 			requete.close();
-			return new Jeu(idJeu, NomJeu, EditeurJeu, annee, age, min, max, reference, statut);
+			return new Jeu(idJeu, NomJeu, EditeurJeu, annee, age, min, max, reference, nbEx);
 		}
 		else
 			return null;
@@ -106,7 +106,7 @@ public class Jeu{
 		requete.setInt(5, nombreJoueursMin);
 		requete.setInt(6, nombreJoueursMax);
 		requete.setInt(7, reference);
-		requete.setInt(8, statut);
+		requete.setInt(8, nombreExemplaires);
 		requete.executeUpdate();
 		requete.close();
 	}
@@ -143,8 +143,8 @@ public class Jeu{
 		return reference;
 	}
 
-	public int getStatut() {
-		return statut;
+	public int getNombreExemplaires() {
+		return nombreExemplaires;
 	}
 	
 	public String getEditer() {
