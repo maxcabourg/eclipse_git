@@ -56,13 +56,15 @@ public class Utilisateur {
 	public static boolean estValide(BDD base, String _pseudo, String _mdp) throws SQLException, NoSuchAlgorithmException{
 		//Une requete preparee permet d'eviter les injections SQL cad du code SQL ins�r� dans la requete
 		PreparedStatement requete = base.getConnection().prepareStatement("Select MdpU FROM Utilisateur WHERE PseudoU = ?");
-		requete.setString(1, _mdp);
+		requete.setString(1, _pseudo);
 		//Execution de la requete
 		ResultSet resultat = requete.executeQuery();
 		String mdp_base = "";
 		while(resultat.next())
 			mdp_base = resultat.getString("MdpU");
 		
+		System.out.println(mdp_base);
+		System.out.println(sha1(_mdp));
 		return mdp_base.compareTo(sha1(_mdp)) == 0;
 			
 	}
@@ -107,7 +109,7 @@ public class Utilisateur {
 	public void delete(BDD base){
 		try {
 			int suppression = base.getConnection().createStatement().executeUpdate("DELETE FROM Utilisateur WHERE IdUtilisateur = "+id); //Tout d'abord on supprime le jeu de la base
-			int baisseId = base.getConnection().createStatement().executeUpdate("UPDATE Jeu SET IdUtilisateur = IdUtilisateur - 1 WHERE IdUtilisateur > "+id); /*ensuite on baisse de 1 tous les id superieurs
+			int baisseId = base.getConnection().createStatement().executeUpdate("UPDATE Utilisateur SET IdUtilisateur = IdUtilisateur - 1 WHERE IdUtilisateur > "+id); /*ensuite on baisse de 1 tous les id superieurs
 			pour pas qu'il y ait de creux entre les id */
 			ResultSet req = base.getConnection().createStatement().executeQuery("SELECT MAX(IdUtilisateur) as maximum FROM Utilisateur"); //Et on fait repartir l'auto increment a la valeur maximale qui existe
 			int maxId = 0;
