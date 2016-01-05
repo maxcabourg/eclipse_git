@@ -16,6 +16,7 @@ public class OngletUtilisateur extends JPanel{
 	
 	private Utilisateur utilisateur;
 	private Box layout;
+	
 	public OngletUtilisateur(Utilisateur u){
 		utilisateur = u;	
 		//Creation des labels
@@ -58,7 +59,7 @@ public class OngletUtilisateur extends JPanel{
 	JLabel droitEmprunterU = new JLabel("Droit d'emprunter :   ");
 	droitEmprunterU.setFont(droitEmprunterU.getFont().deriveFont(Font.BOLD));
 	JLabel droitEmprunterUs = new JLabel();
-	if(utilisateur.DroitEmprunter())
+	if(utilisateur.DroitEmprunter()) //Permet d'afficher oui ou non au lieu de 1 ou 0
 		droitEmprunterUs.setText("oui");
 	else
 		droitEmprunterUs.setText("non");
@@ -237,7 +238,14 @@ public class OngletUtilisateur extends JPanel{
     gc11.gridwidth = GridBagConstraints.REMAINDER;
     gc11.anchor = GridBagConstraints.WEST;
     add(nbrJeuxNonRecupereUs,gc11);
+    
+    // Ajout Bouton pour modifier Mdp
+	JButton modifMdp = new JButton("Modifier mot de passe");
+	add(modifMdp);
+       
 	}
+	
+
 
 }
 
