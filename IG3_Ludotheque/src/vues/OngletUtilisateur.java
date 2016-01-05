@@ -1,5 +1,7 @@
 package vues;
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -7,12 +9,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
 import Donnees.Utilisateur;
 //Onglet montrant les information sur l'utilisateur
-public class OngletUtilisateur extends JPanel{
+public class OngletUtilisateur extends JPanel implements ActionListener{
 	
 	private Utilisateur utilisateur;
 	private Box layout;
@@ -241,8 +244,26 @@ public class OngletUtilisateur extends JPanel{
     
     // Ajout Bouton pour modifier Mdp
 	JButton modifMdp = new JButton("Modifier mot de passe");
+	modifMdp.addActionListener(this); // la fenetre va ecouteur l'action du bouton et appelle actionPerformed si clic
 	add(modifMdp);
-       
+	
+	
+	
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		
+		Object source = e.getSource();
+		if(source == modifMdp){
+			// Fenetre de modification du Mdp
+			String nouvMdp;
+			JLabel labelMdp = new JLabel();
+			String message = "Modifier son mot de passe";
+			nouvMdp = JOptionPane.showInputDialog(this, message);
+			labelMdp.setText(nouvMdp);
+		
+		}
+	
 	}
 	
 
