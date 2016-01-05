@@ -16,10 +16,12 @@ import javax.swing.table.TableRowSorter;
 import Donnees.BDD;
 import Donnees.Jeu;
 import Donnees.ModeleDonneesJeux;
+import Donnees.Utilisateur;
 
 //Onglet qui présentera les differents jeux
 public class OngletJeux extends JPanel implements ActionListener{
 
+	private Utilisateur utilisateur;
 	private BDD base;
 	private JButton actualiser;
 	private JTable viewJeux;
@@ -27,7 +29,8 @@ public class OngletJeux extends JPanel implements ActionListener{
 	private Box layoutBouton = Box.createHorizontalBox();
 	
 	private Box box = Box.createVerticalBox();
-	OngletJeux(){
+	OngletJeux(Utilisateur u){
+		utilisateur = u;
 		base = new BDD();
 		box.setPreferredSize(new Dimension(800, 450));
 		actualiser = new JButton("Actualiser");
@@ -46,6 +49,15 @@ public class OngletJeux extends JPanel implements ActionListener{
 		viewJeux.getColumnModel().getColumn(4).setPreferredWidth(50);
 		viewJeux.getColumnModel().getColumn(5).setPreferredWidth(250);
 		viewJeux.getColumnModel().getColumn(6).setPreferredWidth(50);
+		if(!utilisateur.isAdmin()){ //Cache les colonnes editer et supprimer quand on est pas admin
+				viewJeux.getColumnModel().getColumn(9).setMinWidth(0);
+				viewJeux.getColumnModel().getColumn(9).setMaxWidth(0);
+				viewJeux.getColumnModel().getColumn(9).setWidth(0);
+				viewJeux.getColumnModel().getColumn(10).setMinWidth(0);
+				viewJeux.getColumnModel().getColumn(10).setMaxWidth(0);
+				viewJeux.getColumnModel().getColumn(10).setWidth(0);
+		}
+		
 		
 		Action modifierJeu = new AbstractAction()
 		{
@@ -94,10 +106,13 @@ public class OngletJeux extends JPanel implements ActionListener{
 		    }
 		}
 		
-		ButtonColumn buttonColumn = new ButtonColumn(viewJeux, modifierJeu, 9);
-		buttonColumn.setMnemonic(KeyEvent.VK_D);
-		ButtonColumn buttonColumn2 = new ButtonColumn(viewJeux, supprimerJeu, 10);
-		buttonColumn.setMnemonic(KeyEvent.VK_D);
+		if(utilisateur.isAdmin())
+		{
+			ButtonColumn buttonColumn = new ButtonColumn(viewJeux, modifierJeu, 9);
+			buttonColumn.setMnemonic(KeyEvent.VK_D);
+			ButtonColumn buttonColumn2 = new ButtonColumn(viewJeux, supprimerJeu, 10);
+			buttonColumn.setMnemonic(KeyEvent.VK_D);
+		}	
 		box.add(new JScrollPane(viewJeux), BorderLayout.CENTER);
 		box.add(Box.createRigidArea(new Dimension(0, 20)));
 		box.add(layoutBouton);
@@ -111,6 +126,14 @@ public class OngletJeux extends JPanel implements ActionListener{
 		if(e.getActionCommand().equals("actualiser")){
 			//TODO
 			viewJeux.setModel(new ModeleDonneesJeux()); //On recharge les donnees
+			if(!utilisateur.isAdmin()){ //Cache les colonnes editer et supprimer quand on est pas admin
+				viewJeux.getColumnModel().getColumn(9).setMinWidth(0);
+				viewJeux.getColumnModel().getColumn(9).setMaxWidth(0);
+				viewJeux.getColumnModel().getColumn(9).setWidth(0);
+				viewJeux.getColumnModel().getColumn(10).setMinWidth(0);
+				viewJeux.getColumnModel().getColumn(10).setMaxWidth(0);
+				viewJeux.getColumnModel().getColumn(10).setWidth(0);
+		}
 			trieur = new TableRowSorter<TableModel>((TableModel) viewJeux.getModel());//On recharge le trieur  
 			viewJeux.setRowSorter(trieur);
 			Action modifierJeu = new AbstractAction() //On recree le bouton editer
@@ -146,10 +169,13 @@ public class OngletJeux extends JPanel implements ActionListener{
 				}
 			};
 			
-			ButtonColumn buttonColumn = new ButtonColumn(viewJeux, modifierJeu, 9);
-			buttonColumn.setMnemonic(KeyEvent.VK_D);
-			ButtonColumn buttonColumn2 = new ButtonColumn(viewJeux, supprimerJeu, 10);
-			buttonColumn.setMnemonic(KeyEvent.VK_D);
+			if(utilisateur.isAdmin())
+			{
+				ButtonColumn buttonColumn = new ButtonColumn(viewJeux, modifierJeu, 9);
+				buttonColumn.setMnemonic(KeyEvent.VK_D);
+				ButtonColumn buttonColumn2 = new ButtonColumn(viewJeux, supprimerJeu, 10);
+				buttonColumn.setMnemonic(KeyEvent.VK_D);
+			}
 		}
 		
 	}
