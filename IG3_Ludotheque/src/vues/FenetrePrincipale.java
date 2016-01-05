@@ -22,7 +22,7 @@ public class FenetrePrincipale extends JFrame{
 			onglets.add("Ajouter Utilsateur", new FormulaireUtilisateur());
 			onglets.add("Utilisateurs de Ludotech", new ListeUtilisateurs());
 		}
-		onglets.add("Déconnexion", new OngletDeco(this));
+		onglets.add("DÃ©connexion", new OngletDeco(this));
 		setSize(1280, 720);
 		
 		setTitle("Ludotech");
