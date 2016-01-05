@@ -15,12 +15,14 @@ public class FenetrePrincipale extends JFrame{
 		bdd = b;
 		onglets = new JTabbedPane();
 		//Ajout des onglets
-		onglets.add("Jeux", new OngletJeux());
+		onglets.add("Jeux", new OngletJeux(utilisateur));
 		onglets.add("Mon compte", new OngletUtilisateur(utilisateur));
-		onglets.add("Ajouter Jeu", new FormulaireJeu());
-		onglets.add("Ajouter Utilsateur", new FormulaireUtilisateur());
-		if(utilisateur.isAdmin())
+		if(utilisateur.isAdmin()){
+			onglets.add("Ajouter Jeu", new FormulaireJeu());
+			onglets.add("Ajouter Utilsateur", new FormulaireUtilisateur());
 			onglets.add("Utilisateurs de Ludotech", new ListeUtilisateurs());
+		}
+		onglets.add("Déconnexion", new OngletDeco(this));
 		setSize(1280, 720);
 		
 		setTitle("Ludotech");
