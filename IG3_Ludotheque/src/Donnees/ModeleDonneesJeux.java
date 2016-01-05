@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeleDonneesJeux extends AbstractTableModel{
 
 	private Jeu[] donnees; //Ce seront les donnees a afficher
-	private final String[] entetes = {"Id", "Titre", "Editeur", "Annee de parution", "Age recommandé", "Nombre de joueurs min", "Nombre de joueurs max", "Reference", "Statut", "Editer", "Supprimer"};	//Titres des colonnes
+	private final String[] entetes = {"Id", "Titre", "Editeur", "Annee de parution", "Age recommandï¿½", "Nombre de joueurs min", "Nombre de joueurs max", "Reference", "Statut", "Editer", "Supprimer"};	//Titres des colonnes
 	
 	public ModeleDonneesJeux(){	
 		super();
@@ -78,7 +78,7 @@ public class ModeleDonneesJeux extends AbstractTableModel{
 		case 7:
 			return donnees[ligne].getReference();
 		case 8:
-			return donnees[ligne].getStatut();
+			return donnees[ligne].getNombreExemplaires();
 		case 9:
 			return donnees[ligne].getEditer();
 		case 10:

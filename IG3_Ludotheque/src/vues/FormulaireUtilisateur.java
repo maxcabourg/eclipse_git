@@ -202,10 +202,9 @@ public class FormulaireUtilisateur extends JPanel implements ActionListener
 						if(!admin.isSelected())
 						{adminU = 0;}
 						Utilisateur utilisateur = new Utilisateur(0,prenomU, nomU, pseudoU, nomU, addmailU, telephoneU, add1U, adminU, sqlDate, 0,0,0,0);
-						JOptionPane.showMessageDialog(this, "OK");
 						if(!pseudoU.equals("")){			
 						utilisateur.insertInto(bdd);
-						JOptionPane.showMessageDialog(this, "Merci '"+pseudoU+"' d'avoir crיי un compte !");
+						JOptionPane.showMessageDialog(this, "Merci '"+pseudoU+"' d'avoir cree un compte !");
 						}	
 						else {
 							JOptionPane.showMessageDialog(this, "Veuillez mettre un nom ֳ  votre jeu !");

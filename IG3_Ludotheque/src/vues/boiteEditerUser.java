@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -31,7 +32,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	private JTextField tf1;
 	private JTextField tf2;
 	private JTextField tf3;
-	private JTextField tf4;
+	//private JTextField tf4;
 	private JTextField tf5;
 	private JFormattedTextField tf6;
 	private JTextField tf7;
@@ -41,25 +42,31 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	JComboBox nbjC = new JComboBox();
 	JComboBox nbj = new JComboBox();
 	JComboBox nbjnr = new JComboBox();
-
+	//private JButton reinitialiser;
+	private String mdpUser;
 	
 	private ModeleDonneesUser mdu = new ModeleDonneesUser();
 	
+	
+
+	
+	
+	
 	public boiteEditerUser(Utilisateur u){
 		utilisateur = u;
-		setSize(500, 500);
-		setTitle("nomer l'utilisateur");
+		setSize(600, 600);
+		setTitle("Modifier l'utilisateur");
 		setModal(true);
 		//add(new JLabel("TODO"));
 		
 		int ligneu = u.getId() - 1;
 		String prenom = (String) mdu.getValueAt(ligneu, 1);
 		tf1 = new JTextField(prenom,JTextField.CENTER);
-	    tf1.setPreferredSize(new Dimension(300,25));
+	    tf1.setPreferredSize(new Dimension(400,25));
 	   
 	    String nom = (String) mdu.getValueAt(ligneu, 2);
 	    tf2 = new JTextField(nom,JTextField.CENTER);
-	    tf2.setPreferredSize(new Dimension(300,25));
+	    tf2.setPreferredSize(new Dimension(400,25));
 	    tf2.addFocusListener(new FocusAdapter() {
 	        @Override
 	        public void focusGained(FocusEvent e) {
@@ -69,7 +76,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    
 	    String pseudo = (String) mdu.getValueAt(ligneu, 3);
 	    tf3 = new JTextField(pseudo,JTextField.CENTER);
-	    tf3.setPreferredSize(new Dimension(300,25));
+	    tf3.setPreferredSize(new Dimension(400,25));
 	    tf3.addFocusListener(new FocusAdapter() {
 	        @Override
 	        public void focusGained(FocusEvent e) {
@@ -77,19 +84,24 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	        }
 	    });
 	   	    
-	    String mdp = (String) mdu.getValueAt(ligneu, 4);
-	    tf4 = new JTextField(mdp,JTextField.CENTER);
-	    tf4.setPreferredSize(new Dimension(300,25));
+	    String mdpUser = (String) mdu.getValueAt(ligneu, 4);
+	    /*tf4 = new JTextField(mdp,JTextField.CENTER);
+	    tf4.setPreferredSize(new Dimension(400,25));
 	    tf4.addFocusListener(new FocusAdapter() {
 	        @Override
 	        public void focusGained(FocusEvent e) {
 	            tf4.setText("");
 	        }
-	    });
+	    });*/
+	    
+	    
+	    JButton reinitialiser = new JButton("Reinitialiser Mot de Passe");
+	    
+	    
 	    
 	    String mail = (String) mdu.getValueAt(ligneu, 5);
 	    tf5 = new JTextField(mail,JTextField.CENTER);
-	    tf5.setPreferredSize(new Dimension(300,25));
+	    tf5.setPreferredSize(new Dimension(400,25));
 	    tf5.addFocusListener(new FocusAdapter() {
 	        @Override
 	        public void focusGained(FocusEvent e) {
@@ -100,7 +112,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    //MaskFormatter mtel = new MaskFormatter("##-##-##-##-##");
 	    String tel = (String) mdu.getValueAt(ligneu, 6);
 	    tf6 = new JFormattedTextField(tel);
-	    tf6.setPreferredSize(new Dimension(300,25));
+	    tf6.setPreferredSize(new Dimension(400,25));
 	    tf6.addFocusListener(new FocusAdapter() {
 	        @Override
 	        public void focusGained(FocusEvent e) {
@@ -117,7 +129,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    
 	    String adr = (String) mdu.getValueAt(ligneu, 7);
 	    tf7 = new JTextField(adr,JTextField.CENTER);
-	    tf7.setPreferredSize(new Dimension(300,25));
+	    tf7.setPreferredSize(new Dimension(400,25));
 	    tf7.addFocusListener(new FocusAdapter() {
 	        @Override
 	        public void focusGained(FocusEvent e) {
@@ -130,7 +142,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    
 	    Date finadhe = (Date) mdu.getValueAt(ligneu, 9);
 	    tf8 = new JDateChooser(finadhe);
-	    tf8.setPreferredSize(new Dimension(300,25));
+	    tf8.setPreferredSize(new Dimension(400,25));
 	  
 	    Boolean droitEmp = (Boolean) mdu.getValueAt(ligneu, 10);
 	    droitE.setSelected(droitEmp);
@@ -175,7 +187,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    
 	 
 	    JLabel mdpU = new JLabel("Mot de passe");
-	    mdpU.setLabelFor(tf4);
+	    mdpU.setLabelFor(reinitialiser);
 	   
 	 
 	    JLabel mailU = new JLabel("Mail");
@@ -254,7 +266,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    gc4.gridwidth = GridBagConstraints.REMAINDER;
 	    gc4.anchor = GridBagConstraints.CENTER;
 	    gc4.fill = GridBagConstraints.HORIZONTAL;
-	    add(tf4,gc4);
+	    add(reinitialiser,gc4);
 	    
 	    GridBagConstraints gc5 =new GridBagConstraints();
 	    gc5.anchor = GridBagConstraints.NONE;
@@ -379,9 +391,21 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	 
 	    valider.addActionListener(this); //On ajoute au bouton un gestionnaire d'evenements
 	    valider.setActionCommand("Valider"); //On definit le nom de l'evenement envoye par le bouton
+	    reinitialiser.addActionListener(this); //On ajoute au bouton un gestionnaire d'evenements
+	    reinitialiser.setActionCommand("Reinitialiser"); //On definit le nom de l'evenement envoye par le bouton
 	}
-	
-	public void actionPerformed(ActionEvent arg0) {
+  
+	//Action du bouton reinitialiser mdp et Valider
+	public void actionPerformed(ActionEvent arg0){
+		if(arg0.getActionCommand().equals("Reinitialiser")){
+				try {
+					mdpUser = Utilisateur.sha1(tf2.getText());
+					JOptionPane.showMessageDialog(this, "Votre mot de passe à bien été réinitialisé !");
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 		if(arg0.getActionCommand().equals("Valider")){
 			BDD bdd = new BDD();
 			try{
@@ -389,7 +413,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 				String prenomu = tf1.getText();
 				String nomu = tf2.getText();
 				String pseudou = tf3.getText();
-				String mdpu = tf4.getText();
+				String mdpu = mdpUser;
 				String mailu = tf5.getText();
 				String telu = tf6.getText();
 				String adru = tf7.getText();
@@ -439,7 +463,70 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 			
 			
 		}
-	}
+		
+}	
+	
+	
+	
+	/*public void actionPerformed1(ActionEvent arg0) {
+		if(arg0.getActionCommand().equals("Valider")){
+			BDD bdd = new BDD();
+			try{
+				//Ici on r�cup�re les saisies dans les JTextField et le JComboBox
+				String prenomu = tf1.getText();
+				String nomu = tf2.getText();
+				String pseudou = tf3.getText();
+				String mdpu = mdpUser;
+				String mailu = tf5.getText();
+				String telu = tf6.getText();
+				String adru = tf7.getText();
+				Boolean admu = adm.isSelected();
+				java.util.Date fadU = tf8.getDate();
+				java.sql.Date sqlDate = new java.sql.Date(fadU.getTime());
+				Boolean droitEmpU = droitE.isSelected();
+				int nbjoursRetardCumule = (int) nbjC.getSelectedItem();
+				int nbjoursRetard = (int) nbj.getSelectedItem();
+				int jeuNonRecup = (int) nbjnr.getSelectedItem();
+				int refj = 0;
+				int stj = 0;
+				
+				if(!prenomu.equals("")&&!nomu.equals("")&&!pseudou.equals("")){
+				
+				PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Utilisateur SET NomU = ?,PrenomU = ?,PseudoU = ?,MdpU=?,MailU=?,TelU=?,AdresseU=?,Administrateur=?,DateFinAdhesion=?,DroitEmprunter=?,JoursRetardCumule=?,NbrRetards=?,NbrJeuxNonRecupere=? WHERE IdUtilisateur = ?");
+				
+				
+				requete.setString(1,nomu);
+				requete.setString(2,prenomu);
+				requete.setString(3, pseudou);
+				requete.setString(4, mdpu);
+				requete.setString(5, mailu);
+				requete.setString(6, telu);
+				requete.setString(7, adru);
+				requete.setBoolean(8, admu);
+				requete.setDate(9, sqlDate);
+				requete.setBoolean(10, droitEmpU);
+				requete.setInt(11, nbjoursRetardCumule);
+				requete.setInt(12, nbjoursRetard);
+				requete.setInt(13, jeuNonRecup);
+				requete.setInt(14, utilisateur.getId());
+				
+				requete.executeUpdate();
+				JOptionPane.showMessageDialog(this, "Votre utilisateur '"+pseudou+"' à bien été modifié !");
+				dispose();
+				requete.close();
+				}	
+				else {
+					JOptionPane.showMessageDialog(this, "Veuillez remplir les champs de votre utilisateurs !");
+				}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}catch (HeadlessException e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+	}*/
 	private void setDefaultValueOf(JTextField tf12, String string) {
 		// TODO Auto-generated method stub
 	}
