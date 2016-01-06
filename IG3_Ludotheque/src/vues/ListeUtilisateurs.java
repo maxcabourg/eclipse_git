@@ -34,6 +34,9 @@ public class ListeUtilisateurs extends JPanel implements ActionListener{
 		viewUsers = new JTable(new ModeleDonneesUser());
 		viewUsers.setMinimumSize(new Dimension(1500, 800));
 		viewUsers.setDefaultRenderer(JTable.class, new Renderer());// for the rendering of cell
+		viewUsers.getColumnModel().getColumn(0).setMinWidth(0); //On cache la colonne des id
+		viewUsers.getColumnModel().getColumn(0).setMaxWidth(0);
+		viewUsers.getColumnModel().getColumn(0).setWidth(0);
 		trieur = new TableRowSorter<TableModel>((TableModel) viewUsers.getModel());
 		viewUsers.setRowSorter(trieur);
 		actualiser = new JButton("actualiser");
@@ -81,7 +84,7 @@ public class ListeUtilisateurs extends JPanel implements ActionListener{
 				    public void actionPerformed(ActionEvent e) {
 				        String regex = JOptionPane.showInputDialog("Quel utilisateur souhaitez-vous rechercher (Pseudo) ? ");
 				 
-				        trieur.setRowFilter(RowFilter.regexFilter(regex, 0, 3)); //S'occupe de chercher les utilisateurs selon le pseudo correspondant a l'expression rentrée par l'utilisateur
+				        trieur.setRowFilter(RowFilter.regexFilter(regex, 0, 3)); //S'occupe de chercher les utilisateurs selon le pseudo correspondant a l'expression rentrï¿½e par l'utilisateur
 				    }
 				}
 		
@@ -91,7 +94,7 @@ public class ListeUtilisateurs extends JPanel implements ActionListener{
 		buttonColumn.setMnemonic(KeyEvent.VK_D);
 		
 		box.add(new JScrollPane(viewUsers), BorderLayout.CENTER);
-		box.add(new JButton(new FilterAction())); //Crée un bouton de recherche qui va effectuer l'action decrite dans la classe FilterAction
+		box.add(new JButton(new FilterAction())); //Crï¿½e un bouton de recherche qui va effectuer l'action decrite dans la classe FilterAction
 		box.add(actualiser);
 		add(box);
 		
