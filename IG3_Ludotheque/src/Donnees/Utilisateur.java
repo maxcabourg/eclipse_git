@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JOptionPane;
 
@@ -31,7 +32,6 @@ public class Utilisateur {
 	private int nbrJeuxNonRecuperes;
 	private String editer;
 	private String supprimer;
-	private int idUti;
 	
 	public Utilisateur(int _id, String _prenom, String _nom, String _pseudo, String _mdp, String _mail, String _tel, String _adresse, int _admin, Date date, int droit, int jrc, int retards, int nbrJeux){
 		id = _id;
@@ -163,13 +163,14 @@ public class Utilisateur {
 		requete.close();
 	}
 	
-	public void UpdateMdp(BDD bdd, String nouveauMdp, int idUti) throws SQLException {
-		PreparedStatement requeteMdp = bdd.getConnection().prepareStatement("UPDATE Utilisateur SET MdpU = ? WHERE IdUtilisateur = ?");
-		requeteMdp.setString(1, nouveauMdp);
-		requeteMdp.setInt(2,idUti);
-		requeteMdp.executeUpdate();
-		requeteMdp.close();		
-		
+	public boolean peutEmprunter (Utilisateur u){
+		boolean res = u.droitEmprunter;
+		if (res){
+			java.util.Date dateAujourdhui = new java.util.Date();
+			java.util.Date dateFinResa = new java.util.Date(u.dateFinAdhesion.getTime());
+			res = dateFinResa.after(dateAujourdhui);
+		}
+		return res;
 	}
 	
 	
