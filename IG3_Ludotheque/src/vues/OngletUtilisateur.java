@@ -245,6 +245,7 @@ public class OngletUtilisateur extends JPanel implements ActionListener{
     // Ajout Bouton pour modifier Mdp
 	JButton modifMdp = new JButton("Modifier mot de passe");
 	modifMdp.addActionListener(this); // la fenetre va ecouteur l'action du bouton et appelle actionPerformed si clic
+	modifMdp.setActionCommand("modifier");
 	add(modifMdp);
 	
 	
@@ -253,8 +254,7 @@ public class OngletUtilisateur extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		
-		Object source = e.getSource();
-		if(source == modifMdp){
+		if(e.getActionCommand().equals("modifier")){
 			// Fenetre de modification du Mdp
 			String nouvMdp;
 			JLabel labelMdp = new JLabel();
