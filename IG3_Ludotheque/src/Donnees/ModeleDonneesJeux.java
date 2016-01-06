@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeleDonneesJeux extends AbstractTableModel{
 
 	private Jeu[] donnees; //Ce seront les donnees a afficher
-	private final String[] entetes = {"Id", "Titre", "Editeur", "Annee de parution", "Age recommand�", "Nombre de joueurs min", "Nombre de joueurs max", "Reference", "Exemplaires", "Editer", "Supprimer"};	//Titres des colonnes
+	private final String[] entetes = {"Id", "Titre", "Editeur", "Annee de parution", "Age recommand�", "Nombre de joueurs min", "Nombre de joueurs max", "Reference", "Exemplaires","Reserver", "Editer", "Supprimer"};	//Titres des colonnes
 	
 	public ModeleDonneesJeux(){	
 		super();
@@ -80,8 +80,10 @@ public class ModeleDonneesJeux extends AbstractTableModel{
 		case 8:
 			return donnees[ligne].getNombreExemplaires();
 		case 9:
-			return donnees[ligne].getEditer();
+			return donnees[ligne].getReserver();
 		case 10:
+			return donnees[ligne].getEditer();
+		case 11:
 			return donnees[ligne].getSupprimer();
 		default:
 			return null;
@@ -100,6 +102,6 @@ public class ModeleDonneesJeux extends AbstractTableModel{
 	@Override
 	public boolean isCellEditable(int row, int column)
     {
-        return column == 9 || column == 10;
+        return column == 9 || column == 10 || column == 11;
     }
 }

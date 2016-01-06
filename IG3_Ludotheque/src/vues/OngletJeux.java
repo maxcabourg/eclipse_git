@@ -96,6 +96,14 @@ public class OngletJeux extends JPanel implements ActionListener{
 			}
 		};
 		
+		Action reserverJeu = new AbstractAction() //On recree le bouton supprimer
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+		    	
+			}
+		};
+		
 		
 		//CLASSE INTERNE PERMETTANT D'EFFECTUER DES RECHERCHES DANS LA JTABLE
 		class FilterAction extends AbstractAction {
@@ -112,10 +120,12 @@ public class OngletJeux extends JPanel implements ActionListener{
 		
 		if(utilisateur.isAdmin())
 		{
-			ButtonColumn buttonColumn = new ButtonColumn(viewJeux, modifierJeu, 9);
-			buttonColumn.setMnemonic(KeyEvent.VK_D);
-			ButtonColumn buttonColumn2 = new ButtonColumn(viewJeux, supprimerJeu, 10);
-			buttonColumn.setMnemonic(KeyEvent.VK_D);
+			ButtonColumn buttonColumn1 = new ButtonColumn(viewJeux, reserverJeu, 9);
+			buttonColumn1.setMnemonic(KeyEvent.VK_D);
+			ButtonColumn buttonColumn2 = new ButtonColumn(viewJeux, modifierJeu, 10);
+			buttonColumn2.setMnemonic(KeyEvent.VK_D);
+			ButtonColumn buttonColumn3 = new ButtonColumn(viewJeux, supprimerJeu, 11);
+			buttonColumn3.setMnemonic(KeyEvent.VK_D);
 		}	
 		box.add(new JScrollPane(viewJeux), BorderLayout.CENTER);
 		box.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -182,12 +192,22 @@ public class OngletJeux extends JPanel implements ActionListener{
 				}
 			};
 			
+			Action reserverJeu = new AbstractAction() //On recree le bouton supprimer
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+			    	
+				}
+			};
+			
 			if(utilisateur.isAdmin())
 			{
-				ButtonColumn buttonColumn = new ButtonColumn(viewJeux, modifierJeu, 9);
-				buttonColumn.setMnemonic(KeyEvent.VK_D);
-				ButtonColumn buttonColumn2 = new ButtonColumn(viewJeux, supprimerJeu, 10);
-				buttonColumn.setMnemonic(KeyEvent.VK_D);
+				ButtonColumn buttonColumn1 = new ButtonColumn(viewJeux, reserverJeu, 9);
+				buttonColumn1.setMnemonic(KeyEvent.VK_D);
+				ButtonColumn buttonColumn2 = new ButtonColumn(viewJeux, modifierJeu, 10);
+				buttonColumn2.setMnemonic(KeyEvent.VK_D);
+				ButtonColumn buttonColumn3 = new ButtonColumn(viewJeux, supprimerJeu, 11);
+				buttonColumn3.setMnemonic(KeyEvent.VK_D);
 			}
 		}
 		

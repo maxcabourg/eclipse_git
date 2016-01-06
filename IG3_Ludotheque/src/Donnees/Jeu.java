@@ -28,6 +28,7 @@ public class Jeu{
 	private int nombreExemplaires;
 	private String editer;
 	private String supprimer;
+	private String reserver;
 	
 	public Jeu(int _id, String _nom, String _editeur, int _annee, int _age, int min, int max, int _reference, int _nbEx){
 		super();
@@ -42,6 +43,7 @@ public class Jeu{
 		nombreExemplaires = _nbEx;
 		editer = "editer";
 		supprimer = "supprimer";
+		reserver = "reserver";
 	}
 	
 	//Prend un parametre un id et renvoie le jeu correspondant � cet id
@@ -153,5 +155,9 @@ public class Jeu{
 	
 	public String getSupprimer(){
 		return supprimer;
+	}
+	
+	public String getReserver(){
+		return reserver;
 	}
 }
