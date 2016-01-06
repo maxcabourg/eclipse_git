@@ -1,5 +1,6 @@
 package vues;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -393,6 +394,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    valider.setActionCommand("Valider"); //On definit le nom de l'evenement envoye par le bouton
 	    reinitialiser.addActionListener(this); //On ajoute au bouton un gestionnaire d'evenements
 	    reinitialiser.setActionCommand("Reinitialiser"); //On definit le nom de l'evenement envoye par le bouton
+
 	}
   
 	//Action du bouton reinitialiser mdp et Valider
@@ -400,7 +402,9 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 		if(arg0.getActionCommand().equals("Reinitialiser")){
 				try {
 					mdpUser = Utilisateur.sha1(tf2.getText());
-					JOptionPane.showMessageDialog(this, "Votre mot de passe à bien été réinitialisé !");
+					JLabel l = new JLabel("<html>Le mot de passe à bien été réinitialisé !<br>Le nouveau mot de passe est le nom de l'utilisateur.</html>");
+					l.setHorizontalAlignment(JLabel.CENTER);
+					JOptionPane.showMessageDialog(this,l);
 				} catch (NoSuchAlgorithmException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -467,66 +471,6 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 }	
 	
 	
-	
-	/*public void actionPerformed1(ActionEvent arg0) {
-		if(arg0.getActionCommand().equals("Valider")){
-			BDD bdd = new BDD();
-			try{
-				//Ici on r�cup�re les saisies dans les JTextField et le JComboBox
-				String prenomu = tf1.getText();
-				String nomu = tf2.getText();
-				String pseudou = tf3.getText();
-				String mdpu = mdpUser;
-				String mailu = tf5.getText();
-				String telu = tf6.getText();
-				String adru = tf7.getText();
-				Boolean admu = adm.isSelected();
-				java.util.Date fadU = tf8.getDate();
-				java.sql.Date sqlDate = new java.sql.Date(fadU.getTime());
-				Boolean droitEmpU = droitE.isSelected();
-				int nbjoursRetardCumule = (int) nbjC.getSelectedItem();
-				int nbjoursRetard = (int) nbj.getSelectedItem();
-				int jeuNonRecup = (int) nbjnr.getSelectedItem();
-				int refj = 0;
-				int stj = 0;
-				
-				if(!prenomu.equals("")&&!nomu.equals("")&&!pseudou.equals("")){
-				
-				PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Utilisateur SET NomU = ?,PrenomU = ?,PseudoU = ?,MdpU=?,MailU=?,TelU=?,AdresseU=?,Administrateur=?,DateFinAdhesion=?,DroitEmprunter=?,JoursRetardCumule=?,NbrRetards=?,NbrJeuxNonRecupere=? WHERE IdUtilisateur = ?");
-				
-				
-				requete.setString(1,nomu);
-				requete.setString(2,prenomu);
-				requete.setString(3, pseudou);
-				requete.setString(4, mdpu);
-				requete.setString(5, mailu);
-				requete.setString(6, telu);
-				requete.setString(7, adru);
-				requete.setBoolean(8, admu);
-				requete.setDate(9, sqlDate);
-				requete.setBoolean(10, droitEmpU);
-				requete.setInt(11, nbjoursRetardCumule);
-				requete.setInt(12, nbjoursRetard);
-				requete.setInt(13, jeuNonRecup);
-				requete.setInt(14, utilisateur.getId());
-				
-				requete.executeUpdate();
-				JOptionPane.showMessageDialog(this, "Votre utilisateur '"+pseudou+"' à bien été modifié !");
-				dispose();
-				requete.close();
-				}	
-				else {
-					JOptionPane.showMessageDialog(this, "Veuillez remplir les champs de votre utilisateurs !");
-				}
-			}catch (SQLException e) {
-				e.printStackTrace();
-			}catch (HeadlessException e) {
-				e.printStackTrace();
-			}
-			
-			
-		}
-	}*/
 	private void setDefaultValueOf(JTextField tf12, String string) {
 		// TODO Auto-generated method stub
 	}

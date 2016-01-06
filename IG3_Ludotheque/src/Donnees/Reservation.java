@@ -77,8 +77,10 @@ public class Reservation {
 		return venuChercher;
 	}
 	
+	
+	
 	// fonction pour les JSONArray et leur utilisation!	
-	public List<Integer> jsonToList(JSONArray array){
+	private List<Integer> jsonToList(JSONArray array){
 		List<Integer> res = new ArrayList<Integer>();
 		for (int i=0; i<array.length(); i++) {
 			try {
@@ -86,10 +88,32 @@ public class Reservation {
 			} catch (NumberFormatException | JSONException e) {
 				e.printStackTrace();
 			}
-		}
-		
+		}		
 		return res;
 	}
+	
+	public String ListToString (List<Integer> liste){
+		JSONArray liste2 = new JSONArray();
+		for (int value : liste) {
+			liste2.put(value);
+		}
+		return liste2.toString();
+	}
+	
+	public List<Integer> stringToList(String txt){
+		List<Integer> res = new ArrayList<Integer>();
+		try {
+			JSONArray liste = new JSONArray(txt);
+			res = jsonToList(liste);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+	//TODO
+	//prevoir le cas où la liste est vide.
+	
+	
 	/*
 	 * List<Integer> liste = jsontOlist(hkjdshdk);
 	 * int coucou = liste.get(0);
