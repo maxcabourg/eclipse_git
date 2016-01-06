@@ -15,6 +15,7 @@ public class FenetrePrincipale extends JFrame{
 		bdd = b;
 		onglets = new JTabbedPane();
 		//Ajout des onglets
+		onglets.add("Accueil", new PageAccueil());
 		onglets.add("Jeux", new OngletJeux(utilisateur));
 		onglets.add("Mon compte", new OngletUtilisateur(utilisateur));
 		if(utilisateur.isAdmin()){
