@@ -32,7 +32,7 @@ public class OngletJeux extends JPanel implements ActionListener{
 	OngletJeux(Utilisateur u){
 		utilisateur = u;
 		base = new BDD();
-		box.setPreferredSize(new Dimension(800, 450));
+		box.setPreferredSize(new Dimension(1000, 450));
 		actualiser = new JButton("Actualiser");
 		actualiser.addActionListener(this);
 		actualiser.setActionCommand("actualiser");
@@ -43,12 +43,16 @@ public class OngletJeux extends JPanel implements ActionListener{
 		viewJeux.setDefaultRenderer(JTable.class, new Renderer());// for the rendering of cell
 		
 		//viewJeux.getColumn("Editer").setCellRenderer(new Renderer());
+		viewJeux.getColumnModel().getColumn(0).setMinWidth(0); //On cache la colonne des id
+		viewJeux.getColumnModel().getColumn(0).setMaxWidth(0);
+		viewJeux.getColumnModel().getColumn(0).setWidth(0);
+		viewJeux.getColumnModel().getColumn(5).setWidth(20);
 		viewJeux.getColumnModel().getColumn(0).setPreferredWidth(20);
 		viewJeux.getColumnModel().getColumn(1).setPreferredWidth(175);
 		viewJeux.getColumnModel().getColumn(3).setPreferredWidth(50);
 		viewJeux.getColumnModel().getColumn(4).setPreferredWidth(50);
-		viewJeux.getColumnModel().getColumn(5).setPreferredWidth(250);
 		viewJeux.getColumnModel().getColumn(6).setPreferredWidth(50);
+		viewJeux.getColumnModel().getColumn(8).setPreferredWidth(30);
 		if(!utilisateur.isAdmin()){ //Cache les colonnes editer et supprimer quand on est pas admin
 				viewJeux.getColumnModel().getColumn(9).setMinWidth(0);
 				viewJeux.getColumnModel().getColumn(9).setMaxWidth(0);
@@ -102,7 +106,7 @@ public class OngletJeux extends JPanel implements ActionListener{
 		    public void actionPerformed(ActionEvent e) {
 		        String regex = JOptionPane.showInputDialog("Quel jeu souhaitez-vous rechercher ? ");
 		 
-		        trieur.setRowFilter(RowFilter.regexFilter(regex, 0, 1)); //S'occupe de chercher les jeux correspondant a l'expression rentrée par l'utilisateur
+		        trieur.setRowFilter(RowFilter.regexFilter(regex, 0, 1)); //S'occupe de chercher les jeux correspondant a l'expression rentrï¿½e par l'utilisateur
 		    }
 		}
 		
@@ -117,7 +121,7 @@ public class OngletJeux extends JPanel implements ActionListener{
 		box.add(Box.createRigidArea(new Dimension(0, 20)));
 		box.add(layoutBouton);
 		box.add(actualiser);
-		box.add(new JButton(new FilterAction())); //Crée un bouton de recherche qui va effectuer l'action decrite dans la classe FilterAction
+		box.add(new JButton(new FilterAction())); //Crï¿½e un bouton de recherche qui va effectuer l'action decrite dans la classe FilterAction
 		add(box);
 		
 	}
