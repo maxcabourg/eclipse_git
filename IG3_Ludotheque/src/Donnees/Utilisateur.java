@@ -31,6 +31,7 @@ public class Utilisateur {
 	private int nbrJeuxNonRecuperes;
 	private String editer;
 	private String supprimer;
+	private int idUti;
 	
 	public Utilisateur(int _id, String _prenom, String _nom, String _pseudo, String _mdp, String _mail, String _tel, String _adresse, int _admin, Date date, int droit, int jrc, int retards, int nbrJeux){
 		id = _id;
@@ -62,7 +63,9 @@ public class Utilisateur {
 		String mdp_base = "";
 		while(resultat.next())
 			mdp_base = resultat.getString("MdpU");
-	
+		
+		System.out.println(mdp_base);
+		System.out.println(sha1(_mdp));
 		return mdp_base.compareTo(sha1(_mdp)) == 0;
 			
 	}
@@ -158,6 +161,15 @@ public class Utilisateur {
 		requete.setInt(13, nbrJeuxNonRecuperes);
 		requete.executeUpdate();
 		requete.close();
+	}
+	
+	public void UpdateMdp(BDD bdd, String nouveauMdp, int idUti) throws SQLException {
+		PreparedStatement requeteMdp = bdd.getConnection().prepareStatement("UPDATE Utilisateur SET MdpU = ? WHERE IdUtilisateur = ?");
+		requeteMdp.setString(1, nouveauMdp);
+		requeteMdp.setInt(2,idUti);
+		requeteMdp.executeUpdate();
+		requeteMdp.close();		
+		
 	}
 	
 	

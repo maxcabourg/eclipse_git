@@ -1,7 +1,8 @@
 package vues;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
-
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -13,6 +14,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
+import Donnees.BDD;
 import Donnees.Utilisateur;
 //Onglet montrant les information sur l'utilisateur
 public class OngletUtilisateur extends JPanel implements ActionListener{
@@ -248,12 +250,25 @@ public class OngletUtilisateur extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getActionCommand().equals("modifier")){
+			BDD bdd = new BDD();
 			// Fenetre de modification du Mdp
 			String nouvMdp;
 			JLabel labelMdp = new JLabel();
 			String message = "Modifier son mot de passe";
 			nouvMdp = JOptionPane.showInputDialog(this, message);
+			try {
+				nouvMdp = Utilisateur.sha1(nouvMdp);
+			} catch (NoSuchAlgorithmException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			labelMdp.setText(nouvMdp);
+			try {
+				utilisateur.UpdateMdp(bdd, nouvMdp, utilisateur.getId());
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		
 		}
 	
