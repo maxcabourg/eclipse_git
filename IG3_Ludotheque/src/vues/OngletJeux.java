@@ -128,8 +128,17 @@ public class OngletJeux extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("actualiser")){
-			//TODO
+			//TODO	
 			viewJeux.setModel(new ModeleDonneesJeux()); //On recharge les donnees
+			viewJeux.getColumnModel().getColumn(0).setMinWidth(0); //On cache la colonne des id
+			viewJeux.getColumnModel().getColumn(0).setMaxWidth(0);
+			viewJeux.getColumnModel().getColumn(0).setWidth(0);
+			viewJeux.getColumnModel().getColumn(0).setPreferredWidth(20);
+			viewJeux.getColumnModel().getColumn(1).setPreferredWidth(175);
+			viewJeux.getColumnModel().getColumn(3).setPreferredWidth(50);
+			viewJeux.getColumnModel().getColumn(4).setPreferredWidth(50);
+			viewJeux.getColumnModel().getColumn(6).setPreferredWidth(50);
+			viewJeux.getColumnModel().getColumn(8).setPreferredWidth(30);
 			if(!utilisateur.isAdmin()){ //Cache les colonnes editer et supprimer quand on est pas admin
 				viewJeux.getColumnModel().getColumn(9).setMinWidth(0);
 				viewJeux.getColumnModel().getColumn(9).setMaxWidth(0);
