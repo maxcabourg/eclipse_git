@@ -18,12 +18,10 @@ import Donnees.Utilisateur;
 public class OngletUtilisateur extends JPanel implements ActionListener{
 	
 	private Utilisateur utilisateur;
-	private Box layout;
-	
 	public OngletUtilisateur(Utilisateur u){
-		utilisateur = u;	
+		utilisateur = u;
+		
 		//Creation des labels
-	layout = Box.createVerticalBox();
 	
 	JLabel titre = new JLabel("Informations Utilisateur");
 	Font f = new Font(null, Font.PLAIN, 25); 
@@ -79,22 +77,11 @@ public class OngletUtilisateur extends JPanel implements ActionListener{
 	nbrJeuxNonRecupereU.setFont(nbrJeuxNonRecupereU.getFont().deriveFont(Font.BOLD));
 	JLabel nbrJeuxNonRecupereUs = new JLabel(String.valueOf(utilisateur.getNbrJeuxNonRecuperes()));
 	
-	/*//Ajout des labels dans le layout
-	layout.add(pseudoU);
-	layout.add(nomU);
-	layout.add(prenomU);
-	layout.add(mailU);
-	layout.add(telU);
-	layout.add(adresseU);
-	layout.add(dateFinAdhesionU);
-	layout.add(droitEmprunterU);
-	layout.add(joursRetardCumuleU);
-	layout.add(nbrRetardsU);
-	layout.add(nbrJeuxNonRecupereU);
-	//Ajout du layout
-
-	add(layout);
-	this.setLayout(new GridLayout(3,2, 5, 5));*/
+	// Ajout Bouton pour modifier Mdp
+		JButton modifMdp = new JButton("Modifier mot de passe");
+		modifMdp.addActionListener(this); // la fenetre va ecouteur l'action du bouton et appelle actionPerformed si clic
+		modifMdp.setActionCommand("modifier");
+		//add(modifMdp);
 	
 	//Mise en place des JLabels
 	setLayout(new GridBagLayout());
@@ -242,11 +229,17 @@ public class OngletUtilisateur extends JPanel implements ActionListener{
     gc11.anchor = GridBagConstraints.WEST;
     add(nbrJeuxNonRecupereUs,gc11);
     
-    // Ajout Bouton pour modifier Mdp
-	JButton modifMdp = new JButton("Modifier mot de passe");
-	modifMdp.addActionListener(this); // la fenetre va ecouteur l'action du bouton et appelle actionPerformed si clic
-	modifMdp.setActionCommand("modifier");
-	add(modifMdp);
+    GridBagConstraints gc12 = new GridBagConstraints();
+    gc12.anchor = GridBagConstraints.NONE;
+    gc12.fill = GridBagConstraints.NONE;
+    gc12.gridx = 1;
+    gc12.gridy = 12;
+    gc12.anchor = GridBagConstraints.EAST;
+    //gc12.gridwidth = 2;
+    add(modifMdp,gc12);
+    
+    
+    
 	
 	
 	
