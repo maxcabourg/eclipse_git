@@ -64,6 +64,7 @@ public class EcranConnexion extends JFrame implements ActionListener{
 		setSize(300, 150);
 		setResizable(false);
 		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	@Override
