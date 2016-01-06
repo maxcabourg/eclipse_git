@@ -163,6 +163,15 @@ public class Utilisateur {
 		requete.close();
 	}
 	
+	public void UpdateMdp(BDD bdd, String nouveauMdp, int idUti) throws SQLException {
+		PreparedStatement requeteMdp = bdd.getConnection().prepareStatement("UPDATE Utilisateur SET MdpU = ? WHERE IdUtilisateur = ?");
+		requeteMdp.setString(1, nouveauMdp);
+		requeteMdp.setInt(2,idUti);
+		requeteMdp.executeUpdate();
+		requeteMdp.close();
+		}
+	
+	
 	public boolean peutEmprunter (Utilisateur u){
 		boolean res = u.droitEmprunter;
 		if (res){

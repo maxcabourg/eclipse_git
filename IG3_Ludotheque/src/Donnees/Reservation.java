@@ -44,12 +44,18 @@ public class Reservation {
 		requete.executeUpdate();
 		requete.close();
 	}
-	
-	//public bool
+	//TODO
+	public boolean estValide(Reservation reservation){
+		boolean valide = true;
+		
+		return valide;
+	}
 
 	
 	//TODO
-	//public ??? getById
+	void getByNom() {
+		
+	}
 	
 	//getter et setter :
 	public int getIdR(){
