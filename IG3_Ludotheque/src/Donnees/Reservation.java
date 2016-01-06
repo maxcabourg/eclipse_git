@@ -45,6 +45,9 @@ public class Reservation {
 		requete.close();
 	}
 	
+	//public bool
+
+	
 	//TODO
 	//public ??? getById
 	
