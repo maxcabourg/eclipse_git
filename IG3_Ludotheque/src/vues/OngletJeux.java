@@ -100,7 +100,18 @@ public class OngletJeux extends JPanel implements ActionListener{
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-		    	
+				JTable table = (JTable)e.getSource();
+		    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
+		    		try {
+						Jeu j = Jeu.getById(base, ligne+1);
+						if(j.getNombreExemplaires()==0)
+							JOptionPane.showMessageDialog(null, "Desole, nous n'avons plus d'exemplaires disponibles pour le moment", "Erreur", JOptionPane.ERROR_MESSAGE);
+						else
+							new FormulaireReservation(j).setVisible(true);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} //Recuperer le jeu correspondant au num de la ligne +1
 			}
 		};
 		
