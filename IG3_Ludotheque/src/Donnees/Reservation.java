@@ -202,6 +202,15 @@ public class Reservation {
 		return (jour == Calendar.TUESDAY);
 	}
 
+	public boolean estUnJeudi (Date date){
+		int jour;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		jour = cal.DAY_OF_WEEK;	
+		return (jour == Calendar.THURSDAY);
+	}
+	
+	//getters et setters
 	public int getIdR() {
 		return idR;
 	}
