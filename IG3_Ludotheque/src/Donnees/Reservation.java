@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -61,6 +62,15 @@ public class Reservation {
 	
 	public void modifierDateReservationById (BDD bdd, Date nouvelleDate, int idR) throws SQLException{
 		PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateReservation = ? WHERE IdR = ?");
+		java.sql.Date sqlDate = new java.sql.Date(nouvelleDate.getTime());
+		requete.setDate(1,  sqlDate);
+		requete.setInt(2, idR);
+		requete.executeUpdate();
+		requete.close();
+	}
+	
+	public void modifierDateRenduById (BDD bdd, Date nouvelleDate, int idR) throws SQLException{
+		PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateRendu = ? WHERE IdR = ?");
 		java.sql.Date sqlDate = new java.sql.Date(nouvelleDate.getTime());
 		requete.setDate(1,  sqlDate);
 		requete.setInt(2, idR);
@@ -183,8 +193,14 @@ public class Reservation {
 		}
 		return res;
 	}
-	//TODO
-	//prevoir le cas où la liste est vide.
+
+	public boolean estUnMardi (Date date){
+		int jour;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		jour = cal.DAY_OF_WEEK;	
+		return (jour == Calendar.TUESDAY);
+	}
 
 	public int getIdR() {
 		return idR;
