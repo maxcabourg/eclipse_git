@@ -54,6 +54,8 @@ public class Reservation {
 	public boolean estValide(Reservation reservation, BDD bdd){
 		boolean valide = true;
 		int i = 0;
+		int nbReservationsEnMemeTemps = 0;
+		
 		// verifie qu'elle n'empiete pas sur une autre reservation de la même personne
 		try {
 			List lDatesResasUtilisateur = getByIdUtilisateur(reservation.idU, bdd);
@@ -64,15 +66,26 @@ public class Reservation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		// verifie qu'elle n'empiete pas sur une autre reservation du même jeu
 		try {
 			List lDatesResasJeu = getByIdJeu(reservation.idJeuReserve, bdd);
-			while ((i < (lDatesResasJeu.size()/2)-1) && (valide) ){
-				valide = seSuperposent(reservation.dateReservation, reservation.dateRendu, (Date)lDatesResasJeu.get(i*2), (Date)lDatesResasJeu.get(2*i+1));
+			while (i < (lDatesResasJeu.size()/2)-1){
+				if (seSuperposent(reservation.dateReservation, reservation.dateRendu, (Date)lDatesResasJeu.get(i*2), (Date)lDatesResasJeu.get(2*i+1)))
+					nbReservationsEnMemeTemps++;
 				i++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		if (valide){
+			try {
+				Jeu jeuReserve = Jeu.getById(bdd, reservation.idJeuReserve);
+				int nbExemplairesJeuReserve = jeuReserve.getNombreExemplaires();
+				valide = (nbReservationsEnMemeTemps < nbExemplairesJeuReserve);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return valide;
 	}
