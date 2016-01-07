@@ -50,6 +50,23 @@ public class Reservation {
 		requete.executeUpdate();
 		requete.close();
 	}
+	
+	public void modifierVenuRecupererById (BDD bdd, boolean nouveauVenuChercher, int idR) throws SQLException {
+		PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET VenuCherche = ? WHERE IdR = ?");
+		requete.setBoolean(1, nouveauVenuChercher);
+		requete.setInt(2, idR);
+		requete.executeUpdate();
+		requete.close();		
+	}
+	
+	public void modifierDateReservationById (BDD bdd, Date nouvelleDate, int idR) throws SQLException{
+		PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateReservation = ? WHERE IdR = ?");
+		java.sql.Date sqlDate = new java.sql.Date(nouvelleDate.getTime());
+		requete.setDate(1,  sqlDate);
+		requete.setInt(2, idR);
+		requete.executeUpdate();
+		requete.close();
+	}
 
 	public boolean estValide(Reservation reservation, BDD bdd){
 		boolean valide = true;
