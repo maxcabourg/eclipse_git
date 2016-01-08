@@ -36,27 +36,31 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 			jeu = j;
 			setModal(true);
 			setTitle("Reservation : "+jeu.getNom());
-			setSize(500, 500);
+			setSize(600, 350);
 			
 			extSelectionnees = new ArrayList<Extension>();
 			
+			JPanel panel = new JPanel();	//creation d'un JPanel pour y mettre le contenu		
 			Box layout = Box.createVerticalBox();
-			layout.setPreferredSize(new Dimension(500, 100));
 			Box dateLayout = Box.createHorizontalBox();
-			dateLayout.setPreferredSize(new Dimension(500, 30));
 			Font titre = new Font("Arial", Font.BOLD, 26);
 			JLabel labelTitre = new JLabel("Formulaire de reservation");
 			labelTitre.setFont(titre);
 			
+			Box titrelayout = Box.createHorizontalBox();
+			Box bouton1layout = Box.createHorizontalBox();
+			Box bouton2layout = Box.createHorizontalBox();
+			
 	// -------------TEXT FIELD-----------------------------------------------------
 			dateReservation = new JDateChooser();
-			dateReservation.setPreferredSize(new Dimension(150, 30));
+			dateReservation.setPreferredSize(new Dimension(400, 25));
 			
 			JButton valider = new JButton("Valider");
 			valider.addActionListener(this); //On ajoute au bouton un gestionnaire d'evenements
 		    valider.setActionCommand("Valider"); //On definit le nom de l'evenement envoye par le bouton
 	//-------------LABEL-----------------------------------------------------------
 			JLabel lDateReservation = new JLabel(" Date de reservation :  ");
+			lDateReservation.setLabelFor(dateReservation);
 			
 			JButton selectionnerExtension = new JButton("Reserver aussi une extension");
 			selectionnerExtension.addActionListener(this);
@@ -66,14 +70,24 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 			JLabel tableauExtensions = new JLabel(" Extensions reservables avec ce jeu :   ");
 			tableauExtensions.setLabelFor(tableauExtensions);
 
-			layout.add(labelTitre);
-			layout.add(Box.createRigidArea(new Dimension(0, 100)));
+			titrelayout.add(labelTitre);
 			dateLayout.add(lDateReservation);
 			dateLayout.add(dateReservation);
+			dateLayout.add(Box.createVerticalGlue());
+			bouton1layout.add(selectionnerExtension);
+			bouton2layout.add(valider);
+			
+			layout.add(titrelayout);
+			layout.add(Box.createRigidArea(new Dimension(0,100)));
 			layout.add(dateLayout);
-			layout.add(selectionnerExtension);
-			layout.add(valider);
-			add(layout);
+			layout.add(Box.createRigidArea(new Dimension(0,50)));
+			layout.add(bouton1layout);
+			layout.add(Box.createRigidArea(new Dimension(0,10)));
+			layout.add(bouton2layout);
+			layout.add(Box.createRigidArea(new Dimension(0,10)));
+			
+			panel.add(layout);
+			add(panel);
 		    
 
 	}

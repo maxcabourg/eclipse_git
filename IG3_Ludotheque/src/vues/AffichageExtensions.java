@@ -1,5 +1,6 @@
 package vues;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 			checkBoxes.add(new JCheckBox());
 		}
 		
+		
 		Box checkLayout = Box.createVerticalBox();
 		Box labelLayout = Box.createVerticalBox();
 		Box layout = Box.createVerticalBox();
@@ -46,14 +48,16 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 		valider.setActionCommand("Valider");
 		
 		getContentPane().add(new JScrollPane());
+		add(Box.createRigidArea(new Dimension(0,150)));
 		mainLayout.add(checkLayout);
 		mainLayout.add(labelLayout);
+		mainLayout.add(Box.createRigidArea(new Dimension(0,100)));
 		layout.add(mainLayout);
 		layout.add(valider);
 		add(layout);
 		
 		setModal(true);
-		setSize(500, 500);
+		setSize(400, 350);
 		setTitle("Extensions de : "+jeu.getNom());
 	}
 
