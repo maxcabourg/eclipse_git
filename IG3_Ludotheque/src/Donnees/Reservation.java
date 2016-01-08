@@ -20,7 +20,7 @@ public class Reservation {
 	private Date dateRendu;
 	private boolean venuChercher;
 	
-	Reservation(int _idR, int _idU, int _idJeuReserve, String _idsExtensionsReservees, Date _dateReservation, Date _dateRendu, boolean _venuChercher) {
+	public Reservation(int _idR, int _idU, int _idJeuReserve, String _idsExtensionsReservees, Date _dateReservation, Date _dateRendu, boolean _venuChercher) {
 		idR = _idR;
 		idU = _idU;
 		idJeuReserve = _idJeuReserve;
@@ -31,16 +31,15 @@ public class Reservation {
 	}
 	
 	public void ajouterReservation (BDD bdd) throws SQLException {
-		PreparedStatement requete = bdd.getConnection().prepareStatement("INSERT INTO Reservation (idR, idU, idJeuReserve, idsExtensionsReservees, dateReservation, dateRendu, venuChercher) VALUES (?,?,?,?,?,?);");
-		requete.setInt(1, idR);
-		requete.setInt(2, idU);
-		requete.setInt(3, idJeuReserve);
-		requete.setString(4, idsExtensionsReservees);
+		PreparedStatement requete = bdd.getConnection().prepareStatement("INSERT INTO Reservation (IdUtilisateur, IdJeu, idExtensions, DateReservation, DateRendu, VenuChercher) VALUES (?,?,?,?,?,?);");
+		requete.setInt(1, idU);
+		requete.setInt(2, idJeuReserve);
+		requete.setString(3, idsExtensionsReservees);
 		java.sql.Date sqlDate = new java.sql.Date(dateReservation.getTime());
-		requete.setDate(5,sqlDate);
+		requete.setDate(4,sqlDate);
 		java.sql.Date sqlDate2 = new java.sql.Date(dateRendu.getTime());
-		requete.setDate(6,sqlDate2);
-		requete.setBoolean(7, venuChercher);
+		requete.setDate(5,sqlDate2);
+		requete.setBoolean(6, venuChercher);
 		requete.executeUpdate();
 		requete.close();
 	}
@@ -175,7 +174,7 @@ public class Reservation {
 		return res;
 	}
 	
-	public String ListToString (List<Integer> liste){
+	public static String ListToString (List<Integer> liste){
 		JSONArray liste2 = new JSONArray();
 		for (int value : liste) {
 			liste2.put(value);

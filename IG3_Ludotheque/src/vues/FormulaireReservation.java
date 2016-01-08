@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,6 +25,7 @@ import javax.swing.text.MaskFormatter;
 
 import com.toedter.calendar.JDateChooser;
 
+import Donnees.BDD;
 import Donnees.Extension;
 import Donnees.Jeu;
 import Donnees.Reservation;
@@ -100,12 +102,28 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Valider")){
-			if(utilisateur.getDateFinAdhesion().after(new Date()))
+			if(dateReservation.getDate().after(utilisateur.getDateFinAdhesion()))
 				JOptionPane.showMessageDialog(this, "Votre adhesion sera arrivee a terme. Veuillez nous contacter pour la prolonger.", "Erreur", JOptionPane.ERROR_MESSAGE);
 			else if(!(Reservation.estUnMardi(dateReservation.getDate()) || Reservation.estUnJeudi(dateReservation.getDate())))
 				JOptionPane.showMessageDialog(this, "Vous devez reserver pour un mardi ou jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);			
-			else
+			else{
+				ArrayList<Integer> idExtensions = new ArrayList<Integer>();
+				for(int i = 0; i<extSelectionnees.size(); i++){
+					idExtensions.add(extSelectionnees.get(i).getId());
+				}
+				Date dateRendu = dateReservation.getDate();
+				Calendar c = Calendar.getInstance();
+				c.setTime(dateRendu); // Now use today date.
+				c.add(Calendar.DATE, 5); // Adding 5 days
+				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateReservation.getDate(), c.getTime(),  false);
+				try {
+					res.ajouterReservation(new BDD());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(this, "Votre reservation a bien ete enregistree", "reservation enregistree", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		else if(e.getActionCommand().equals("Extensions")){
 			AffichageExtensions ae = new AffichageExtensions(jeu);
