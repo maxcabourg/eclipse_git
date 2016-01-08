@@ -255,7 +255,7 @@ public class Reservation {
 				maxId = req.getInt("maximum")+1;
 			int remiseId = base.getConnection().createStatement().executeUpdate("ALTER TABLE Reservation AUTO_INCREMENT = "+maxId);
 			//fenetre pour informer l'utilisateur que le jeu est supprimé
-			JOptionPane.showMessageDialog(null, "La reservation "+ idR +" a bien ete supprimee!");
+			JOptionPane.showMessageDialog(null, "La reservation de "+ getNomU(idU) +" a bien ete supprimee!");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

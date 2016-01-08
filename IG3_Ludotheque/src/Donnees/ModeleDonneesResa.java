@@ -102,10 +102,10 @@ public class ModeleDonneesResa extends AbstractTableModel{
         else return super.getColumnClass(columnIndex);
  
     }
-/*	//Seule la colonne du bouton editer est "editable"
+	//Seule la colonne du bouton editer est "editable"
 	@Override
 	public boolean isCellEditable(int row, int column)
     {
-        return column == 14 || column == 15;
-    }*/
+        return column == 7 || column == 8;
+    }
 }

@@ -67,8 +67,8 @@ public class ListeReservation extends JPanel implements ActionListener{
 				JTable table = (JTable)e.getSource();
 		    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
 		    	try {
-		    		Utilisateur u = Utilisateur.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
-					u.delete(base); //Supprime le jeu de la base
+		    		Reservation r = Reservation.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+					r.delete(base); //Supprime le jeu de la base
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
