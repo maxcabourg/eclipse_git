@@ -180,6 +180,8 @@ public class Utilisateur {
 		return res;
 	}
 	
+
+	
 	
 	//Getters et setters
 	public int getId() {

@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeleDonneesUser extends AbstractTableModel{
 
 	private Utilisateur[] donnees; //Ce seront les donnees a afficher
-	private final String[] entetes = {"Id", "Prenom", "Nom", "Pseudo", "Mot de passe", "Mail", "Téléphone", "Adresse", "Administrateur", "Fin d'adhesion", "Droit d'emprunt", "Jours de retards cumules", "Nombre de retards", "Jeux non recuperes", "Editer", "Supprimer"};	//Titres des colonnes
+	private final String[] entetes = {"Id", "Prenom", "Nom", "Pseudo", "Mot de passe", "Mail", "Telephone", "Adresse", "Administrateur", "Fin d'adhesion", "Droit d'emprunt", "Jours de retards cumules", "Nombre de retards", "Jeux non recuperes", "Editer", "Supprimer"};	//Titres des colonnes
 	
 	public ModeleDonneesUser(){	
 		super();

@@ -247,7 +247,7 @@ public class Reservation {
 	public void delete(BDD base){
 		try {
 			int suppression = base.getConnection().createStatement().executeUpdate("DELETE FROM Reservation WHERE IdReservation = "+idR); //Tout d'abord on supprime le jeu de la base
-			int baisseId = base.getConnection().createStatement().executeUpdate("UPDATE Reservation SET IdReservtion = IdReservation - 1 WHERE IdReservation > "+idR); /*ensuite on baisse de 1 tous les id superieurs
+			int baisseId = base.getConnection().createStatement().executeUpdate("UPDATE Reservation SET IdReservation = IdReservation - 1 WHERE IdReservation > "+idR); /*ensuite on baisse de 1 tous les id superieurs
 			pour pas qu'il y ait de creux entre les id */
 			ResultSet req = base.getConnection().createStatement().executeQuery("SELECT MAX(IdReservation) as maximum FROM Reservation"); //Et on fait repartir l'auto increment a la valeur maximale qui existe
 			int maxId = 0;
