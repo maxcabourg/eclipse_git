@@ -63,9 +63,7 @@ public class Utilisateur {
 		String mdp_base = "";
 		while(resultat.next())
 			mdp_base = resultat.getString("MdpU");
-		
-		System.out.println(mdp_base);
-		System.out.println(sha1(_mdp));
+
 		return mdp_base.compareTo(sha1(_mdp)) == 0;
 			
 	}

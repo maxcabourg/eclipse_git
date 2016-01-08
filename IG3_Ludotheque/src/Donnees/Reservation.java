@@ -194,19 +194,19 @@ public class Reservation {
 		return res;
 	}
 
-	public boolean estUnMardi (Date date){
+	public static boolean estUnMardi (Date date){
 		int jour;
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
-		jour = cal.DAY_OF_WEEK;	
+		jour = cal.get(Calendar.DAY_OF_WEEK);
 		return (jour == Calendar.TUESDAY);
 	}
 
-	public boolean estUnJeudi (Date date){
+	public static boolean estUnJeudi (Date date){
 		int jour;
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
-		jour = cal.DAY_OF_WEEK;	
+		jour = cal.get(Calendar.DAY_OF_WEEK);	
 		return (jour == Calendar.THURSDAY);
 	}
 	

@@ -1,5 +1,6 @@
 package vues;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -48,7 +49,9 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 		getContentPane().add(new JScrollPane());
 		mainLayout.add(checkLayout);
 		mainLayout.add(labelLayout);
+		mainLayout.add(Box.createRigidArea(new Dimension(0,150)));
 		layout.add(mainLayout);
+		layout.add(Box.createRigidArea(new Dimension(0,100)));
 		layout.add(valider);
 		add(layout);
 		
