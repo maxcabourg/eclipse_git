@@ -27,14 +27,17 @@ import com.toedter.calendar.JDateChooser;
 import Donnees.Extension;
 import Donnees.Jeu;
 import Donnees.Reservation;
+import Donnees.Utilisateur;
 
 public class FormulaireReservation extends JDialog implements ActionListener {
 	private Jeu jeu;
+	private Utilisateur utilisateur;
 	private JLabel nomJeuReserve;
 	private JDateChooser dateReservation;
 	private ArrayList<Extension> extSelectionnees;
 
-	FormulaireReservation(Jeu j) {
+	FormulaireReservation(Jeu j, Utilisateur u) {
+			utilisateur = u;
 			jeu = j;
 			setModal(true);
 			setTitle("Reservation : "+jeu.getNom());
@@ -97,8 +100,8 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Valider")){
-			if(jeu.getNombreExemplaires() == 0)
-				JOptionPane.showMessageDialog(this, "Desole, nous n'avons plus d'exemplaires disponibles pour cette date la", "Erreur", JOptionPane.ERROR_MESSAGE);
+			if(utilisateur.getDateFinAdhesion().after(new Date()))
+				JOptionPane.showMessageDialog(this, "Votre adhesion sera arrivee a terme. Veuillez nous contacter pour la prolonger.", "Erreur", JOptionPane.ERROR_MESSAGE);
 			else if(!(Reservation.estUnMardi(dateReservation.getDate()) || Reservation.estUnJeudi(dateReservation.getDate())))
 				JOptionPane.showMessageDialog(this, "Vous devez reserver pour un mardi ou jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);			
 			else
