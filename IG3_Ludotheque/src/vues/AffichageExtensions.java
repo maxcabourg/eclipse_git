@@ -1,6 +1,5 @@
 package vues;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -30,7 +29,6 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 			checkBoxes.add(new JCheckBox());
 		}
 		
-		
 		Box checkLayout = Box.createVerticalBox();
 		Box labelLayout = Box.createVerticalBox();
 		Box layout = Box.createVerticalBox();
@@ -48,16 +46,14 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 		valider.setActionCommand("Valider");
 		
 		getContentPane().add(new JScrollPane());
-		add(Box.createRigidArea(new Dimension(0,150)));
 		mainLayout.add(checkLayout);
 		mainLayout.add(labelLayout);
-		mainLayout.add(Box.createRigidArea(new Dimension(0,100)));
 		layout.add(mainLayout);
 		layout.add(valider);
 		add(layout);
 		
 		setModal(true);
-		setSize(400, 350);
+		setSize(500, 500);
 		setTitle("Extensions de : "+jeu.getNom());
 	}
 
@@ -65,13 +61,18 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("Valider")){
+			extensionsSelectionnees = new ArrayList<Extension>(); //On reinitialise au cas ou l'utilisateur aurait deja select
+			String listeExtensions = "Vous avez selectionne : ";
 			for(int i = 0; i<checkBoxes.size(); i++) //On regarde quelles extensions sont cochees
 			{
 				if(checkBoxes.get(i).isSelected()){
 					extensionsSelectionnees.add(extensions.get(i));
+					listeExtensions += extensions.get(i).getNom()+", ";
 				}
 			}
-			dispose();
+			listeExtensions+=" Est-ce bien votre choix ?";
+			if(JOptionPane.showConfirmDialog(this, listeExtensions, "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION)
+				dispose();
 		}
 		
 	}

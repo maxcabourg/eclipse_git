@@ -17,6 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
@@ -25,6 +26,7 @@ import com.toedter.calendar.JDateChooser;
 
 import Donnees.Extension;
 import Donnees.Jeu;
+import Donnees.Reservation;
 
 public class FormulaireReservation extends JDialog implements ActionListener {
 	private Jeu jeu;
@@ -95,14 +97,16 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Valider")){
-			
+			if(Reservation.estUnMardi(dateReservation.getDate()) || Reservation.estUnJeudi(dateReservation.getDate()))
+				JOptionPane.showMessageDialog(this, "Votre reservation a bien ete enregistree", "reservation enregistree", JOptionPane.INFORMATION_MESSAGE);
+			else
+				JOptionPane.showMessageDialog(this, "Vous devez reserver pour un mardi ou jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
 		else if(e.getActionCommand().equals("Extensions")){
 			AffichageExtensions ae = new AffichageExtensions(jeu);
 			ae.setVisible(true);
 			extSelectionnees = ae.getExtensionsSelectionnees();
-			for(Extension ex : extSelectionnees)
-				System.out.println(ex.getNom());
+			
 			
 		}
 
