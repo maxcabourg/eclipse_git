@@ -97,7 +97,7 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Valider")){
-			if(!(Reservation.estUnMardi(dateReservation.getDate()) && Reservation.estUnJeudi(dateReservation.getDate())))
+			if(!(Reservation.estUnMardi(dateReservation.getDate()) || Reservation.estUnJeudi(dateReservation.getDate())))
 				JOptionPane.showMessageDialog(this, "Vous devez reserver pour un mardi ou jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);			
 			else
 				JOptionPane.showMessageDialog(this, "Votre reservation a bien ete enregistree", "reservation enregistree", JOptionPane.INFORMATION_MESSAGE);
