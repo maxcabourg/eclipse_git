@@ -115,7 +115,7 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 				Calendar c = Calendar.getInstance();
 				c.setTime(dateRendu); // Now use today date.
 				c.add(Calendar.DATE, 5); // Adding 5 days
-				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateReservation.getDate(), c.getTime(),  false);
+				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateReservation.getDate(), c.getTime(),  0);
 				try {
 					res.ajouterReservation(new BDD());
 				} catch (SQLException e1) {

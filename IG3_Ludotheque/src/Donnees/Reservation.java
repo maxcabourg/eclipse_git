@@ -8,8 +8,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import vues.boiteEditerResa;
+import vues.boiteEditerUser;
 
 public class Reservation {
 	private int idR;
@@ -19,15 +24,19 @@ public class Reservation {
 	private Date dateReservation;
 	private Date dateRendu;
 	private boolean venuChercher;
+	private String editer;
+	private String supprimer;
 	
-	public Reservation(int _idR, int _idU, int _idJeuReserve, String _idsExtensionsReservees, Date _dateReservation, Date _dateRendu, boolean _venuChercher) {
+	public Reservation(int _idR, int _idU, int _idJeuReserve, String _idsExtensionsReservees, Date _dateReservation, Date _dateRendu, int _venuChercher) {
 		idR = _idR;
 		idU = _idU;
 		idJeuReserve = _idJeuReserve;
 		idsExtensionsReservees = _idsExtensionsReservees;
 		dateReservation = _dateReservation;
 		dateRendu = _dateRendu;
-		venuChercher = _venuChercher;
+		venuChercher = _venuChercher ==1;
+		editer= "Editer";
+		supprimer= "Supprimer";
 	}
 	
 	public void ajouterReservation (BDD bdd) throws SQLException {
@@ -209,6 +218,89 @@ public class Reservation {
 		return (jour == Calendar.THURSDAY);
 	}
 	
+	public static Reservation getById(BDD base, int id) throws SQLException
+	{
+		//Il faut gerer le cas ou l'id est negatif, on sait jamais.
+		if(id > 0)
+		{
+			ResultSet requete = base.getConnection().createStatement().executeQuery("SELECT * FROM Reservation WHERE IdReservation = "+id);
+			String idExtension = "";
+			int identifiant=0,venuchercher=0,idU=0, idj=0;
+			Date dateReservation=null,dateRendu=null;
+			while(requete.next())
+			{
+				identifiant = requete.getInt("IdReservation");
+				idExtension = requete.getString("idExtensions");
+				venuchercher = requete.getInt("VenuChercher");
+				idU = requete.getInt("IdUtilisateur");
+				idj = requete.getInt("IdJeu");
+				dateReservation = requete.getDate("DateReservation");
+				dateRendu = requete.getDate("DateRendu");
+
+			}
+			return new Reservation(identifiant, idU, idj,idExtension, dateReservation, dateRendu, venuchercher);
+		}
+		else
+			return null;
+	}
+	
+	public void delete(BDD base){
+		try {
+			int suppression = base.getConnection().createStatement().executeUpdate("DELETE FROM Reservation WHERE IdReservation = "+idR); //Tout d'abord on supprime le jeu de la base
+			int baisseId = base.getConnection().createStatement().executeUpdate("UPDATE Reservation SET IdReservtion = IdReservation - 1 WHERE IdReservation > "+idR); /*ensuite on baisse de 1 tous les id superieurs
+			pour pas qu'il y ait de creux entre les id */
+			ResultSet req = base.getConnection().createStatement().executeQuery("SELECT MAX(IdReservation) as maximum FROM Reservation"); //Et on fait repartir l'auto increment a la valeur maximale qui existe
+			int maxId = 0;
+			while(req.next())
+				maxId = req.getInt("maximum")+1;
+			int remiseId = base.getConnection().createStatement().executeUpdate("ALTER TABLE Reservation AUTO_INCREMENT = "+maxId);
+			//fenetre pour informer l'utilisateur que le jeu est supprimé
+			JOptionPane.showMessageDialog(null, "La reservation "+ idR +" a bien ete supprimee!");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void showEdit() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static String getJeu(int id) throws SQLException{
+		BDD base=new BDD();
+		if(id > 0)
+		{
+			ResultSet requete = base.getConnection().createStatement().executeQuery("SELECT NomJeu FROM Jeu WHERE IdJeu = "+id);
+			String nomJeu = "";
+			while(requete.next())
+			{
+				nomJeu=requete.getString("NomJeu");
+
+			}
+			return nomJeu;
+		}
+		else
+			return null;
+	}
+	
+	public static String getNomU(int id) throws SQLException{
+		BDD base=new BDD();
+		if(id > 0)
+		{
+			ResultSet requete = base.getConnection().createStatement().executeQuery("SELECT PseudoU FROM Utilisateur WHERE IdUtilisateur = "+id);
+			String nomU = "";
+			while(requete.next())
+			{
+				nomU=requete.getString("PseudoU");
+
+			}
+			return nomU;
+		}
+		else
+			return null;
+	}
+	
 	//getters et setters
 	public int getIdR() {
 		return idR;
@@ -265,5 +357,12 @@ public class Reservation {
 	public void setVenuChercher(boolean venuChercher) {
 		this.venuChercher = venuChercher;
 	}
-	
+	public String getEditer(){
+		return editer;
+	}
+	public String getSupprimer(){
+		return supprimer;
+	}
+
+
 }
