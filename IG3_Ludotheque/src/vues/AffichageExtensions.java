@@ -56,7 +56,7 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 		add(layout);
 		
 		setModal(true);
-		setSize(500, 500);
+		setSize(400, 350);
 		setTitle("Extensions de : "+jeu.getNom());
 	}
 
