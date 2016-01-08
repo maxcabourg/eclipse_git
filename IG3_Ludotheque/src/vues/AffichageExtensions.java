@@ -48,11 +48,11 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 		valider.setActionCommand("Valider");
 		
 		getContentPane().add(new JScrollPane());
-		add(Box.createRigidArea(new Dimension(0,150)));
 		mainLayout.add(checkLayout);
 		mainLayout.add(labelLayout);
-		mainLayout.add(Box.createRigidArea(new Dimension(0,100)));
+		mainLayout.add(Box.createRigidArea(new Dimension(0,150)));
 		layout.add(mainLayout);
+		layout.add(Box.createRigidArea(new Dimension(0,100)));
 		layout.add(valider);
 		add(layout);
 		
