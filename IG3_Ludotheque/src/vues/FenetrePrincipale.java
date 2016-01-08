@@ -24,7 +24,7 @@ public class FenetrePrincipale extends JFrame{
 			onglets.add("Utilisateurs de Ludotech", new ListeUtilisateurs());
 			onglets.add("Liste reservations", new ListeReservation());
 		}
-		onglets.add("DÃ©connexion", new OngletDeco(this));
+		onglets.add("Déconnexion", new OngletDeco(this));
 		setSize(1280, 720);
 		
 		setTitle("Ludotech");
