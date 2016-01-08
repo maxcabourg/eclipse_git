@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class PageAccueil extends JPanel{
 	
 	PageAccueil() {
-		JLabel logo = new JLabel(new ImageIcon("src\\accueil.JPG"));  
+		JLabel logo = new JLabel(new ImageIcon("accueil.jpg"));  
 	    add(logo);
 	}
 	
