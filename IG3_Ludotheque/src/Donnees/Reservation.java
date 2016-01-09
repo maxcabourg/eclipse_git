@@ -35,7 +35,7 @@ public class Reservation {
 		dateReservation = _dateReservation;
 		dateRendu = _dateRendu;
 		venuChercher = _venuChercher ==1;
-		editer= "Editer";
+		editer= "Modifier dates et statut";
 		supprimer= "Supprimer";
 	}
 	
@@ -263,7 +263,7 @@ public class Reservation {
 	}
 	
 	public void showEdit() {
-		// TODO Auto-generated method stub
+		new boiteEditerResa(this).setVisible(true);
 		
 	}
 	

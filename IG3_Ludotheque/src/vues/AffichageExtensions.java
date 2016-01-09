@@ -38,7 +38,7 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 		int i = 0;
 		for(Extension e : extensions){
 			checkLayout.add(checkBoxes.get(i));
-			labelLayout.add(new JLabel(extensions.get(i).getNom()));
+			labelLayout.add(new JLabel(extensions.get(i).getNom()),checkBoxes);
 			i++;
 		}
 		

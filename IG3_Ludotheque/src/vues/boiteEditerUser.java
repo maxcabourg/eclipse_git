@@ -58,7 +58,6 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 		setSize(600, 600);
 		setTitle("Modifier l'utilisateur");
 		setModal(true);
-		//add(new JLabel("TODO"));
 		
 		int ligneu = u.getId() - 1;
 		String prenom = (String) mdu.getValueAt(ligneu, 1);
@@ -85,17 +84,6 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	        }
 	    });
 	   	    
-	    String mdpUser = (String) mdu.getValueAt(ligneu, 4);
-	    /*tf4 = new JTextField(mdp,JTextField.CENTER);
-	    tf4.setPreferredSize(new Dimension(400,25));
-	    tf4.addFocusListener(new FocusAdapter() {
-	        @Override
-	        public void focusGained(FocusEvent e) {
-	            tf4.setText("");
-	        }
-	    });*/
-	    
-	    
 	    JButton reinitialiser = new JButton("Reinitialiser Mot de Passe");
 	    
 	    
@@ -110,7 +98,6 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	        }
 	    });
 	    
-	    //MaskFormatter mtel = new MaskFormatter("##-##-##-##-##");
 	    String tel = (String) mdu.getValueAt(ligneu, 6);
 	    tf6 = new JFormattedTextField(tel);
 	    tf6.setPreferredSize(new Dimension(400,25));
@@ -320,12 +307,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    gc8.gridy = 8;
 	    gc8.anchor = GridBagConstraints.CENTER;
 	    add(adm,gc8);
-	    /*gc8.gridx = 2;
-	    gc8.gridy = 8;
-	    gc8.gridwidth = GridBagConstraints.REMAINDER;
-	    gc8.anchor = GridBagConstraints.CENTER;
-	    gc8.fill = GridBagConstraints.HORIZONTAL;
-	    add(tf8,gc8);*/
+	
 	    
 	    GridBagConstraints gc9 = new GridBagConstraints();
 	    gc9.anchor = GridBagConstraints.NONE;

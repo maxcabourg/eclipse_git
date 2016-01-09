@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeleDonneesResa extends AbstractTableModel{
 
 	private Reservation[] donnees; //Ce seront les donnees a afficher
-	private final String[] entetes = {"Id", "Utilisateur","Jeu", "Extensions", "Date Reservation", "Date Rendu", "Venu chercher","Editer","Supprimer"};	//Titres des colonnes
+	private final String[] entetes = {"Id", "Utilisateur","Jeu", "Extensions", "Date Reservation", "Date Rendu", "Venu chercher","Modifier dates et statut","Supprimer"};	//Titres des colonnes
 	
 	public ModeleDonneesResa(){	
 		super();

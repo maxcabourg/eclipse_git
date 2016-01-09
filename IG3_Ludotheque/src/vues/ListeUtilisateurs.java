@@ -105,6 +105,9 @@ public class ListeUtilisateurs extends JPanel implements ActionListener{
 		if(e.getActionCommand().equals("actualiser")){
 			//TODO
 			viewUsers.setModel(new ModeleDonneesUser()); //On recharge les donnees
+			viewUsers.getColumnModel().getColumn(0).setMinWidth(0); //On cache la colonne des id
+			viewUsers.getColumnModel().getColumn(0).setMaxWidth(0);
+			viewUsers.getColumnModel().getColumn(0).setWidth(0);
 			trieur = new TableRowSorter<TableModel>((TableModel) viewUsers.getModel());//On recharge le trieur  
 			viewUsers.setRowSorter(trieur);
 			Action modifierUser = new AbstractAction()
