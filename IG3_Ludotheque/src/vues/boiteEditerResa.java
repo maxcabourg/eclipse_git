@@ -91,7 +91,9 @@ public class boiteEditerResa extends JDialog implements ActionListener{
 	    JButton valider = new JButton("Valider");
 	    valider.addActionListener(this); //On ajoute au bouton un gestionnaire d'evenements
 	    valider.setActionCommand("Valider"); //On definit le nom de l'evenement envoye par le bouton
-
+	    JButton nonrecup = new JButton("Jeu non récupéré");
+	    nonrecup.addActionListener(this); //On ajoute au bouton un gestionnaire d'evenements
+	    nonrecup.setActionCommand("NonRecup");
 	    
 	    
 	    
@@ -168,13 +170,22 @@ public class boiteEditerResa extends JDialog implements ActionListener{
 	    gc5.anchor = GridBagConstraints.WEST;
 	    add(venuc,gc5);
 	    
+	    GridBagConstraints gc6 =new GridBagConstraints();
+	    gc6.fill = GridBagConstraints.NONE;
+	    gc6.gridy = 8;
+	    gc6.gridwidth = 3;
+	    gc6.fill = GridBagConstraints.HORIZONTAL;
+	    add(nonrecup,gc6);
 	   
 	    GridBagConstraints gc4bis =new GridBagConstraints();
 	    gc4bis.fill = GridBagConstraints.NONE;
-	    gc4bis.gridy = 8;
+	    gc4bis.gridy = 9;
 	    gc4bis.gridwidth = 3;
 	    gc4bis.fill = GridBagConstraints.HORIZONTAL;
 	    add(valider,gc4bis);
+	    
+	    
+	    
 	    
 		
 		
@@ -183,41 +194,52 @@ public class boiteEditerResa extends JDialog implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("Valider")){
-			BDD bdd = new BDD();
-			try{
+		if(e.getActionCommand().equals("NonRecup")){
+			BDD base = new BDD();
+				try {
+						int haussevar = base.getConnection().createStatement().executeUpdate("UPDATE Utilisateur SET NbrJeuxNonRecupere = NbrJeuxNonRecupere + 1 WHERE IdUtilisateur = "+reservation.getIdU());
+					} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				JOptionPane.showMessageDialog(this, "L'utilisateur '"+utr.getText()+"' à écopé d'un jeu non rendu en plus !");
+				reservation.delete(base);
+				dispose();
+		}	if(e.getActionCommand().equals("Valider")){
+					BDD bdd = new BDD();
+					try{
 				
-					java.util.Date dtr = dateresa.getDate();
-					java.sql.Date sqlDate = new java.sql.Date(dtr.getTime());
-					java.util.Date dtrendu = daterendu.getDate();
-					java.sql.Date sqlDate2 = new java.sql.Date(dtrendu.getTime());
-					Boolean vc = venuc.isSelected();
-					//PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateReservation = ?,DateRendu=?,VenuChercher=? WHERE IdReservation = ?");
+						java.util.Date dtr = dateresa.getDate();
+						java.sql.Date sqlDate = new java.sql.Date(dtr.getTime());
+						java.util.Date dtrendu = daterendu.getDate();
+						java.sql.Date sqlDate2 = new java.sql.Date(dtrendu.getTime());
+						Boolean vc = venuc.isSelected();
+						//PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateReservation = ?,DateRendu=?,VenuChercher=? WHERE IdReservation = ?");
 					
 					
 					
-					//requete.setInt(4, reservation.getIdR());
+						//requete.setInt(4, reservation.getIdR());
 					
-					if(!(Reservation.estUnMardi(dateresa.getDate()) || Reservation.estUnJeudi(dateresa.getDate()))){
+						if(!(Reservation.estUnMardi(dateresa.getDate()) || Reservation.estUnJeudi(dateresa.getDate()))){
 						JOptionPane.showMessageDialog(this, "La date de réservation doit etre un mardi ou un jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);
-					}
-					else {
-						reservation.modifierDateReservationById(bdd, dtr, reservation.getIdR());
-						reservation.modifierDateRenduById(bdd, dtrendu, reservation.getIdR());
-						reservation.modifierVenuRecupererById(bdd, vc, reservation.getIdR());
-					//requete.executeUpdate();
-					JOptionPane.showMessageDialog(this, "La reservation de  '"+utr.getText()+"' à bien été modifiée !");
-					dispose();
-					//requete.close();
-					}
+						}
+						else {
+							reservation.modifierDateReservationById(bdd, dtr, reservation.getIdR());
+							reservation.modifierDateRenduById(bdd, dtrendu, reservation.getIdR());
+							reservation.modifierVenuRecupererById(bdd, vc, reservation.getIdR());
+							//requete.executeUpdate();
+							JOptionPane.showMessageDialog(this, "La reservation de  '"+utr.getText()+"' à bien été modifiée !");
+							dispose();
+							//requete.close();
+						}
 					
-			}catch (SQLException e1) {
-				e1.printStackTrace();
-			}catch (HeadlessException e1) {
-				e1.printStackTrace();
-			}
+					}catch (SQLException e1) {
+						e1.printStackTrace();
+					}catch (HeadlessException e1) {
+						e1.printStackTrace();
+					}
 		
-	}
-//TODO
-}
+					}
+			}
+
 }
