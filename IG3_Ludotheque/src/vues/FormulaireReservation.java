@@ -143,10 +143,7 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 				for(int i = 0; i<extSelectionnees.size(); i++){
 					idExtensions.add(extSelectionnees.get(i).getId());
 				}
-				Calendar c = Calendar.getInstance();
-				c.setTime(dateDuJour);
-				c.add(Calendar.DATE, 1); //emprunt = 24h
-				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateDuJour, c.getTime(),  0);
+				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateDuJour, dateDuJour,  0);
 				try {
 					res.ajouterReservation(new BDD());
 				} catch (SQLException e1) {
