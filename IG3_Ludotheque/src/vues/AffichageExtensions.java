@@ -20,6 +20,8 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 	private ArrayList<JCheckBox> checkBoxes;
 	
 	public AffichageExtensions(Jeu j){
+		JPanel panel = new JPanel();
+		
 		bdd = new BDD();
 		jeu = j;
 		extensions = Extension.getByIdJeu(bdd, jeu.getId());
@@ -37,8 +39,10 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 		
 		int i = 0;
 		for(Extension e : extensions){
-			checkLayout.add(checkBoxes.get(i));
-			labelLayout.add(new JLabel(extensions.get(i).getNom()),checkBoxes);
+			Box ligneLayout = Box.createHorizontalBox();
+			ligneLayout.add(checkBoxes.get(i));
+			ligneLayout.add(new JLabel(extensions.get(i).getNom()),checkBoxes);
+			layout.add(ligneLayout);
 			i++;
 		}
 		
@@ -46,14 +50,16 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 		valider.addActionListener(this);
 		valider.setActionCommand("Valider");
 		
-		getContentPane().add(new JScrollPane());
+		/*getContentPane().add(new JScrollPane());
 		mainLayout.add(checkLayout);
 		mainLayout.add(labelLayout);
 		mainLayout.add(Box.createRigidArea(new Dimension(0,150)));
 		layout.add(mainLayout);
 		layout.add(Box.createRigidArea(new Dimension(0,100)));
-		layout.add(valider);
-		add(layout);
+		layout.add(valider);*/
+		panel.add(layout);
+		JScrollPane scrollPane = new JScrollPane(panel);
+		add(panel);
 		
 		setModal(true);
 		setSize(400, 350);
