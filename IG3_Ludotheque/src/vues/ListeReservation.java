@@ -44,6 +44,25 @@ public class ListeReservation extends JPanel implements ActionListener{
 		actualiser = new JButton("actualiser");
 		actualiser.addActionListener(this);
 		
+		Action retourResa = new AbstractAction()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				JTable table = (JTable)e.getSource();
+		    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
+		    	try {
+		    		Reservation r = Reservation.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+					r.retour(base); //Informe le retour et modidie les variables de l'utilisateur si necessaire
+					r.delete(base);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		    	
+			}
+		};
+		
+		
 		Action modifierResa = new AbstractAction()
 		{
 		    public void actionPerformed(ActionEvent e)
@@ -90,9 +109,11 @@ public class ListeReservation extends JPanel implements ActionListener{
 				    }
 				}
 		
-		ButtonColumn buttonColumn = new ButtonColumn(viewResas, modifierResa, 7);
+		ButtonColumn buttonColumn = new ButtonColumn(viewResas, retourResa, 7);
 		buttonColumn.setMnemonic(KeyEvent.VK_D);
-		ButtonColumn buttonColumn2 = new ButtonColumn(viewResas, supprimerResa, 8);
+		ButtonColumn buttonColumn2 = new ButtonColumn(viewResas, modifierResa, 8);
+		buttonColumn.setMnemonic(KeyEvent.VK_D);
+		ButtonColumn buttonColumn3 = new ButtonColumn(viewResas, supprimerResa, 9);
 		buttonColumn.setMnemonic(KeyEvent.VK_D);
 		
 		box.add(new JScrollPane(viewResas), BorderLayout.CENTER);
@@ -113,6 +134,23 @@ public class ListeReservation extends JPanel implements ActionListener{
 			viewResas.getColumnModel().getColumn(0).setWidth(0);
 			trieur = new TableRowSorter<TableModel>((TableModel) viewResas.getModel());//On recharge le trieur  
 			viewResas.setRowSorter(trieur);
+			Action retourResa = new AbstractAction()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					JTable table = (JTable)e.getSource();
+			    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
+			    	try {
+			    		Reservation r = Reservation.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+						r.retour(base); //Informe le retour et modidie les variables de l'utilisateur si necessaire
+						r.delete(base);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			    	
+				}
+			};
 			Action modifierResa = new AbstractAction()
 			{
 			    public void actionPerformed(ActionEvent e)
@@ -146,9 +184,11 @@ public class ListeReservation extends JPanel implements ActionListener{
 				}
 			};
 			
-			ButtonColumn buttonColumn = new ButtonColumn(viewResas, modifierResa, 7);
+			ButtonColumn buttonColumn = new ButtonColumn(viewResas, retourResa, 7);
 			buttonColumn.setMnemonic(KeyEvent.VK_D);
-			ButtonColumn buttonColumn2 = new ButtonColumn(viewResas, supprimerResa, 8);
+			ButtonColumn buttonColumn2 = new ButtonColumn(viewResas, modifierResa, 8);
+			buttonColumn.setMnemonic(KeyEvent.VK_D);
+			ButtonColumn buttonColumn3 = new ButtonColumn(viewResas, supprimerResa, 9);
 			buttonColumn.setMnemonic(KeyEvent.VK_D);
 		}
 		

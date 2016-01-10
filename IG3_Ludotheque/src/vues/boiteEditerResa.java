@@ -191,23 +191,24 @@ public class boiteEditerResa extends JDialog implements ActionListener{
 					java.sql.Date sqlDate = new java.sql.Date(dtr.getTime());
 					java.util.Date dtrendu = daterendu.getDate();
 					java.sql.Date sqlDate2 = new java.sql.Date(dtrendu.getTime());
-					PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateReservation = ?,DateRendu=?,VenuChercher=? WHERE IdReservation = ?");
 					Boolean vc = venuc.isSelected();
+					//PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateReservation = ?,DateRendu=?,VenuChercher=? WHERE IdReservation = ?");
 					
 					
-					requete.setDate(1,sqlDate);
-					requete.setDate(2,sqlDate2);
-					requete.setBoolean(3, vc);
-					requete.setInt(4, reservation.getIdR());
+					
+					//requete.setInt(4, reservation.getIdR());
 					
 					if(!(Reservation.estUnMardi(dateresa.getDate()) || Reservation.estUnJeudi(dateresa.getDate()))){
 						JOptionPane.showMessageDialog(this, "La date de réservation doit etre un mardi ou un jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 					else {
-					requete.executeUpdate();
+						reservation.modifierDateReservationById(bdd, dtr, reservation.getIdR());
+						reservation.modifierDateRenduById(bdd, dtrendu, reservation.getIdR());
+						reservation.modifierVenuRecupererById(bdd, vc, reservation.getIdR());
+					//requete.executeUpdate();
 					JOptionPane.showMessageDialog(this, "La reservation de  '"+utr.getText()+"' à bien été modifiée !");
 					dispose();
-					requete.close();
+					//requete.close();
 					}
 					
 			}catch (SQLException e1) {

@@ -4,9 +4,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
@@ -26,6 +30,7 @@ public class Reservation {
 	private boolean venuChercher;
 	private String editer;
 	private String supprimer;
+	private String retour;
 	
 	public Reservation(int _idR, int _idU, int _idJeuReserve, String _idsExtensionsReservees, Date _dateReservation, Date _dateRendu, int _venuChercher) {
 		idR = _idR;
@@ -37,6 +42,7 @@ public class Reservation {
 		venuChercher = _venuChercher ==1;
 		editer= "Modifier dates et statut";
 		supprimer= "Supprimer";
+		retour="Retour jeu";
 	}
 	
 	public void ajouterReservation (BDD bdd) throws SQLException {
@@ -54,14 +60,14 @@ public class Reservation {
 	}
 	
 	public void supprimeReservationById (BDD bdd, int idR) throws SQLException {
-		PreparedStatement requete = bdd.getConnection().prepareStatement("DELETE FROM Reservation WHERE idR = ?");
+		PreparedStatement requete = bdd.getConnection().prepareStatement("DELETE FROM Reservation WHERE idReservation = ?");
 		requete.setInt(1,  idR);
 		requete.executeUpdate();
 		requete.close();
 	}
 	
 	public void modifierVenuRecupererById (BDD bdd, boolean nouveauVenuChercher, int idR) throws SQLException {
-		PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET VenuCherche = ? WHERE IdR = ?");
+		PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET VenuChercher = ? WHERE IdReservation = ?");
 		requete.setBoolean(1, nouveauVenuChercher);
 		requete.setInt(2, idR);
 		requete.executeUpdate();
@@ -69,7 +75,7 @@ public class Reservation {
 	}
 	
 	public void modifierDateReservationById (BDD bdd, Date nouvelleDate, int idR) throws SQLException{
-		PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateReservation = ? WHERE IdR = ?");
+		PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateReservation = ? WHERE IdReservation = ?");
 		java.sql.Date sqlDate = new java.sql.Date(nouvelleDate.getTime());
 		requete.setDate(1,  sqlDate);
 		requete.setInt(2, idR);
@@ -78,7 +84,7 @@ public class Reservation {
 	}
 	
 	public void modifierDateRenduById (BDD bdd, Date nouvelleDate, int idR) throws SQLException{
-		PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateRendu = ? WHERE IdR = ?");
+		PreparedStatement requete = bdd.getConnection().prepareStatement("UPDATE Reservation SET DateRendu = ? WHERE IdReservation = ?");
 		java.sql.Date sqlDate = new java.sql.Date(nouvelleDate.getTime());
 		requete.setDate(1,  sqlDate);
 		requete.setInt(2, idR);
@@ -171,7 +177,7 @@ public class Reservation {
 	
 
 	// fonction pour les JSONArray et leur utilisation!	
-	private List<Integer> jsonToList(JSONArray array){
+	private static List<Integer> jsonToList(JSONArray array){
 		List<Integer> res = new ArrayList<Integer>();
 		for (int i=0; i<array.length(); i++) {
 			try {
@@ -191,7 +197,7 @@ public class Reservation {
 		return liste2.toString();
 	}
 	
-	public List<Integer> stringToList(String txt){
+	public static List<Integer> stringToList(String txt){
 		List<Integer> res = new ArrayList<Integer>();
 		try {
 			JSONArray liste = new JSONArray(txt);
@@ -267,6 +273,35 @@ public class Reservation {
 		
 	}
 	
+	public void retour(BDD base) throws SQLException {
+		//int retourresa = base.getConnection().createStatement().executeUpdate("UPDATE Reservation SET VenuChercher = 1 WHERE IdReservation > "+idR);//On met le statut de la reservation a est venu cherhche "oui"
+		java.util.Date datejour = new Date();
+		System.out.println(datejour);
+		ResultSet req = base.getConnection().createStatement().executeQuery("SELECT DateRendu FROM Reservation WHERE IdReservation="+idR);//On recupere la date de rendu qui a ete choisie lors de la reservation
+		java.util.Date daterendu = new java.util.Date();
+		while(req.next()){
+		daterendu = req.getDate("DateRendu");
+		System.out.println(daterendu);
+		}
+		//java.sql.Date daterendu = req.getDate("DateRendu");
+		if (datejour.after(daterendu)){//Si la date de rendu prevu est avant la date du jour on implémente les variables de retard de l'utilisateur
+			ResultSet requete = base.getConnection().createStatement().executeQuery("SELECT IdUtilisateur FROM Reservation WHERE IdReservation="+idR);//Selectionne l'utilisateur concerné par la reservation
+			int uConcerne;
+			while(requete.next()){
+			uConcerne= requete.getInt("IdUtilisateur");
+			int hausseretard = base.getConnection().createStatement().executeUpdate("UPDATE Utilisateur SET NbrRetards = NbrRetards + 1 WHERE IdUtilisateur = "+uConcerne);
+			long dureeretard= (datejour.getTime()- daterendu.getTime())/86400000 ;
+			int haussenbjourretard = base.getConnection().createStatement().executeUpdate("UPDATE Utilisateur SET JoursRetardCumule = JoursRetardCumule + "+dureeretard+" WHERE IdUtilisateur = "+uConcerne);
+			}
+			JOptionPane.showMessageDialog(null, "La reservation de "+ getNomU(idU) +" a été rendue en retard !");
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "La reservation de "+ getNomU(idU) +" a été rendue dans les temps !");
+		}
+	
+	}
+
+	
 	public static String getJeu(int id) throws SQLException{
 		BDD base=new BDD();
 		if(id > 0)
@@ -300,7 +335,33 @@ public class Reservation {
 		else
 			return null;
 	}
+/*	
+private static ArrayList<Integer> getIntegerArray(ArrayList<String> stringArray) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        for(String stringValue : stringArray) {
+            
+                //Convert String to Integer, and store it into integer array list.
+                result.add(Integer.parseInt(stringValue.trim()));
+
+        }       
+        return result;
+    }	
 	
+	
+public static List<Integer> stringAlist(String s){  
+	  
+	s = s.replaceAll("\\[|\\]","");
+	System.out.println(s);
+	ArrayList<String> items = new ArrayList<>();
+	Collections.addAll(items, s.split("\\s*,\\s*"));
+	System.out.println(items);
+	List<Integer> result = getIntegerArray(items);
+	System.out.println(result);
+	return result;
+}
+*/
+
+
 	//getters et setters
 	public int getIdR() {
 		return idR;
@@ -363,6 +424,11 @@ public class Reservation {
 	public String getSupprimer(){
 		return supprimer;
 	}
+
+	public String getRetour() {
+		return retour;
+	}
+
 
 
 }

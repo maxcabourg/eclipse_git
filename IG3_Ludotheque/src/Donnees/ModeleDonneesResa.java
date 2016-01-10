@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModeleDonneesResa extends AbstractTableModel{
 
 	private Reservation[] donnees; //Ce seront les donnees a afficher
-	private final String[] entetes = {"Id", "Utilisateur","Jeu", "Extensions", "Date Reservation", "Date Rendu", "Venu chercher","Modifier dates et statut","Supprimer"};	//Titres des colonnes
+	private final String[] entetes = {"Id", "Utilisateur","Jeu", "Extensions", "Date Reservation", "Date Rendu", "Venu chercher","Retour jeu","Modifier dates et statut","Supprimer"};	//Titres des colonnes
 	
 	public ModeleDonneesResa(){	
 		super();
@@ -86,8 +86,10 @@ public class ModeleDonneesResa extends AbstractTableModel{
 		case 6:
 			return donnees[ligne].isVenuChercher();
 		case 7:
-			return donnees[ligne].getEditer();
+			return donnees[ligne].getRetour();
 		case 8:
+			return donnees[ligne].getEditer();
+		case 9:
 			return donnees[ligne].getSupprimer();
 		default:
 			return null;
@@ -106,6 +108,6 @@ public class ModeleDonneesResa extends AbstractTableModel{
 	@Override
 	public boolean isCellEditable(int row, int column)
     {
-        return column == 7 || column == 8;
+        return column == 7 || column == 8 || column == 9;
     }
 }
