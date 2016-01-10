@@ -84,7 +84,7 @@ public class Jeu{
 		nombreExemplaires = _nbEx;
 		editer = "editer";
 		supprimer = "supprimer";
-		reserver = "reserver";
+		reserver = "reserver / emprunter";
 	}
 	
 	/**

@@ -62,9 +62,13 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 			dateReservation = new JDateChooser();
 			dateReservation.setPreferredSize(new Dimension(400, 25));
 			
-			JButton valider = new JButton("Valider");
-			valider.addActionListener(this); //On ajoute au bouton un gestionnaire d'evenements
-		    valider.setActionCommand("Valider"); //On definit le nom de l'evenement envoye par le bouton
+			JButton reserver = new JButton("Reserver");
+			reserver.addActionListener(this); //On ajoute au bouton un gestionnaire d'evenements
+			reserver.setActionCommand("Reserver"); //On definit le nom de l'evenement envoye par le bouton
+			
+			JButton emprunter = new JButton("Emprunter");
+			emprunter.addActionListener(this); //On ajoute au bouton un gestionnaire d'evenements
+			emprunter.setActionCommand("Emprunter"); //On definit le nom de l'evenement envoye par le bouton
 	//-------------LABEL-----------------------------------------------------------
 			JLabel lDateReservation = new JLabel(" Date de reservation :  ");
 			lDateReservation.setLabelFor(dateReservation);
@@ -82,7 +86,9 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 			dateLayout.add(dateReservation);
 			dateLayout.add(Box.createVerticalGlue());
 			bouton1layout.add(selectionnerExtension);
-			bouton2layout.add(valider);
+			bouton2layout.add(reserver);
+			bouton2layout.add(Box.createRigidArea(new Dimension(20, 0)));
+			bouton2layout.add(emprunter);
 			
 			layout.add(titrelayout);
 			layout.add(Box.createRigidArea(new Dimension(0,100)));
@@ -101,7 +107,7 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("Valider")){
+		if(e.getActionCommand().equals("Reserver")){
 			if(dateReservation.getDate().after(utilisateur.getDateFinAdhesion()))
 				JOptionPane.showMessageDialog(this, "Votre adhesion sera arrivee a terme. Veuillez nous contacter pour la prolonger.", "Erreur", JOptionPane.ERROR_MESSAGE);
 			else if(!(Reservation.estUnMardi(dateReservation.getDate()) || Reservation.estUnJeudi(dateReservation.getDate())))
@@ -111,11 +117,11 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 				for(int i = 0; i<extSelectionnees.size(); i++){
 					idExtensions.add(extSelectionnees.get(i).getId());
 				}
-				Date dateRendu = dateReservation.getDate();
+				Date dateResa = dateReservation.getDate();
 				Calendar c = Calendar.getInstance();
-				c.setTime(dateRendu); // Now use today date.
+				c.setTime(dateResa); // Now use today date.
 				c.add(Calendar.DATE, 7); // Adding 7 days
-				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateReservation.getDate(), c.getTime(),  0);
+				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateResa, c.getTime(),  0);
 				try {
 					res.ajouterReservation(new BDD());
 				} catch (SQLException e1) {
@@ -125,11 +131,35 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Votre reservation a bien ete enregistree", "reservation enregistree", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
+		else if(e.getActionCommand().equals("Emprunter")){
+			Date dateDuJour = new Date();
+			if(dateDuJour.after(utilisateur.getDateFinAdhesion()))
+				JOptionPane.showMessageDialog(this, "Votre adhesion est arrivee a terme. Veuillez nous contacter pour la prolonger.", "Erreur", JOptionPane.ERROR_MESSAGE);
+			else if(!(Reservation.estUnMardi(dateDuJour) || Reservation.estUnJeudi(dateDuJour))){
+				JOptionPane.showMessageDialog(this, "Vous ne pouvez que emprunter un mardi ou jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);	
+			}
+			else{
+				ArrayList<Integer> idExtensions = new ArrayList<Integer>(); //Recuperation des extensions selectionnees
+				for(int i = 0; i<extSelectionnees.size(); i++){
+					idExtensions.add(extSelectionnees.get(i).getId());
+				}
+				Calendar c = Calendar.getInstance();
+				c.setTime(dateDuJour);
+				c.add(Calendar.DATE, 1); //emprunt = 24h
+				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateDuJour, c.getTime(),  0);
+				try {
+					res.ajouterReservation(new BDD());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(this, "Votre emprunt a bien ete enregistre", "Emprunt enregistre", JOptionPane.INFORMATION_MESSAGE);
+			}
+		}		
 		else if(e.getActionCommand().equals("Extensions")){
 			AffichageExtensions ae = new AffichageExtensions(jeu);
 			ae.setVisible(true);
-			extSelectionnees = ae.getExtensionsSelectionnees();
-			
+			extSelectionnees = ae.getExtensionsSelectionnees();	
 			
 		}
 
