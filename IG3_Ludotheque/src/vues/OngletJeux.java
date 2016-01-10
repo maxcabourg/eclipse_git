@@ -54,12 +54,12 @@ public class OngletJeux extends JPanel implements ActionListener{
 		viewJeux.getColumnModel().getColumn(6).setPreferredWidth(50);
 		viewJeux.getColumnModel().getColumn(8).setPreferredWidth(30);
 		if(!utilisateur.isAdmin()){ //Cache les colonnes editer et supprimer quand on est pas admin
-				viewJeux.getColumnModel().getColumn(9).setMinWidth(0);
-				viewJeux.getColumnModel().getColumn(9).setMaxWidth(0);
-				viewJeux.getColumnModel().getColumn(9).setWidth(0);
 				viewJeux.getColumnModel().getColumn(10).setMinWidth(0);
 				viewJeux.getColumnModel().getColumn(10).setMaxWidth(0);
 				viewJeux.getColumnModel().getColumn(10).setWidth(0);
+				viewJeux.getColumnModel().getColumn(11).setMinWidth(0);
+				viewJeux.getColumnModel().getColumn(11).setMaxWidth(0);
+				viewJeux.getColumnModel().getColumn(11).setWidth(0);
 		}
 		
 		
@@ -137,7 +137,10 @@ public class OngletJeux extends JPanel implements ActionListener{
 			buttonColumn2.setMnemonic(KeyEvent.VK_D);
 			ButtonColumn buttonColumn3 = new ButtonColumn(viewJeux, supprimerJeu, 11);
 			buttonColumn3.setMnemonic(KeyEvent.VK_D);
-		}	
+		}else{
+			ButtonColumn buttonColumn1 = new ButtonColumn(viewJeux, reserverJeu, 9);
+			buttonColumn1.setMnemonic(KeyEvent.VK_D);
+		}
 		box.add(new JScrollPane(viewJeux), BorderLayout.CENTER);
 		box.add(Box.createRigidArea(new Dimension(0, 20)));
 		box.add(layoutBouton);
@@ -161,12 +164,12 @@ public class OngletJeux extends JPanel implements ActionListener{
 			viewJeux.getColumnModel().getColumn(6).setPreferredWidth(50);
 			viewJeux.getColumnModel().getColumn(8).setPreferredWidth(30);
 			if(!utilisateur.isAdmin()){ //Cache les colonnes editer et supprimer quand on est pas admin
-				viewJeux.getColumnModel().getColumn(9).setMinWidth(0);
-				viewJeux.getColumnModel().getColumn(9).setMaxWidth(0);
-				viewJeux.getColumnModel().getColumn(9).setWidth(0);
 				viewJeux.getColumnModel().getColumn(10).setMinWidth(0);
 				viewJeux.getColumnModel().getColumn(10).setMaxWidth(0);
 				viewJeux.getColumnModel().getColumn(10).setWidth(0);
+				viewJeux.getColumnModel().getColumn(11).setMinWidth(0);
+				viewJeux.getColumnModel().getColumn(11).setMaxWidth(0);
+				viewJeux.getColumnModel().getColumn(11).setWidth(0);
 		}
 			trieur = new TableRowSorter<TableModel>((TableModel) viewJeux.getModel());//On recharge le trieur  
 			viewJeux.setRowSorter(trieur);
@@ -230,6 +233,10 @@ public class OngletJeux extends JPanel implements ActionListener{
 				buttonColumn2.setMnemonic(KeyEvent.VK_D);
 				ButtonColumn buttonColumn3 = new ButtonColumn(viewJeux, supprimerJeu, 11);
 				buttonColumn3.setMnemonic(KeyEvent.VK_D);
+			}else {
+				ButtonColumn buttonColumn1 = new ButtonColumn(viewJeux, reserverJeu, 9);
+				buttonColumn1.setMnemonic(KeyEvent.VK_D);
+				
 			}
 		}
 		

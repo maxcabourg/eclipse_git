@@ -83,7 +83,8 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	            tf3.setText("");
 	        }
 	    });
-	   	    
+	   	 
+	    mdpUser= (String) mdu.getValueAt(ligneu, 4);
 	    JButton reinitialiser = new JButton("Reinitialiser Mot de Passe");
 	    
 	    

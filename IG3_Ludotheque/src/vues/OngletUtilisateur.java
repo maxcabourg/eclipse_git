@@ -83,7 +83,10 @@ public class OngletUtilisateur extends JPanel implements ActionListener{
 		JButton modifMdp = new JButton("Modifier mot de passe");
 		modifMdp.addActionListener(this); // la fenetre va ecouteur l'action du bouton et appelle actionPerformed si clic
 		modifMdp.setActionCommand("modifier");
-		//add(modifMdp);
+		JButton actualiser = new JButton("Actualiser");
+		actualiser.addActionListener(this); // la fenetre va ecouteur l'action du bouton et appelle actionPerformed si clic
+		actualiser.setActionCommand("actualiser");
+
 	
 	//Mise en place des JLabels
 	setLayout(new GridBagLayout());
@@ -237,8 +240,8 @@ public class OngletUtilisateur extends JPanel implements ActionListener{
     gc12.gridx = 1;
     gc12.gridy = 12;
     gc12.anchor = GridBagConstraints.EAST;
-    //gc12.gridwidth = 2;
     add(modifMdp,gc12);
+    
     
     
     
@@ -271,7 +274,7 @@ public class OngletUtilisateur extends JPanel implements ActionListener{
 			}
 		
 		}
-	
+
 	}
 	
 
