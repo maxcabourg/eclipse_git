@@ -42,7 +42,7 @@ public class boiteEditerResa extends JDialog implements ActionListener{
 		setSize(600, 350);
 		setTitle("Modifier les dates et le statut de la réservation");
 		setModal(true);
-		int ligner = r.getIdR();
+		int ligner = r.getIdR() - 1;
 		
 		String utilr = (String) mdr.getValueAt(ligner, 1);
 		utr = new JLabel(utilr);

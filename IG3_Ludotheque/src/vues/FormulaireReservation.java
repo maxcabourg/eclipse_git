@@ -135,15 +135,18 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 			Date dateDuJour = new Date();
 			if(dateDuJour.after(utilisateur.getDateFinAdhesion()))
 				JOptionPane.showMessageDialog(this, "Votre adhesion est arrivee a terme. Veuillez nous contacter pour la prolonger.", "Erreur", JOptionPane.ERROR_MESSAGE);
-			else if(!(Reservation.estUnMardi(dateDuJour) || Reservation.estUnJeudi(dateDuJour))){
-				JOptionPane.showMessageDialog(this, "Vous ne pouvez que emprunter un mardi ou jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);	
-			}
+			//else if(!(Reservation.estUnMardi(dateDuJour) || Reservation.estUnJeudi(dateDuJour))){
+				//JOptionPane.showMessageDialog(this, "Vous ne pouvez que emprunter un mardi ou jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);	
+			//}
 			else{
 				ArrayList<Integer> idExtensions = new ArrayList<Integer>(); //Recuperation des extensions selectionnees
 				for(int i = 0; i<extSelectionnees.size(); i++){
 					idExtensions.add(extSelectionnees.get(i).getId());
 				}
-				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateDuJour, dateDuJour,  0);
+				Calendar c = Calendar.getInstance();
+				c.setTime(dateDuJour);
+				c.add(Calendar.DATE, 0); //emprunt = le jour meme
+				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateDuJour, c.getTime(),  0);
 				try {
 					res.ajouterReservation(new BDD());
 				} catch (SQLException e1) {
