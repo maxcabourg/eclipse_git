@@ -1,6 +1,7 @@
 package vues;
 
 import java.awt.Dimension;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -58,8 +59,7 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 		layout.add(Box.createRigidArea(new Dimension(0,100)));*/
 		layout.add(valider);
 		panel.add(layout);
-		JScrollPane scrollPane = new JScrollPane(panel);
-		add(panel);
+		add(new JScrollPane(panel));
 		
 		setModal(true);
 		setSize(400, 350);
