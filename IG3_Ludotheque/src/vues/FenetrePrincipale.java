@@ -20,7 +20,7 @@ public class FenetrePrincipale extends JFrame{
 		onglets.add("Mon compte", new OngletUtilisateur(utilisateur));
 		if(utilisateur.isAdmin()){
 			onglets.add("Ajouter Jeu", new FormulaireJeu());
-			onglets.add("Ajouter Utilsateur", new FormulaireUtilisateur());
+			onglets.add("Ajouter Utilisateur", new FormulaireUtilisateur());
 			onglets.add("Utilisateurs de Ludotech", new ListeUtilisateurs());
 			onglets.add("Liste reservations en cours", new ListeReservation());
 		}
