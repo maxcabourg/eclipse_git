@@ -14,22 +14,63 @@ import javax.swing.JOptionPane;
 
 import vues.boiteEditerJeu;
 
+/**
+ * Classe représentant un jeu de la ludothèque
+ *
+ */
 public class Jeu{
-
+	/**
+	 * Identifiant du jeu
+	 */
 	private int id;
+	/**
+	 * Nom du jeu
+	 */
 	private String nom;
+	/**
+	 * Editeur du jeu
+	 */
 	private String editeur;
+	/**
+	 * Année de parution du jeu
+	 */
 	private int annee;
+	/**
+	 * Age recommandé pour jouer au jeu
+	 */
 	private int age;
+	/**
+	 * Nombre de joueurs minimum pour jouer à ce jeu
+	 */
 	private int nombreJoueursMin;
+	/**
+	 * Nombre maximal de joueurs pour jouer à ce jeu
+	 */
 	private int nombreJoueursMax;
-	private String extensions;
+	/**
+	 * "Code barre" du jeu, non fourni par la suite
+	 */
 	private int reference;
+	/**
+	 * Nombre d'exemplaires disponibles pour ce jeu
+	 */
 	private int nombreExemplaires;
 	private String editer;
 	private String supprimer;
 	private String reserver;
 	
+	/**
+	 * Constructeur principal de la classe Jeu
+	 * @param _id Id du jeu
+	 * @param _nom Nom du jeu
+	 * @param _editeur Editeur du jeu
+	 * @param _annee Année de parution du jeu
+	 * @param _age Age recommandé pour le jeu
+	 * @param min Minimum de personnes
+	 * @param max Maximum de personnes
+	 * @param _reference "Code barre" du jeu
+	 * @param _nbEx Nombre d'exemplaires disponibles du jeu
+	 */
 	public Jeu(int _id, String _nom, String _editeur, int _annee, int _age, int min, int max, int _reference, int _nbEx){
 		super();
 		id = _id;
@@ -46,7 +87,13 @@ public class Jeu{
 		reserver = "reserver";
 	}
 	
-	//Prend un parametre un id et renvoie le jeu correspondant ï¿½ cet id
+	/**
+	 * Crée une instance de Jeu à partir d'un identifiant
+	 * @param base Base de données dans laquelle fouiller
+	 * @param id Identifiant du jeu à trouver
+	 * @return L'instance de Jeu associée à l'identifiant
+	 * @throws SQLException Si la requête échoue
+	 */
 	public static Jeu getById(BDD base, int id) throws SQLException
 	{
 		//Il faut gerer le cas ou l'id est negatif, on sait jamais.
@@ -79,6 +126,10 @@ public class Jeu{
 		new boiteEditerJeu(this).setVisible(true);
 	}
 	
+	/**
+	 * Supprime une entrée de Jeu dans la base de données, celle associée à l'instance courante de Jeu
+	 * @param base Base de données à modifier
+	 */
 	public void delete(BDD base)
 	{
 		try {
@@ -98,6 +149,11 @@ public class Jeu{
 		}
 	}
 	
+	/**
+	 * Insère une ligne de Jeu dans la base de données
+	 * @param bdd Base dans laquelle insérer
+	 * @throws SQLException Si la requête échoue
+	 */
 	public void insertInto(BDD bdd) throws SQLException
 	{
 		PreparedStatement requete = bdd.getConnection().prepareStatement("INSERT INTO Jeu (NomJeu,EditeurJeu,AnneeJeu,AgeJeu,NombreJoueursMin,NombreJoueursMax,ReferenceJeu,StatutJeu) VALUES (?,?,?,?,?,?,?,?);");
