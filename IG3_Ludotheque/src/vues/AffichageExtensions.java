@@ -55,8 +55,8 @@ public class AffichageExtensions extends JDialog implements ActionListener{
 		mainLayout.add(labelLayout);
 		mainLayout.add(Box.createRigidArea(new Dimension(0,150)));
 		layout.add(mainLayout);
-		layout.add(Box.createRigidArea(new Dimension(0,100)));
-		layout.add(valider);*/
+		layout.add(Box.createRigidArea(new Dimension(0,100)));*/
+		layout.add(valider);
 		panel.add(layout);
 		JScrollPane scrollPane = new JScrollPane(panel);
 		add(panel);
