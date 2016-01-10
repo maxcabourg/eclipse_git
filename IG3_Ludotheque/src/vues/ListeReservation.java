@@ -51,7 +51,7 @@ public class ListeReservation extends JPanel implements ActionListener{
 				JTable table = (JTable)e.getSource();
 		    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
 		    	try {
-		    		Reservation r = Reservation.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+		    		Reservation r = Reservation.getById(base, ligne); //Recuperer le jeu correspondant au num de la ligne +1
 					r.retour(base); //Informe le retour et modidie les variables de l'utilisateur si necessaire
 					r.delete(base);
 				} catch (SQLException e1) {
@@ -70,7 +70,7 @@ public class ListeReservation extends JPanel implements ActionListener{
 		    	JTable table = (JTable)e.getSource();
 		    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
 		    	try {
-		    		Reservation r = Reservation.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+		    		Reservation r = Reservation.getById(base, ligne); //Recuperer le jeu correspondant au num de la ligne +1
 					r.showEdit(); //Affiche les differentes infos
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -86,7 +86,7 @@ public class ListeReservation extends JPanel implements ActionListener{
 				JTable table = (JTable)e.getSource();
 		    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
 		    	try {
-		    		Reservation r = Reservation.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+		    		Reservation r = Reservation.getById(base, ligne); //Recuperer le jeu correspondant au num de la ligne +1
 					r.delete(base); //Supprime le jeu de la base
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -141,7 +141,7 @@ public class ListeReservation extends JPanel implements ActionListener{
 					JTable table = (JTable)e.getSource();
 			    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
 			    	try {
-			    		Reservation r = Reservation.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+			    		Reservation r = Reservation.getById(base, ligne); //Recuperer le jeu correspondant au num de la ligne +1
 						r.retour(base); //Informe le retour et modidie les variables de l'utilisateur si necessaire
 						r.delete(base);
 					} catch (SQLException e1) {
@@ -158,7 +158,7 @@ public class ListeReservation extends JPanel implements ActionListener{
 			    	JTable table = (JTable)e.getSource();
 			    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
 			    	try {
-			    		Reservation r = Reservation.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+			    		Reservation r = Reservation.getById(base, ligne); //Recuperer le jeu correspondant au num de la ligne +1
 						r.showEdit(); //Affiche les differentes infos
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -174,7 +174,7 @@ public class ListeReservation extends JPanel implements ActionListener{
 					JTable table = (JTable)e.getSource();
 			    	int ligne = Integer.valueOf( e.getActionCommand() ); //recupere le numero de la ligne sachant qu'elle commence a 0
 			    	try {
-			    		Reservation r = Reservation.getById(base, ligne+1); //Recuperer le jeu correspondant au num de la ligne +1
+			    		Reservation r = Reservation.getById(base, ligne); //Recuperer le jeu correspondant au num de la ligne +1
 						r.delete(base); //Supprime le jeu de la base
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
