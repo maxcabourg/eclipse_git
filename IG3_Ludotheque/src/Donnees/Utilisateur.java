@@ -13,26 +13,87 @@ import javax.swing.JOptionPane;
 
 import vues.boiteEditerUser;
 
-//Classe reprensentant un utilisateur Lambda
+/**
+ * Classe représentant un utilisateur du logiciel
+ */
 public class Utilisateur {
 	
+	/**
+	 * Identifiant de l'utilisateur
+	 */
 	private int id;
+	/**
+	 * Prenom de l'utilisateur
+	 */
 	private String prenom;
+	/**
+	 * Nom de l'utilisateur
+	 */
 	private String nom;
+	/**
+	 * Pseudo de l'utilisateur
+	 */
 	private String pseudo;
+	/*
+	 * Mot de passe de l'utilisateur encrypté
+	 */
 	private String mdp;
+	/**
+	 * Mail de l'utilisateur
+	 */
 	private String mail;
+	/**
+	 * Numero de telephone de l'utilisateur
+	 */
 	private String tel;
+	/**
+	 * Adresse de l'utilisateur
+	 */
 	private String adresse;
+	/**
+	 * Booleen definissant si un utilisateur a les droits d'administration
+	 */
 	private boolean admin;
+	/**
+	 * Date de fin d'adhesion de l'adherent
+	 */
 	private Date dateFinAdhesion;
+	/**
+	 * Booleen definissant si un utilisateur a le droit d'emprunter / reserver
+	 */
 	private boolean droitEmprunter;
+	/**
+	 * Nombre total de jours de retard de l'utilisateur
+	 */
 	private int joursRetardCumule;
+	/**
+	 * Nombre de retards de l'utilisateur
+	 */
 	private int nbrRetards;
+	/**
+	 * Nombre de jeux que l'utilisateur n'a pas recupere
+	 */
 	private int nbrJeuxNonRecuperes;
 	private String editer;
 	private String supprimer;
 	
+	/**
+	 * Constructeur principal de la classe
+	 * @param _id id de l'utilisateur
+	 * @param _prenom prenom de l'utilisateur
+	 * @param _nom nom de l'utilisateur
+	 * @param _pseudo pseudo de l'utilisateur
+	 * @param _mdp Mot de passe de l'utilisateur encrypté
+	 * @param _mail Mail de l'utilisateur
+	 * @param_tel Numero de telephone de l'utilisateur
+	 * @param _adresse Adresse de l'utilisateur
+	 * @param _admin Droit d'administration de l'utilisateur 1 pour oui 0 pour non
+	 * @param date Date de fin d'adhesion de l'utilisateur
+	 * @param droit Droit d'emprunt / reservation de l'utilisateur : 1 pour oui 0 pour non
+	 * @param jrc Jours de retards cumulés de l'utilisateur
+	 * @param retards Nombre de retards total de l'utilisateur
+	 * @param nbrJeux Nombre de jeux non récupérés par l'utilisateur
+	 */
 	public Utilisateur(int _id, String _prenom, String _nom, String _pseudo, String _mdp, String _mail, String _tel, String _adresse, int _admin, Date date, int droit, int jrc, int retards, int nbrJeux){
 		id = _id;
 		prenom = _prenom;
@@ -51,8 +112,16 @@ public class Utilisateur {
 		editer = "Editer";
 		supprimer = "Supprimer";
 	}
-	//Fonction verifiant si un couple (pseudo, mot de passe) existe dans la base de donnï¿½es.
-	//Renvoie true s'il existe, false s'il n'existe pas
+	/**
+	 * Vérifie si un couple (pseudo, mot de passe) existe dans la base de données.
+	 * @param base Base de donnees dans laquelle chercher
+	 * @param _pseudo Pseudo a chercher
+	 * @param _mdp Mot de passe NON ENCRYPTE a chercher
+	 * @throws SQLException Si la requête échoue
+	 * @throws NoSuchAlgorithmException s'il y a un problème avec le SHA1
+	 * @return True si le couple existe, faux sinon
+	 */
+	
 	//Une methode "static" est une methode qu'on peut appeler sans instancier un objet de la classe
 	public static boolean estValide(BDD base, String _pseudo, String _mdp) throws SQLException, NoSuchAlgorithmException{
 		//Une requete preparee permet d'eviter les injections SQL cad du code SQL insï¿½rï¿½ dans la requete
@@ -68,7 +137,13 @@ public class Utilisateur {
 			
 	}
 	
-	//Prend un parametre un id et renvoie l'utilisateur correspondant ï¿½ cet id
+	/**
+	 * Renvoie une instance d'Utilisateur à partir de son id
+	 * @param base Base de donnees dans laquelle chercher
+	 * @param id Identifiant dont on souhaite chercher le contenu
+	 * @throws SQLException Si la requête échoue
+	 * @returns Une instance d'Utilisateur associée à l'identifiant en question
+	 */
 	public static Utilisateur getById(BDD base, int id) throws SQLException
 	{
 		//Il faut gerer le cas ou l'id est negatif, on sait jamais.
@@ -105,6 +180,10 @@ public class Utilisateur {
 		new boiteEditerUser(this).setVisible(true);
 	}
 	
+	/**
+	 * Fonction supprimant une entrée d'Utilisateur dans la base de données
+	 * @param base Base de données dans laquelle supprimer l'entrée
+	 */
 	public void delete(BDD base){
 		try {
 			int suppression = base.getConnection().createStatement().executeUpdate("DELETE FROM Utilisateur WHERE IdUtilisateur = "+id); //Tout d'abord on supprime le jeu de la base
@@ -123,7 +202,12 @@ public class Utilisateur {
 		}
 	}
 	
-	//Algorithme de cryptage du SHA1
+	/**
+	 * Algorithme de cryptage du SHA1
+	 * @param input Chaine que l'on souhaite convertir
+	 * @throws NoSuchAlgorithmException Si il y a un problème dans l'algorithme
+	 * @returns La chaine de caractere après application du SHA1
+	 */
 	public static String sha1(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA1");
         byte[] result = mDigest.digest(input.getBytes());
@@ -134,7 +218,11 @@ public class Utilisateur {
         return sb.toString();
     }
 	
-	
+	/**
+	 * Insère une entrée d'Utilisateur dans la base de données
+	 * @param bdd Base de données dans laquelle insérer
+	 * @throws SQLException Si la requête échoue
+	 */
 	public void insertInto(BDD bdd) throws SQLException
 	{
 		PreparedStatement requete = bdd.getConnection().prepareStatement("INSERT INTO Utilisateur (NomU, PrenomU, PseudoU, MdpU, MailU, TelU, AdresseU, Administrateur, DateFinAdhesion, DroitEmprunter, JoursRetardCumule, NbrRetards, NbrJeuxNonRecupere) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);");
@@ -161,6 +249,13 @@ public class Utilisateur {
 		requete.close();
 	}
 	
+	/**
+	 * Met à jour spécifiquement le mot de passe de l'utilisateur
+	 * @param bdd Base de données dans laquelle travailler
+	 * @param nouveauMdp Nouveau mot de passe à mettre à jour
+	 * @param idUti Identifiant de l'utilisateur dont ou souhaite modifier le mot de passe
+	 * @throws SQLException Si la requête échoue
+	 */
 	public void UpdateMdp(BDD bdd, String nouveauMdp, int idUti) throws SQLException {
 		PreparedStatement requeteMdp = bdd.getConnection().prepareStatement("UPDATE Utilisateur SET MdpU = ? WHERE IdUtilisateur = ?");
 		requeteMdp.setString(1, nouveauMdp);
@@ -169,7 +264,11 @@ public class Utilisateur {
 		requeteMdp.close();
 		}
 	
-	
+	/**
+	 * Indique si l'utilisateur peut emprunter ou non
+	 * @param u Utilisateur en question
+	 * @return True si l'utilisateur peut emprunter, false sinon
+	 */
 	public boolean peutEmprunter (Utilisateur u){
 		boolean res = u.droitEmprunter;
 		if (res){
