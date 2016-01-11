@@ -308,17 +308,26 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    gc8.gridy = 8;
 	    gc8.anchor = GridBagConstraints.CENTER;
 	    add(adm,gc8);
+	    
+	    GridBagConstraints gc8bis = new GridBagConstraints();
+	    gc8bis.gridx = 1;
+	    gc8bis.gridy = 9;
+	    gc8bis.gridwidth = GridBagConstraints.REMAINDER;
+	    gc8bis.anchor = GridBagConstraints.CENTER;
+	    gc8bis.fill = GridBagConstraints.HORIZONTAL;
+	    add(droitE,gc8bis);
+	    
 	
 	    
 	    GridBagConstraints gc9 = new GridBagConstraints();
 	    gc9.anchor = GridBagConstraints.NONE;
 	    gc9.fill = GridBagConstraints.NONE;
 	    gc9.gridx = 1;
-	    gc9.gridy = 9;
+	    gc9.gridy = 10;
 	    gc9.anchor = GridBagConstraints.CENTER;
 	    add(fadU,gc9);
 	    gc9.gridx = 2;
-	    gc9.gridy = 9;
+	    gc9.gridy = 10;
 	    gc9.gridwidth = GridBagConstraints.REMAINDER;
 	    gc9.anchor = GridBagConstraints.CENTER;
 	    gc9.fill = GridBagConstraints.HORIZONTAL;
@@ -328,11 +337,11 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    gc10.anchor = GridBagConstraints.NONE;
 	    gc10.fill = GridBagConstraints.NONE;
 	    gc10.gridx = 1;
-	    gc10.gridy = 10;
+	    gc10.gridy = 11;
 	    gc10.anchor = GridBagConstraints.CENTER;
 	    add(nbjrC,gc10);
 	    gc10.gridx = 2;
-	    gc10.gridy = 10;
+	    gc10.gridy = 11;
 	    gc10.gridwidth = GridBagConstraints.REMAINDER;
 	    gc10.anchor = GridBagConstraints.CENTER;
 	    gc10.fill = GridBagConstraints.HORIZONTAL;
@@ -342,11 +351,11 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    gc11.anchor = GridBagConstraints.NONE;
 	    gc11.fill = GridBagConstraints.NONE;
 	    gc11.gridx = 1;
-	    gc11.gridy = 11;
+	    gc11.gridy = 12;
 	    gc11.anchor = GridBagConstraints.CENTER;
 	    add(nbr,gc11);
 	    gc11.gridx = 2;
-	    gc11.gridy = 11;
+	    gc11.gridy = 12;
 	    gc11.gridwidth = GridBagConstraints.REMAINDER;
 	    gc11.anchor = GridBagConstraints.CENTER;
 	    gc11.fill = GridBagConstraints.HORIZONTAL;
@@ -356,11 +365,11 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    gc12.anchor = GridBagConstraints.NONE;
 	    gc12.fill = GridBagConstraints.NONE;
 	    gc12.gridx = 1;
-	    gc12.gridy = 12;
+	    gc12.gridy = 13;
 	    gc12.anchor = GridBagConstraints.CENTER;
 	    add(nbjeunonr,gc12);
 	    gc12.gridx = 2;
-	    gc12.gridy = 12;
+	    gc12.gridy = 13;
 	    gc12.gridwidth = GridBagConstraints.REMAINDER;
 	    gc12.anchor = GridBagConstraints.CENTER;
 	    gc12.fill = GridBagConstraints.HORIZONTAL;
@@ -368,7 +377,7 @@ public class boiteEditerUser extends JDialog implements ActionListener{
 	    
 	    GridBagConstraints gc13 =new GridBagConstraints();
 	    gc13.fill = GridBagConstraints.NONE;
-	    gc13.gridy = 13;
+	    gc13.gridy = 14;
 	    gc13.gridwidth = 3;
 	    gc13.fill = GridBagConstraints.HORIZONTAL;
 	    add(valider,gc13);

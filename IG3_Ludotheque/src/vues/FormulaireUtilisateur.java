@@ -201,13 +201,13 @@ public class FormulaireUtilisateur extends JPanel implements ActionListener
 						int adminU = 1;
 						if(!admin.isSelected())
 						{adminU = 0;}
-						Utilisateur utilisateur = new Utilisateur(0,prenomU, nomU, pseudoU, nomU, addmailU, telephoneU, add1U, adminU, sqlDate, 0,0,0,0);
+						Utilisateur utilisateur = new Utilisateur(0,prenomU, nomU, pseudoU, nomU, addmailU, telephoneU, add1U, adminU, sqlDate, 1,0,0,0);
 						if(!pseudoU.equals("")){			
 						utilisateur.insertInto(bdd);
-						JOptionPane.showMessageDialog(this, "Merci '"+pseudoU+"' d'avoir cree un compte !");
+						JOptionPane.showMessageDialog(this, "<html>Vous avez bien crée le compte de '"+pseudoU+"' !<br> Le mot de passe par défaut est le nom de l'utilisateur.</html>");
 						}	
 						else {
-							JOptionPane.showMessageDialog(this, "Veuillez mettre un nom ֳ  votre jeu !");
+							JOptionPane.showMessageDialog(this, "Veuillez mettre un pseudo à votre utilisateur!");
 						}
 					}catch (SQLException e) {
 						e.printStackTrace();

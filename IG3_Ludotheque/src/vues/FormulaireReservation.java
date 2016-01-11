@@ -112,6 +112,9 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Votre adhesion sera arrivee a terme. Veuillez nous contacter pour la prolonger.", "Erreur", JOptionPane.ERROR_MESSAGE);
 			else if(!(Reservation.estUnMardi(dateReservation.getDate()) || Reservation.estUnJeudi(dateReservation.getDate())))
 				JOptionPane.showMessageDialog(this, "Vous devez reserver pour un mardi ou jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);			
+			else if(!utilisateur.DroitEmprunter()){
+				JOptionPane.showMessageDialog(this, "Vous n'avez pas le droit d'emprunter.", "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
 			else{
 				ArrayList<Integer> idExtensions = new ArrayList<Integer>();
 				for(int i = 0; i<extSelectionnees.size(); i++){
@@ -120,7 +123,7 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 				Date dateResa = dateReservation.getDate();
 				Calendar c = Calendar.getInstance();
 				c.setTime(dateResa); // Now use today date.
-				c.add(Calendar.DATE, 7); // Adding 7 days
+				c.add(Calendar.DATE, 21); // Adding 21 days
 				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateResa, c.getTime(),  0);
 				try {
 					res.ajouterReservation(new BDD());
@@ -136,9 +139,12 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 			Date dateDuJour = new Date();
 			if(dateDuJour.after(utilisateur.getDateFinAdhesion()))
 				JOptionPane.showMessageDialog(this, "Votre adhesion est arrivee a terme. Veuillez nous contacter pour la prolonger.", "Erreur", JOptionPane.ERROR_MESSAGE);
-			//else if(!(Reservation.estUnMardi(dateDuJour) || Reservation.estUnJeudi(dateDuJour))){
-				//JOptionPane.showMessageDialog(this, "Vous ne pouvez que emprunter un mardi ou jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);	
-			//}
+			else if(!(Reservation.estUnMardi(dateDuJour) || Reservation.estUnJeudi(dateDuJour))){
+				JOptionPane.showMessageDialog(this, "Vous ne pouvez que emprunter un mardi ou jeudi", "Erreur", JOptionPane.ERROR_MESSAGE);	
+			}
+			else if(!utilisateur.DroitEmprunter()){
+				JOptionPane.showMessageDialog(this, "Vous n'avez pas le droit d'emprunter.", "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
 			else{
 				ArrayList<Integer> idExtensions = new ArrayList<Integer>(); //Recuperation des extensions selectionnees
 				for(int i = 0; i<extSelectionnees.size(); i++){
@@ -146,7 +152,7 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 				}
 				Calendar c = Calendar.getInstance();
 				c.setTime(dateDuJour);
-				c.add(Calendar.DATE, 0); //emprunt = le jour meme
+				c.add(Calendar.DATE, 21); //emprunt = le jour meme
 				Reservation res = new Reservation(0, utilisateur.getId(), jeu.getId(), Reservation.ListToString(idExtensions), dateDuJour, c.getTime(),  0);
 				try {
 					res.ajouterReservation(new BDD());
