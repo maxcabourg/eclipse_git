@@ -129,6 +129,7 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 					e1.printStackTrace();
 				}
 				JOptionPane.showMessageDialog(this, "Votre reservation a bien ete enregistree", "reservation enregistree", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
 			}
 		}
 		else if(e.getActionCommand().equals("Emprunter")){
@@ -154,6 +155,7 @@ public class FormulaireReservation extends JDialog implements ActionListener {
 					e1.printStackTrace();
 				}
 				JOptionPane.showMessageDialog(this, "Votre emprunt a bien ete enregistre", "Emprunt enregistre", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
 			}
 		}		
 		else if(e.getActionCommand().equals("Extensions")){

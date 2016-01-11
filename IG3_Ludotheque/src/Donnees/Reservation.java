@@ -57,6 +57,9 @@ public class Reservation {
 		requete.setBoolean(6, venuChercher);
 		requete.executeUpdate();
 		requete.close();
+		//On enleve un exemplaire du jeu que l'on remettra quand le jeu sera rendu
+		int baisseNbExemplaire = bdd.getConnection().createStatement().executeUpdate("UPDATE Jeu SET StatutJeu = StatutJeu - 1 WHERE IdJeu = "+idJeuReserve);
+		
 	}
 	
 	public void supprimeReservationById (BDD bdd, int idR) throws SQLException {
@@ -260,6 +263,9 @@ public class Reservation {
 			while(req.next())
 				maxId = req.getInt("maximum")+1;
 			int remiseId = base.getConnection().createStatement().executeUpdate("ALTER TABLE Reservation AUTO_INCREMENT = "+maxId);
+			//On remet un exemplaire du jeu suite au rendu de la reservation
+			int hausseNbExemplaire = base.getConnection().createStatement().executeUpdate("UPDATE Jeu SET StatutJeu = StatutJeu + 1 WHERE IdJeu = "+idJeuReserve);
+			
 			//fenetre pour informer l'utilisateur que le jeu est supprimé
 			JOptionPane.showMessageDialog(null, "La reservation de "+ getNomU(idU) +" a bien ete supprimee!");
 		} catch (SQLException e) {
@@ -276,12 +282,10 @@ public class Reservation {
 	public void retour(BDD base) throws SQLException {
 		//int retourresa = base.getConnection().createStatement().executeUpdate("UPDATE Reservation SET VenuChercher = 1 WHERE IdReservation > "+idR);//On met le statut de la reservation a est venu cherhche "oui"
 		java.util.Date datejour = new Date();
-		System.out.println(datejour);
 		ResultSet req = base.getConnection().createStatement().executeQuery("SELECT DateRendu FROM Reservation WHERE IdReservation="+idR);//On recupere la date de rendu qui a ete choisie lors de la reservation
 		java.util.Date daterendu = new java.util.Date();
 		while(req.next()){
 		daterendu = req.getDate("DateRendu");
-		System.out.println(daterendu);
 		}
 		//java.sql.Date daterendu = req.getDate("DateRendu");
 		if (datejour.after(daterendu)){//Si la date de rendu prevu est avant la date du jour on implémente les variables de retard de l'utilisateur
